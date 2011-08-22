@@ -1,0 +1,15 @@
+application: screenplain
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /styles
+  static_dir: styles
+
+- url: /text
+  script: main.py
+
+- url: /
+  static_files: index.html
+  upload: index.html
