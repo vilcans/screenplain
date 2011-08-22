@@ -42,36 +42,17 @@ class Dialog(object):
 
     def __init__(self, lines):
         self.character = lines[0]
-        self.secondary_character = None
-        self.dual = False
         self.blocks = []  # list of tuples of (is_parenthetical, text)
-        self.secondary_blocks = []  # for the second speaker if dual
         self._parse(lines[1:])
 
     def _parse(self, lines):
-        append = self.blocks.append
         inside_parenthesis = False
-        it = iter(lines)
-        while True:
-            try:
-                line = it.next()
-            except StopIteration:
-                return
-            if line == '||' and not self.dual:
-                self.dual = True
-                append = self.secondary_blocks.append
-                try:
-                    self.secondary_character = it.next()
-                    # what if this doesn't look like a character name?
-                except StopIteration:
-                    append(line)  # keep trailing '||'
-                    return
-            else:
-                if line.startswith('('):
-                    inside_parenthesis = True
-                append((inside_parenthesis, line))
-                if line.endswith(')'):
-                    inside_parenthesis = False
+        for line in lines:
+            if line.startswith('('):
+                inside_parenthesis = True
+            self.blocks.append((inside_parenthesis, line))
+            if line.endswith(')'):
+                inside_parenthesis = False
 
     def format(self):
         yield self.indent_character + self.character
@@ -93,6 +74,11 @@ class Dialog(object):
                 )
             for line in lines:
                 yield line
+
+class DualDialog(object):
+    def __init__(self, left_lines, right_lines):
+        self.left = Dialog(left_lines)
+        self.right = Dialog(right_lines)
 
 class Action(object):
     indent = ''
@@ -127,14 +113,23 @@ def is_slug(blanks_before, string):
     upper = string.upper()
     return any(upper.startswith(s) for s in slug_prefixes)
 
+def _create_dialog(line_list):
+    try:
+        dual_index = line_list.index('||')
+    except ValueError:
+        return Dialog(line_list)
+    else:
+        return DualDialog(line_list[:dual_index], line_list[dual_index + 1:])
+
 def create_paragraph(blanks_before, line_list):
     if is_slug(blanks_before, line_list[0]):
         return Slug(line_list)
     if (
         len(line_list) > 1 and
         line_list[0].isupper() and
-        not line_list[0].endswith(TWOSPACE)):
-        return Dialog(line_list)
+        not line_list[0].endswith(TWOSPACE)
+    ):
+        return _create_dialog(line_list)
     elif len(line_list) == 1 and line_list[0].endswith(':'):
         # Not according to spec, see my comment
         #http://prolost.com/blog/2011/8/9/screenplay-markdown.html?lastPage=true#comment14865294
