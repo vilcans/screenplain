@@ -36,3 +36,17 @@ Input format
 ============
 
 See http://prolost.com/storage/downloads/spmd/SPMD_proposal.html
+
+Developing
+==========
+
+To install reportlab, you'll need Python's development files. In
+Ubuntu, just do
+
+    sudo apt-get install python2.5-dev
+
+Set up environment using virtualenvwrapper:
+
+    mkvirtualenv -p python2.5 --no-site-packages screenplain
+    pip install -r requirements.txt
+
