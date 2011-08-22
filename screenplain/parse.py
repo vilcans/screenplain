@@ -1,9 +1,13 @@
 import itertools
 import textwrap
+import re
 
 # Numbers from http://www.emacswiki.org/emacs/ScreenPlay
 # According to http://johnaugust.com/2004/how-many-lines-per-page
 lines_per_page = 56
+
+slug_re = re.compile('^(EXT\.|INT\.|EXT/INT\.|I/E) ', re.IGNORECASE)
+
 
 class _ParentheticalFlipFlop(object):
     def __init__(self):
@@ -85,24 +89,30 @@ class Action(object):
             yield self.indent + line
 
 def is_blank(string):
-    return string == '' or string.isspace()
+    return string == '' or string.isspace() and string != '  '
 
-def create_paragraph(line_list):
-    if line_list[0].isupper():
-        if len(line_list) == 1:
-            return Slug(line_list)
-        else:
-            return Dialog(line_list)
+def is_slug(blanks_before, string):
+    return blanks_before >= 2 or slug_re.match(string)
+
+def create_paragraph(blanks_before, line_list):
+    if is_slug(blanks_before, line_list[0]):
+        return Slug(line_list)
+    if len(line_list) > 1 and line_list[0].isupper():
+        return Dialog(line_list)
     else:
         return Action(line_list)
 
 def parse(source):
     """Reads raw text input and generates paragraph objects."""
+    blank_count = 0
     for blank, lines in itertools.groupby(
         (line.rstrip() for line in source), is_blank
     ):
-        if not blank:
-            yield create_paragraph(list(lines))
+        if blank:
+            blank_count += 1
+        else:
+            yield create_paragraph(blank_count, list(lines))
+            blank_count = 0
 
 def get_pages(paragraphs):
     """Generates one list of lines per page."""
