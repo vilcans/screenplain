@@ -8,13 +8,14 @@ from bottle import route, template, request, response, error, debug
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from screenplain.export.text import to_text
+from screenplain.export.annotated_html import to_annotated_html
 
-@route('/text', method='POST')
+@route('/convert', method='POST')
 def DisplayForm():
-    response.content_type = 'text/plain; charset=utf-8'
+    response.content_type = 'text/html; charset=utf-8'
     input = StringIO(request.forms.get('data'))
     output = StringIO()
-    to_text(input, output)
+    to_annotated_html(input, output)
     return output.getvalue()
 
 def main():
