@@ -141,9 +141,9 @@ def create_paragraph(blanks_before, line_list):
         not line_list[0].endswith(TWOSPACE)
     ):
         return _create_dialog(line_list)
-    elif len(line_list) == 1 and line_list[0].endswith(':'):
-        # Not according to spec, see my comment
-        #http://prolost.com/blog/2011/8/9/screenplay-markdown.html?lastPage=true#comment14865294
+    elif len(line_list) == 1 and line_list[0].endswith(':') and line_list[0].isupper():
+        # TODO: need to check whether the *next* paragraph is a slug
+        # before assuming this is a transition.
         return Transition(line_list)
     else:
         return Action(line_list)

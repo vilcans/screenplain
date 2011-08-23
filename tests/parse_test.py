@@ -95,8 +95,6 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([(False, 'Fuck retirement!')], dual.right.blocks)
 
     def test_standard_transition(self):
-        # Need clarification of the spec here, see
-        # http://prolost.com/blog/2011/8/9/screenplay-markdown.html?lastPage=true#comment14865294
 
         paras = list(parse.parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
@@ -106,6 +104,49 @@ class ParseTests(unittest2.TestCase):
             "EXT. BRICK'S POOL - DAY",
         ]))
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
+
+    def test_standard_transition(self):
+
+        paras = list(parse.parse([
+            'Jack begins to argue vociferously in Vietnamese (?)',
+            '',
+            'CUT TO:',
+            '',
+            "EXT. BRICK'S POOL - DAY",
+        ]))
+        self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
+
+    def test_transition_needs_to_be_upper_case(self):
+        paras = list(parse.parse([
+            'Jack begins to argue vociferously in Vietnamese (?)',
+            '',
+            'cut to:',
+            '',
+            "EXT. BRICK'S POOL - DAY",
+        ]))
+        self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
+
+    def test_not_a_transition_on_trailing_whitespace(self):
+        paras = list(parse.parse([
+            'Jack begins to argue vociferously in Vietnamese (?)',
+            '',
+            'CUT TO: ',
+            '',
+            "EXT. BRICK'S POOL - DAY",
+        ]))
+        self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
+
+    # Not implemented yet
+    @unittest2.expectedFailure
+    def test_transition_must_be_followed_by_slug(self):
+        paras = list(parse.parse([
+            'Bill lights a cigarette.',
+            '',
+            'CUT TO:',
+            '',
+            'SOME GUY mowing the lawn.',
+        ]))
+        self.assertEquals([Action, Action, Action], [type(p) for p in paras])
 
 if __name__ == '__main__':
     unittest2.main()
