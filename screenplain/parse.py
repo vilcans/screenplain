@@ -148,9 +148,18 @@ def create_paragraph(blanks_before, line_list):
     else:
         return Action(line_list)
 
+def clean_line(line):
+    """Strips leading whitespace and trailing end of line characters in a string.
+
+    Leading whitespace is insignificant in SPMD, and trailing EOL
+    appear when reading from a file or HTML form.
+    """
+    return line.lstrip().rstrip('\r\n')
+
 def parse(source):
     """Reads raw text input and generates paragraph objects."""
     blank_count = 0
+    source = (clean_line(line) for line in source)
     for blank, lines in itertools.groupby(source, is_blank):
         if blank:
             blank_count = len(list(lines))
