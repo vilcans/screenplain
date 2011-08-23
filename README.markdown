@@ -24,18 +24,16 @@ off to your producer, agent, director or screenwriting competition.
 Thanks for the inspiration goes to:
 
   * [Stu Maschwitz](http://prolost.com) for the [Screenplay Markdown](http://prolost.com/spmd)
-    post that got me around to actually publish this work when far from finished. Screenplain
-    does not use Markdown that his post is about, but the idea is similar.
-
+    post that got me around to actually publish this work when far from finished.
   * [John August](http://johnaugust.com/) for the [Scrippets](http://scrippets.org/) project.
     The idea for that is similar, as it converts plain text to a formatted output. The focus of
     Scrippets is on presenting snippets of screenplays online, specificially in blog posts and
-    comments. Screenplain's format is very similar to Scrippets.
+    comments. Screenplain's format is similar to Scrippets.
 
 Input format
 ============
 
-See http://prolost.com/storage/downloads/spmd/SPMD_proposal.html
+The input to Screenplain is *Screenplay Markdown* as [proposed by Stu Maschwitz](http://prolost.com/storage/downloads/spmd/SPMD_proposal.html).
 
 Developing
 ==========
