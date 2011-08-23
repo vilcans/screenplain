@@ -76,9 +76,20 @@ class Dialog(object):
                 yield line
 
 class DualDialog(object):
+    top_margin = 1
+
     def __init__(self, left_lines, right_lines):
         self.left = Dialog(left_lines)
         self.right = Dialog(right_lines)
+
+    def format(self):
+        # FIXME: I haven't checked yet how dual dialog is supposed to look.
+        llines = list(self.left.format())
+        rlines = list(self.right.format())
+        llines += [''] * (len(rlines) - len(llines))
+        rlines += [''] * (len(llines) - len(rlines))
+        for left, right in zip(llines, rlines):
+            yield '%-34s%s' % (left, right)
 
 class Action(object):
     indent = ''
