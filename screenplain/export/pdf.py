@@ -5,14 +5,13 @@ from reportlab.lib import pagesizes
 
 from screenplain.parse import parse, get_pages
 
-def to_pdf(input):
+def to_pdf(screenplay, output_file):
     # pagesizes.letter, pagesizes.A4
     page_width, page_height = pagesizes.A4
-    c = canvas.Canvas('out.pdf', pagesize=pagesizes.A4)
+    c = canvas.Canvas(output_file, pagesize=pagesizes.A4)
     c.setFont('Courier', 12)
 
-    paragraphs = parse(input)
-    for page_no, page in enumerate(get_pages(paragraphs), 1):
+    for page_no, page in enumerate(get_pages(screenplay), 1):
         if page_no != 1:
             c.showPage()
         c.setFont('Courier', 12)
