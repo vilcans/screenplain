@@ -8,7 +8,7 @@ import sys
 import codecs
 from optparse import OptionParser
 
-from parse import parse
+from screenplain.parsers.spmd import parse
 
 usage = 'Usage: %prog [options] input-file output-file'
 

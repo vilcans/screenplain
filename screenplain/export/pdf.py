@@ -3,7 +3,7 @@ import fileinput
 from reportlab.pdfgen import canvas
 from reportlab.lib import pagesizes
 
-from screenplain.parse import parse, get_pages
+from screenplain.format import get_pages
 
 def to_pdf(screenplay, output_file):
     # pagesizes.letter, pagesizes.A4

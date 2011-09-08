@@ -1,6 +1,6 @@
 import unittest2
-from screenplain import parse
-from screenplain.parse import Slug, Action, Dialog, DualDialog, Transition
+from screenplain.parsers.spmd import parse
+from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 
 class ParseTests(unittest2.TestCase):
 
@@ -14,7 +14,7 @@ class ParseTests(unittest2.TestCase):
     # least one blank line preceding it.
     # NOTE: Actually the list used in Appendix 1
     def test_slug_with_prefix(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'INT. SOMEWHERE - DAY',
             '',
             'THIS IS JUST ACTION',
@@ -22,14 +22,14 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Slug, Action], [type(p) for p in paras])
 
     def test_action_is_not_a_slug(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             '',
             'THIS IS JUST ACTION',
         ]))
         self.assertEquals([Action], [type(p) for p in paras])
 
     def test_two_lines_creates_a_slug(self):
-        types = [type(p) for p in parse.parse([
+        types = [type(p) for p in parse([
             '',
             '',
             'This is a slug',
@@ -40,7 +40,7 @@ class ParseTests(unittest2.TestCase):
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
     def test_all_caps_is_character(self):
-        paras = [p for p in parse.parse([
+        paras = [p for p in parse([
             'SOME GUY',
             'Hello',
         ])]
@@ -52,7 +52,7 @@ class ParseTests(unittest2.TestCase):
     # SPMD would not be able to support a character named "23". We
     # might need a syntax to force a character element.
     def test_nonalpha_character(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             '23',
             'Hello',
         ]))
@@ -61,14 +61,14 @@ class ParseTests(unittest2.TestCase):
     # See
     # http://prolost.com/storage/downloads/spmd/SPMD_proposal.html#section-br
     def test_twospaced_line_is_not_character(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'SCANNING THE AISLES...  ',
             'Where is that pit boss?',
         ]))
         self.assertEquals([Action], [type(p) for p in paras])
 
     def test_simple_parenthetical(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'STEEL',
             '(starting the engine)',
             'So much for retirement!',
@@ -80,7 +80,7 @@ class ParseTests(unittest2.TestCase):
         self.assertEqual((False, 'So much for retirement!'), dialog.blocks[1])
 
     def test_dual_dialog(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'BRICK',
             'Fuck retirement.',
             '||',
@@ -96,7 +96,7 @@ class ParseTests(unittest2.TestCase):
 
     def test_standard_transition(self):
 
-        paras = list(parse.parse([
+        paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'CUT TO:',
@@ -107,7 +107,7 @@ class ParseTests(unittest2.TestCase):
 
     def test_standard_transition(self):
 
-        paras = list(parse.parse([
+        paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'CUT TO:',
@@ -117,7 +117,7 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
 
     def test_transition_needs_to_be_upper_case(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'cut to:',
@@ -127,7 +127,7 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
 
     def test_not_a_transition_on_trailing_whitespace(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'CUT TO: ',
@@ -139,7 +139,7 @@ class ParseTests(unittest2.TestCase):
     # Not implemented yet
     @unittest2.expectedFailure
     def test_transition_must_be_followed_by_slug(self):
-        paras = list(parse.parse([
+        paras = list(parse([
             'Bill lights a cigarette.',
             '',
             'CUT TO:',

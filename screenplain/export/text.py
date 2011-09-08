@@ -1,6 +1,6 @@
 import sys
 import codecs
-from screenplain.parse import parse, get_pages
+from screenplain.format import get_pages
 
 def to_text(screenplay, output_file):
     out = codecs.open(output_file, 'w', 'utf-8')
