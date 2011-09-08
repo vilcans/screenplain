@@ -48,7 +48,8 @@ def create_paragraph(blanks_before, line_list):
         return Action(line_list)
 
 def clean_line(line):
-    """Strips leading whitespace and trailing end of line characters in a string.
+    """Strips leading whitespace and trailing end of line characters
+    in a string.
 
     Leading whitespace is insignificant in SPMD, and trailing EOL
     appear when reading from a file or HTML form.

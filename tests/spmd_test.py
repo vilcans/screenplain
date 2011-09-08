@@ -148,5 +148,42 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Action, Action], [type(p) for p in paras])
 
+    def test_multiline_paragraph(self):
+        """Check that we don't join lines like Markdown does.
+        """
+        paras = list(parse([
+            'They drink long and well from the beers.',
+            '',
+            "And then there's a long beat.",
+            "Longer than is funny. ",
+            "   Long enough to be depressing.",
+            '',
+            'The men look at each other.',
+        ]))
+        self.assertEquals([Action, Action, Action], [type(p) for p in paras])
+        self.assertEquals(
+            [
+                "And then there's a long beat.",
+                "Longer than is funny.",
+                "Long enough to be depressing.",
+            ], paras[1].lines
+        )
+
+    def test_multiline_dialog(self):
+        paras = list(parse([
+            'JULIET',
+            'O Romeo, Romeo! wherefore art thou Romeo?',
+            '  Deny thy father and refuse thy name;  ',
+            'Or, if thou wilt not, be but sworn my love,',
+            " And I'll no longer be a Capulet.",
+        ]))
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals([
+            (False, 'O Romeo, Romeo! wherefore art thou Romeo?'),
+            (False, 'Deny thy father and refuse thy name;'),
+            (False, 'Or, if thou wilt not, be but sworn my love,'),
+            (False, "And I'll no longer be a Capulet."),
+        ], paras[0].blocks)
+
 if __name__ == '__main__':
     unittest2.main()

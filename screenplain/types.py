@@ -29,6 +29,7 @@ class Dialog(object):
     def _parse(self, lines):
         inside_parenthesis = False
         for line in lines:
+            line = line.rstrip()
             if line.startswith('('):
                 inside_parenthesis = True
             self.blocks.append((inside_parenthesis, line))
@@ -78,11 +79,12 @@ class Action(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.text = ' '.join(line.strip() for line in lines)
+        self.lines = [line.strip() for line in lines]
 
     def format(self):
-        for line in textwrap.wrap(self.text, width=self.fill):
-            yield self.indent + line
+        for logical_line in self.lines:
+            for line in textwrap.wrap(logical_line, width=self.fill):
+                yield self.indent + line
 
 class Transition(object):
     indent = ''
@@ -90,9 +92,9 @@ class Transition(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.text = ' '.join(line.strip() for line in lines)
+        self.lines = [line.strip() for line in lines]
 
     def format(self):
-        for line in textwrap.wrap(self.text, width=self.fill):
-            yield self.indent + line
-
+        for logical_line in self.lines:
+            for line in textwrap.wrap(logical_line, width=self.fill):
+                yield self.indent + line
