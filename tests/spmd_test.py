@@ -136,8 +136,6 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
 
-    # Not implemented yet
-    @unittest2.expectedFailure
     def test_transition_must_be_followed_by_slug(self):
         paras = list(parse([
             'Bill lights a cigarette.',

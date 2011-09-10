@@ -41,8 +41,8 @@ def create_paragraph(blanks_before, line_list):
     ):
         return _create_dialog(line_list)
     elif len(line_list) == 1 and line_list[0].endswith(':') and line_list[0].isupper():
-        # TODO: need to check whether the *next* paragraph is a slug
-        # before assuming this is a transition.
+        # Assume this is a transition. It may be changed to Action
+        # later if we find that it's not followed by a slug.
         return Transition(line_list)
     else:
         return Action(line_list)
@@ -60,8 +60,17 @@ def parse(source):
     """Reads raw text input and generates paragraph objects."""
     blank_count = 0
     source = (clean_line(line) for line in source)
+    paragraphs = []
     for blank, lines in itertools.groupby(source, is_blank):
         if blank:
             blank_count = len(list(lines))
         else:
-            yield create_paragraph(blank_count, list(lines))
+            paragraphs.append(create_paragraph(blank_count, list(lines)))
+
+    # Make a second pass over the script and replace transitions not
+    # followed by sluglines with action.
+    for i in xrange(len(paragraphs) - 1):
+        if (isinstance(paragraphs[i], Transition) and
+            not isinstance(paragraphs[i + 1], Slug)):
+            paragraphs[i] = Action(paragraphs[i].lines)
+    return paragraphs
