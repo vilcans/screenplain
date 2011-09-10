@@ -38,6 +38,11 @@ The input to Screenplain is *Screenplay Markdown* as [proposed by Stu Maschwitz]
 Developing
 ==========
 
+Screenplain is written for Python 2.5, which is no longer available in
+Ubuntu at least, but see
+[this link](http://kovshenin.com/archives/installing-python-2-5-on-ubuntu-linux-10-10/)
+about how to install it.
+
 To install reportlab, you'll need Python's development files. In
 Ubuntu, just do
 
