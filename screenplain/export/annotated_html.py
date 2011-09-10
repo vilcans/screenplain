@@ -1,11 +1,11 @@
 import sys
 import re
 import cgi
-from screenplain.parse import parse
-import screenplain.parse
+from screenplain.types import *
 
 def unspace(text):
-    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\s*\n\s*', '\n', text)
+    text = re.sub(r'\s\s+', ' ', text)
     text = re.sub(r'>\s+<', '><', text)
     return text.strip()
 
@@ -18,19 +18,18 @@ paragraph_html = unspace("""
 """)
 
 types = {
-    screenplain.parse.Slug: 'Slug',
-    screenplain.parse.Dialog: 'Dialog',
-    screenplain.parse.DualDialog: 'Dual',
-    screenplain.parse.Action: 'Action',
-    screenplain.parse.Transition: 'Transition',
+    Slug: 'Slug',
+    Dialog: 'Dialog',
+    DualDialog: 'Dual',
+    Action: 'Action',
+    Transition: 'Transition',
 }
 
 def to_html(text):
     return re.sub('  ', '&nbsp; ', cgi.escape(text))
 
-def to_annotated_html(input, out):
-    paragraphs = parse(input)
-    for para in paragraphs:
+def to_annotated_html(screenplay, out):
+    for para in screenplay:
         lines = para.format()
         margin = '<p>&nbsp;</p>' * para.top_margin
         html_text = ''.join(

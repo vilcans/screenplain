@@ -11,8 +11,9 @@ def to_pdf(screenplay, output_file):
     c = canvas.Canvas(output_file, pagesize=pagesizes.A4)
     c.setFont('Courier', 12)
 
-    for page_no, page in enumerate(get_pages(screenplay), 1):
-        if page_no != 1:
+    for page_no, page in enumerate(get_pages(screenplay)):
+        # page numbers are 0-based
+        if page_no != 0:
             c.showPage()
         c.setFont('Courier', 12)
         for line_no, line in enumerate(page):
