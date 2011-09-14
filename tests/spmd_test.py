@@ -4,10 +4,6 @@ from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 
 class ParseTests(unittest2.TestCase):
 
-    # Without this, the @skip decorator gives
-    # AttributeError: 'ParseTests' object has no attribute '__name__'
-    __name__ = 'ParseTests'
-
     # A Scene Heading, or "slugline," is any line that has a blank
     # line following it, and either begins with INT or EXT, or has
     # two empty lines preceding it. A Scene Heading always has at
