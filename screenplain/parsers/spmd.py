@@ -14,8 +14,10 @@ slug_prefixes = (
 
 TWOSPACE = ' ' * 2
 
+
 def is_blank(string):
     return string == '' or string.isspace() and string != '  '
+
 
 def is_slug(blanks_before, line_list):
     if len(line_list) != 1:
@@ -25,6 +27,7 @@ def is_slug(blanks_before, line_list):
     upper = line_list[0].upper()
     return any(upper.startswith(s) for s in slug_prefixes)
 
+
 def _create_dialog(line_list):
     try:
         dual_index = line_list.index('||')
@@ -32,6 +35,7 @@ def _create_dialog(line_list):
         return Dialog(line_list)
     else:
         return DualDialog(line_list[:dual_index], line_list[dual_index + 1:])
+
 
 def create_paragraph(blanks_before, line_list):
     if is_slug(blanks_before, line_list):
@@ -42,12 +46,16 @@ def create_paragraph(blanks_before, line_list):
         not line_list[0].endswith(TWOSPACE)
     ):
         return _create_dialog(line_list)
-    elif len(line_list) == 1 and line_list[0].endswith(':') and line_list[0].isupper():
+    elif (
+        len(line_list) == 1 and
+        line_list[0].endswith(':') and line_list[0].isupper()
+    ):
         # Assume this is a transition. It may be changed to Action
         # later if we find that it's not followed by a slug.
         return Transition(line_list)
     else:
         return Action(line_list)
+
 
 def clean_line(line):
     """Strips leading whitespace and trailing end of line characters
@@ -57,6 +65,7 @@ def clean_line(line):
     appear when reading from a file or HTML form.
     """
     return line.lstrip().rstrip('\r\n')
+
 
 def parse(source):
     """Reads raw text input and generates paragraph objects."""

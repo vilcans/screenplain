@@ -3,6 +3,7 @@ import re
 import cgi
 from screenplain.types import *
 
+
 def unspace(text):
     text = re.sub(r'\s*\n\s*', '\n', text)
     text = re.sub(r'\s\s+', ' ', text)
@@ -25,8 +26,10 @@ types = {
     Transition: 'Transition',
 }
 
+
 def to_html(text):
     return re.sub('  ', '&nbsp; ', cgi.escape(text))
+
 
 def to_annotated_html(screenplay, out):
     for para in screenplay:
@@ -41,4 +44,3 @@ def to_annotated_html(screenplay, out):
             'margin': margin
         }
         out.write(paragraph_html % data)
-

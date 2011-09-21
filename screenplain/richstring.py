@@ -20,6 +20,7 @@ _emphasis = re.compile(
     r')'
 )
 
+
 class RichString(object):
     def __init__(self, *segments):
         self.segments = segments
@@ -54,17 +55,21 @@ class RichString(object):
             self.segments != other.segments
         )
 
+
 class Italic(RichString):
     def to_html(self):
         return '<em>' + super(Italic, self).to_html() + '</em>'
+
 
 class Bold(RichString):
     def to_html(self):
         return '<strong>' + super(Bold, self).to_html() + '</strong>'
 
+
 class Underline(RichString):
     def to_html(self):
         return '<u>' + super(Underline, self).to_html() + '</u>'
+
 
 def _parse(source):
     segments = []
@@ -95,10 +100,11 @@ def _parse(source):
 
     return segments
 
+
 def parse_emphasis(source):
     """Parses emphasis markers like * and ** in a string
     and returns a RichString object.
-    
+
     >>> parse_emphasis(u'**hello**')
     Bold(u'hello')
     >>> parse_emphasis(u'plain')

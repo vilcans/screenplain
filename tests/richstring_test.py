@@ -3,6 +3,7 @@ from screenplain.richstring import RichString, Bold, Italic, Underline
 from screenplain.richstring import parse_emphasis
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 
+
 class RichStringOperatorTests(unittest2.TestCase):
 
     def test_repr(self):
@@ -28,6 +29,7 @@ class RichStringOperatorTests(unittest2.TestCase):
     def test_ne(self):
         self.assertFalse(Bold('Hello') != Bold('Hello'))
 
+
 class RichStringTests(unittest2.TestCase):
 
     def test_to_html(self):
@@ -41,6 +43,7 @@ class RichStringTests(unittest2.TestCase):
             '<strong>bold</strong> normal <em>italic</em><u>wonderline</u>',
             s.to_html()
         )
+
 
 class ParseEmphasisTests(unittest2.TestCase):
 

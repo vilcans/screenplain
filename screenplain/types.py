@@ -1,5 +1,6 @@
 import textwrap
 
+
 class Slug(object):
     indent = ''
     top_margin = 1
@@ -9,6 +10,7 @@ class Slug(object):
 
     def format(self):
         return self.lines
+
 
 class Dialog(object):
     indent_character = ' ' * 22
@@ -57,6 +59,7 @@ class Dialog(object):
             for line in lines:
                 yield line
 
+
 class DualDialog(object):
     top_margin = 1
 
@@ -73,6 +76,7 @@ class DualDialog(object):
         for left, right in zip(llines, rlines):
             yield '%-34s%s' % (left, right)
 
+
 class Action(object):
     indent = ''
     fill = 68
@@ -85,6 +89,7 @@ class Action(object):
         for logical_line in self.lines:
             for line in textwrap.wrap(logical_line, width=self.fill):
                 yield self.indent + line
+
 
 class Transition(object):
     indent = ''

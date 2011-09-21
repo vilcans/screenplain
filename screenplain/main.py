@@ -16,6 +16,7 @@ output_formats = (
 
 usage = 'Usage: %prog [options] input-file output-file'
 
+
 def main(args):
     parser = OptionParser(usage=usage)
     parser.add_option(

@@ -5,6 +5,7 @@ from reportlab.lib import pagesizes
 
 from screenplain.format import get_pages
 
+
 def to_pdf(screenplay, output_file):
     # pagesizes.letter, pagesizes.A4
     page_width, page_height = pagesizes.A4
