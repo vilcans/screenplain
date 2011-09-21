@@ -17,10 +17,12 @@ TWOSPACE = ' ' * 2
 def is_blank(string):
     return string == '' or string.isspace() and string != '  '
 
-def is_slug(blanks_before, string):
+def is_slug(blanks_before, line_list):
+    if len(line_list) != 1:
+        return False
     if blanks_before >= 2:
         return True
-    upper = string.upper()
+    upper = line_list[0].upper()
     return any(upper.startswith(s) for s in slug_prefixes)
 
 def _create_dialog(line_list):
@@ -32,7 +34,7 @@ def _create_dialog(line_list):
         return DualDialog(line_list[:dual_index], line_list[dual_index + 1:])
 
 def create_paragraph(blanks_before, line_list):
-    if is_slug(blanks_before, line_list[0]):
+    if is_slug(blanks_before, line_list):
         return Slug(line_list)
     if (
         len(line_list) > 1 and

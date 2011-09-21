@@ -17,6 +17,19 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Slug, Action], [type(p) for p in paras])
 
+    def test_slug_must_be_single_line(self):
+        paras = list(parse([
+            'INT. SOMEWHERE - DAY',
+            'ANOTHER LINE',
+            '',
+            'Some action',
+        ]))
+        self.assertEquals([Dialog, Action], [type(p) for p in paras])
+        # What looks like a scene headingis parsed as a character name.
+        # Unexpected perhaps, but that's how I interpreted the spec.
+        self.assertEquals('INT. SOMEWHERE - DAY', paras[0].character)
+        self.assertEquals(['Some action'], paras[1].lines)
+
     def test_action_is_not_a_slug(self):
         paras = list(parse([
             '',
