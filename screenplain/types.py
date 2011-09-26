@@ -6,7 +6,7 @@ class Slug(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.lines = [self.indent + line.strip() for line in lines]
+        self.lines = lines
 
     def format(self):
         return self.lines
@@ -23,15 +23,14 @@ class Dialog(object):
 
     top_margin = 1
 
-    def __init__(self, lines):
-        self.character = lines[0]
+    def __init__(self, character, lines):
+        self.character = character
         self.blocks = []  # list of tuples of (is_parenthetical, text)
-        self._parse(lines[1:])
+        self._parse(lines)
 
     def _parse(self, lines):
         inside_parenthesis = False
         for line in lines:
-            line = line.rstrip()
             if line.startswith('('):
                 inside_parenthesis = True
             self.blocks.append((inside_parenthesis, line))
@@ -63,9 +62,12 @@ class Dialog(object):
 class DualDialog(object):
     top_margin = 1
 
-    def __init__(self, left_lines, right_lines):
-        self.left = Dialog(left_lines)
-        self.right = Dialog(right_lines)
+    def __init__(self,
+        character1, lines1,
+        character2, lines2
+    ):
+        self.left = Dialog(character1, lines1)
+        self.right = Dialog(character2, lines2)
 
     def format(self):
         # FIXME: I haven't checked yet how dual dialog is supposed to look.
@@ -83,7 +85,7 @@ class Action(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.lines = [line.strip() for line in lines]
+        self.lines = lines
 
     def format(self):
         for logical_line in self.lines:
@@ -97,7 +99,7 @@ class Transition(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.lines = [line.strip() for line in lines]
+        self.lines = lines
 
     def format(self):
         for logical_line in self.lines:

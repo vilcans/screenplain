@@ -1,5 +1,6 @@
 import itertools
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
+from screenplain.richstring import parse_emphasis
 
 slug_prefixes = (
     'INT. ',
@@ -29,17 +30,35 @@ def is_slug(blanks_before, line_list):
 
 
 def _create_dialog(line_list):
+    dual_index = None
     try:
-        dual_index = line_list.index('||')
+        dual_index = line_list.index('||', 0, len(line_list) - 1)
     except ValueError:
-        return Dialog(line_list)
+        return Dialog(
+            parse_emphasis(line_list[0]),
+            _to_rich(line_list[1:])
+        )
     else:
-        return DualDialog(line_list[:dual_index], line_list[dual_index + 1:])
+        return DualDialog(
+            # character1
+            parse_emphasis(line_list[0].strip()),
+            # lines1
+            _to_rich(line_list[1:dual_index]),
+            # character2
+            parse_emphasis(line_list[dual_index + 1].strip()),
+            # lines2
+            _to_rich(line_list[dual_index + 2:])
+        )
+
+
+def _to_rich(line_list):
+    """Converts a line list into a list of RichString."""
+    return [parse_emphasis(line.strip()) for line in line_list]
 
 
 def create_paragraph(blanks_before, line_list):
     if is_slug(blanks_before, line_list):
-        return Slug(line_list)
+        return Slug(_to_rich(line_list))
     if (
         len(line_list) > 1 and
         line_list[0].isupper() and
@@ -52,9 +71,9 @@ def create_paragraph(blanks_before, line_list):
     ):
         # Assume this is a transition. It may be changed to Action
         # later if we find that it's not followed by a slug.
-        return Transition(line_list)
+        return Transition(_to_rich(line_list))
     else:
-        return Action(line_list)
+        return Action(_to_rich(line_list))
 
 
 def clean_line(line):

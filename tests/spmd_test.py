@@ -104,6 +104,21 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals('STEEL', dual.right.character)
         self.assertEquals([(False, 'Fuck retirement!')], dual.right.blocks)
 
+    def test_dual_dialog_with_empty_right_dialog_is_ordinary_dialog(self):
+        paras = list(parse([
+            'BRICK',
+            'Nice retirement.',
+            '||',
+        ]))
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        dialog = paras[0]
+        self.assertEqual('BRICK', dialog.character)
+        self.assertEqual([
+            (False, 'Nice retirement.'),
+            (False, '||')
+        ], dialog.blocks)
+
+
     def test_standard_transition(self):
 
         paras = list(parse([

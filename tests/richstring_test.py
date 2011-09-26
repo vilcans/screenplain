@@ -32,6 +32,9 @@ class RichStringOperatorTests(unittest2.TestCase):
 
 class RichStringTests(unittest2.TestCase):
 
+    def test_plain_to_html(self):
+        self.assertEquals('hello', RichString('hello').to_html())
+
     def test_to_html(self):
         s = RichString(
             Bold('bold'),

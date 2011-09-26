@@ -34,6 +34,21 @@ class RichString(object):
                 result += segment.to_html()
         return result
 
+    def to_plain(self):
+        result = ''
+        for segment in self.segments:
+            if isinstance(segment, basestring):
+                result += segment
+            else:
+                result += segment.to_plain()
+        return result
+
+    def startswith(self, prefix):
+        return self.to_plain().startswith(prefix)
+
+    def endswith(self, prefix):
+        return self.to_plain().endswith(prefix)
+
     def __unicode__(self):
         return self.to_html()
 
@@ -44,6 +59,8 @@ class RichString(object):
         )
 
     def __eq__(self, other):
+        if isinstance(other, basestring):
+            return self.to_plain() == other
         return (
             self.__class__ == other.__class__ and
             self.segments == other.segments
