@@ -1,4 +1,5 @@
 import re
+import cgi
 
 _emphasis = re.compile(
     r'(?:'
@@ -29,7 +30,7 @@ class RichString(object):
         result = ''
         for segment in self.segments:
             if isinstance(segment, basestring):
-                result += segment
+                result += cgi.escape(segment)
             else:
                 result += segment.to_html()
         return result

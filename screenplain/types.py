@@ -62,10 +62,7 @@ class Dialog(object):
 class DualDialog(object):
     top_margin = 1
 
-    def __init__(self,
-        character1, lines1,
-        character2, lines2
-    ):
+    def __init__(self, character1, lines1, character2, lines2):
         self.left = Dialog(character1, lines1)
         self.right = Dialog(character2, lines2)
 
