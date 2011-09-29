@@ -11,7 +11,7 @@ from optparse import OptionParser
 from screenplain.parsers.spmd import parse
 
 output_formats = (
-    'text', 'pdf', 'annotated_html'
+    'text', 'pdf', 'fdx', 'annotated_html'
 )
 
 usage = 'Usage: %prog [options] input-file output-file'
@@ -33,8 +33,11 @@ def main(args):
     if options.output_format == None:
         if output_file.endswith('.pdf'):
             options.output_format = 'pdf'
+        elif output_file.endswith('.fdx'):
+            options.output_format = 'fdx'
         else:
             options.output_format = 'text'
+
     if options.output_format not in output_formats:
         parser.error(
             'Unknown output format. Expected one of: ' +
@@ -52,6 +55,9 @@ def main(args):
             if options.output_format == 'text':
                 from screenplain.export.text import to_text
                 to_text(screenplay, output)
+            elif options.output_format == 'fdx':
+                from screenplain.export.fdx import to_fdx
+                to_fdx(screenplay, output)
             elif options.output_format == 'annotated_html':
                 from screenplain.export.annotated_html import to_annotated_html
                 to_annotated_html(screenplay, output)
