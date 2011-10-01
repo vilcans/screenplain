@@ -55,11 +55,13 @@ def write_dialog(out, dialog):
         else:
             write_paragraph(out, 'Dialogue', [line])
 
+
 def write_dual_dialog(out, dual):
     out.write('<Paragraph><DualDialogue>')
     write_dialog(out, dual.left)
     write_dialog(out, dual.right)
     out.write('</DualDialogue></Paragraph>')
+
 
 def to_fdx(screenplay, out):
 

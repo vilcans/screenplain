@@ -5,6 +5,7 @@ from screenplain.export.fdx import write_text
 
 from screenplain.richstring import RichString, Bold, Italic
 
+
 class OutputTests(unittest2.TestCase):
 
     def setUp(self):

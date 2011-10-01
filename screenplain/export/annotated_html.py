@@ -76,9 +76,8 @@ def to_annotated_html(screenplay, out):
             )
 
         margin = '<p>&nbsp;</p>' * para.top_margin
-        data = {
+        out.write(paragraph_html % {
             'type': classname,
             'text': html_text,
             'margin': margin
-        }
-        out.write(paragraph_html % data)
+        })

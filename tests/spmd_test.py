@@ -118,7 +118,6 @@ class ParseTests(unittest2.TestCase):
             (False, '||')
         ], dialog.blocks)
 
-
     def test_standard_transition(self):
 
         paras = list(parse([
