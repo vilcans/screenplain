@@ -21,6 +21,12 @@ The magic that Screenplain performs is to take your plain text file and
 convert it to a good looking PDF in standard screenplay format. Send that file
 off to your producer, agent, director or screenwriting competition.
 
+An [Online version of Screenplain](http://screenplain.appspot.com) is
+available, running on Google App Engine.
+
+Note that Screenplain is under development and is missing features and
+the master branch may not always work.
+
 Thanks for the inspiration goes to:
 
   * [Stu Maschwitz](http://prolost.com) for the [Screenplay Markdown](http://prolost.com/spmd)
@@ -38,8 +44,10 @@ The input to Screenplain is *Screenplay Markdown* as [proposed by Stu Maschwitz]
 Developing
 ==========
 
-Screenplain is written for Python 2.5, which is no longer available in
-Ubuntu at least, but see
+As it should run under Google App Engine, Screenplain should be
+compatible with Python 2.5. Use that version for development to make
+sure it works. Python 2.5 is no longer available in Ubuntu at least,
+but see
 [this link](http://kovshenin.com/archives/installing-python-2-5-on-ubuntu-linux-10-10/)
 about how to install it.
 
