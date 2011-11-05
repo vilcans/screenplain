@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+import sys
+from os.path import dirname, join, abspath, pardir
+
+if __name__ == '__main__':
+   p = abspath(join(dirname(__file__), pardir))
+   sys.path.append(p)
+   from screenplain.main import main
+   main(sys.argv[1:])
