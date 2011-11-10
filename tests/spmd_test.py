@@ -1,7 +1,7 @@
 import unittest2
 from screenplain.parsers.spmd import parse
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
-
+from screenplain.richstring import plain
 
 class ParseTests(unittest2.TestCase):
 
@@ -28,8 +28,8 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Dialog, Action], [type(p) for p in paras])
         # What looks like a scene headingis parsed as a character name.
         # Unexpected perhaps, but that's how I interpreted the spec.
-        self.assertEquals('INT. SOMEWHERE - DAY', paras[0].character)
-        self.assertEquals(['Some action'], paras[1].lines)
+        self.assertEquals(plain('INT. SOMEWHERE - DAY'), paras[0].character)
+        self.assertEquals([plain('Some action')], paras[1].lines)
 
     def test_action_is_not_a_slug(self):
         paras = list(parse([
@@ -57,7 +57,7 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals(1, len(paras))
         dialog = paras[0]
         self.assertEquals(Dialog, type(dialog))
-        self.assertEquals('SOME GUY', dialog.character)
+        self.assertEquals(plain('SOME GUY'), dialog.character)
 
     # SPMD would not be able to support a character named "23". We
     # might need a syntax to force a character element.
@@ -86,8 +86,14 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals(1, len(paras))
         dialog = paras[0]
         self.assertEqual(2, len(dialog.blocks))
-        self.assertEqual((True, '(starting the engine)'), dialog.blocks[0])
-        self.assertEqual((False, 'So much for retirement!'), dialog.blocks[1])
+        self.assertEqual(
+            (True, plain('(starting the engine)')),
+            dialog.blocks[0]
+        )
+        self.assertEqual(
+            (False, plain('So much for retirement!')),
+            dialog.blocks[1]
+        )
 
     def test_dual_dialog(self):
         paras = list(parse([
@@ -99,10 +105,16 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([DualDialog], [type(p) for p in paras])
         dual = paras[0]
-        self.assertEquals('BRICK', dual.left.character)
-        self.assertEquals([(False, 'Fuck retirement.')], dual.left.blocks)
-        self.assertEquals('STEEL', dual.right.character)
-        self.assertEquals([(False, 'Fuck retirement!')], dual.right.blocks)
+        self.assertEquals(plain('BRICK'), dual.left.character)
+        self.assertEquals(
+            [(False, plain('Fuck retirement.'))],
+            dual.left.blocks
+        )
+        self.assertEquals(plain('STEEL'), dual.right.character)
+        self.assertEquals(
+            [(False, plain('Fuck retirement!'))],
+            dual.right.blocks
+        )
 
     def test_dual_dialog_with_empty_right_dialog_is_ordinary_dialog(self):
         paras = list(parse([
@@ -112,22 +124,11 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Dialog], [type(p) for p in paras])
         dialog = paras[0]
-        self.assertEqual('BRICK', dialog.character)
+        self.assertEqual(plain('BRICK'), dialog.character)
         self.assertEqual([
-            (False, 'Nice retirement.'),
-            (False, '||')
+            (False, plain('Nice retirement.')),
+            (False, plain('||'))
         ], dialog.blocks)
-
-    def test_standard_transition(self):
-
-        paras = list(parse([
-            'Jack begins to argue vociferously in Vietnamese (?)',
-            '',
-            'CUT TO:',
-            '',
-            "EXT. BRICK'S POOL - DAY",
-        ]))
-        self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
 
     def test_standard_transition(self):
 
@@ -185,9 +186,9 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action, Action, Action], [type(p) for p in paras])
         self.assertEquals(
             [
-                "And then there's a long beat.",
-                "Longer than is funny.",
-                "Long enough to be depressing.",
+                plain("And then there's a long beat."),
+                plain("Longer than is funny."),
+                plain("Long enough to be depressing."),
             ], paras[1].lines
         )
 
@@ -201,10 +202,10 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Dialog], [type(p) for p in paras])
         self.assertEquals([
-            (False, 'O Romeo, Romeo! wherefore art thou Romeo?'),
-            (False, 'Deny thy father and refuse thy name;'),
-            (False, 'Or, if thou wilt not, be but sworn my love,'),
-            (False, "And I'll no longer be a Capulet."),
+            (False, plain('O Romeo, Romeo! wherefore art thou Romeo?')),
+            (False, plain('Deny thy father and refuse thy name;')),
+            (False, plain('Or, if thou wilt not, be but sworn my love,')),
+            (False, plain("And I'll no longer be a Capulet.")),
         ], paras[0].blocks)
 
 if __name__ == '__main__':
