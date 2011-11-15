@@ -4,11 +4,6 @@ from screenplain.types import *
 from screenplain.richstring import RichString
 from screenplain.richstring import Bold, Italic, Underline
 
-paragraph_types = {
-    Slug: 'Scene Heading',
-    Action: 'Action',
-    Transition: 'Transition',
-}
 
 style_names = {
     Bold: 'Bold',
@@ -36,8 +31,12 @@ def write_text(out, rich, trailing_linebreak):
         else:
             _write_text_element(out, fdx_styles, segment.text)
 
-def write_paragraph(out, para_type, lines):
-    out.write('    <Paragraph Type="%s">\n' % para_type)
+def write_paragraph(out, para_type, lines, centered=False):
+    if centered:
+        out.write('    <Paragraph Alignment="Center" Type="%s">\n' % para_type)
+    else:
+        out.write('    <Paragraph Type="%s">\n' % para_type)
+
     last_line_no = len(lines) - 1
     for line_no, line in enumerate(lines):
         write_text(out, line, line_no != last_line_no)
@@ -80,9 +79,14 @@ def to_fdx(screenplay, out):
             write_dialog(out, para)
         elif isinstance(para, DualDialog):
             write_dual_dialog(out, para)
+        elif isinstance(para, Action):
+            write_paragraph(out, 'Action', para.lines, centered=para.centered)
+        elif isinstance(para, Slug):
+            write_paragraph(out, 'Scene Heading', para.lines)
+        elif isinstance(para, Transition):
+            write_paragraph(out, 'Transition', para.lines)
         else:
-            para_type = paragraph_types[type(para)]
-            write_paragraph(out, para_type, para.lines)
+            raise RuntimeError('Unknown type: %s' % type(para))
     out.write(
         '  </Content>\n'
         '</FinalDraft>\n'

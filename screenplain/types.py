@@ -81,13 +81,18 @@ class Action(object):
     fill = 68
     top_margin = 1
 
-    def __init__(self, lines):
+    def __init__(self, lines, centered=False):
         self.lines = lines
+        self.centered = centered
 
     def format(self):
         for logical_line in self.lines:
             for line in textwrap.wrap(logical_line, width=self.fill):
                 yield self.indent + line
+
+
+class Centered(Action):
+    pass
 
 
 class Transition(object):

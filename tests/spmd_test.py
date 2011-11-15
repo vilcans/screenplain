@@ -208,5 +208,28 @@ class ParseTests(unittest2.TestCase):
             (False, plain("And I'll no longer be a Capulet.")),
         ], paras[0].blocks)
 
+    def test_single_centered_line(self):
+        paras = list(parse(['> center me! <']))
+        self.assertEquals([Action], [type(p) for p in paras])
+        self.assertTrue(paras[0].centered)
+
+    def test_full_centered_paragraph(self):
+        paras = list(parse([
+            '> first! <',
+            '  > second! <',
+            '> third! <',
+        ]))
+        self.assertEquals([Action], [type(p) for p in paras])
+        self.assertTrue(paras[0].centered)
+
+    def test_centering_marks_in_middle_of_paragraphs_are_verbatim(self):
+        paras = list(parse([
+            'first!',
+            '> second! <',
+            'third!',
+        ]))
+        self.assertEquals([Action], [type(p) for p in paras])
+        self.assertFalse(paras[0].centered)
+
 if __name__ == '__main__':
     unittest2.main()

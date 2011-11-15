@@ -1,5 +1,9 @@
 import itertools
-from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
+import re
+
+from screenplain.types import (
+    Slug, Action, Dialog, DualDialog, Transition
+)
 from screenplain.richstring import parse_emphasis
 
 slug_prefixes = (
@@ -15,6 +19,7 @@ slug_prefixes = (
 
 TWOSPACE = ' ' * 2
 
+centered_re = re.compile(r'\s*>\s*(.*)\s*<$')
 
 def is_blank(string):
     return string == '' or string.isspace() and string != '  '
@@ -73,7 +78,12 @@ def create_paragraph(blanks_before, line_list):
         # later if we find that it's not followed by a slug.
         return Transition(_to_rich(line_list))
     else:
-        return Action(_to_rich(line_list))
+        if all(centered_re.match(line) for line in line_list):
+            return Action(_to_rich(
+                centered_re.match(line).group(1) for line in line_list
+            ), centered=True)
+        else:
+            return Action(_to_rich(line_list))
 
 
 def clean_line(line):
