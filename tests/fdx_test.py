@@ -21,7 +21,7 @@ class OutputTests(unittest2.TestCase):
         write_text(self.out, bold('hello'), False)
         self.assertEqual(
             self.out.getvalue(),
-            '      <Text style="Bold">hello</Text>\n'
+            '      <Text Style="Bold">hello</Text>\n'
         )
 
     def test_sequential_styles(self):
@@ -30,8 +30,8 @@ class OutputTests(unittest2.TestCase):
         self.assertEqual(
             self.out.getvalue(),
             '      <Text>plain</Text>\n'
-            '      <Text style="Bold">b</Text>\n'
-            '      <Text style="Italic">i</Text>\n'
+            '      <Text Style="Bold">b</Text>\n'
+            '      <Text Style="Italic">i</Text>\n'
         )
 
     def test_several_styles(self):
@@ -39,9 +39,9 @@ class OutputTests(unittest2.TestCase):
         write_text(self.out, rich, False)
         self.assertEqual(
             self.out.getvalue(),
-            '      <Text style="Bold">outer</Text>\n'
-            '      <Text style="Bold+Italic">inner</Text>\n'
-            '      <Text style="Bold">outer</Text>\n'
+            '      <Text Style="Bold">outer</Text>\n'
+            '      <Text Style="Bold+Italic">inner</Text>\n'
+            '      <Text Style="Bold">outer</Text>\n'
         )
 
     def test_write_text_adds_line_break_if_requested(self):
@@ -49,7 +49,7 @@ class OutputTests(unittest2.TestCase):
         write_text(self.out, rich, True)
         self.assertEqual(
             self.out.getvalue(),
-            '      <Text style="Bold">outer</Text>\n'
-            '      <Text style="Bold+Italic">inner</Text>\n'
-            '      <Text style="Bold">outer\n</Text>\n'  # note newline
+            '      <Text Style="Bold">outer</Text>\n'
+            '      <Text Style="Bold+Italic">inner</Text>\n'
+            '      <Text Style="Bold">outer\n</Text>\n'  # note newline
         )

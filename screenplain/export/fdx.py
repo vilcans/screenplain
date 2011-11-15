@@ -17,13 +17,13 @@ def _write_text_element(out, styles, text):
     if style_value == '':
         out.write('      <Text>%s</Text>\n' % (escape(text)))
     else:
-        out.write('      <Text style="%s">%s</Text>\n' %
+        out.write('      <Text Style="%s">%s</Text>\n' %
           (style_value, escape(text))
         )
 
 
 def write_text(out, rich, trailing_linebreak):
-    """Writes <Text style="..."> elements."""
+    """Writes <Text Style="..."> elements."""
     for seg_no, segment in enumerate(rich.segments):
         fdx_styles = set(style_names[n] for n in segment.styles)
         if trailing_linebreak and seg_no == len(rich.segments) - 1:
