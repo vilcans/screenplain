@@ -64,7 +64,11 @@ def _to_rich(line_list):
 def create_paragraph(blanks_before, line_list):
     if is_slug(blanks_before, line_list):
         return Slug(_to_rich(line_list))
-    if (
+    elif all(centered_re.match(line) for line in line_list):
+        return Action(_to_rich(
+            centered_re.match(line).group(1) for line in line_list
+        ), centered=True)
+    elif (
         len(line_list) > 1 and
         line_list[0].isupper() and
         not line_list[0].endswith(TWOSPACE)
@@ -78,12 +82,7 @@ def create_paragraph(blanks_before, line_list):
         # later if we find that it's not followed by a slug.
         return Transition(_to_rich(line_list))
     else:
-        if all(centered_re.match(line) for line in line_list):
-            return Action(_to_rich(
-                centered_re.match(line).group(1) for line in line_list
-            ), centered=True)
-        else:
-            return Action(_to_rich(line_list))
+        return Action(_to_rich(line_list))
 
 
 def clean_line(line):

@@ -222,6 +222,15 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertTrue(paras[0].centered)
 
+    def test_upper_case_centered_not_parsed_as_dialog(self):
+        paras = list(parse([
+            '> FIRST! <',
+            '  > SECOND! <',
+            '> THIRD! <',
+        ]))
+        self.assertEquals([Action], [type(p) for p in paras])
+        self.assertTrue(paras[0].centered)
+
     def test_centering_marks_in_middle_of_paragraphs_are_verbatim(self):
         paras = list(parse([
             'first!',
