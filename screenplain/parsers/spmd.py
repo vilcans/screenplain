@@ -19,7 +19,7 @@ slug_prefixes = (
 
 TWOSPACE = ' ' * 2
 
-centered_re = re.compile(r'\s*>\s*(.*)\s*<$')
+centered_re = re.compile(r'\s*>\s*(.*)\s*<\s*$')
 
 def is_blank(string):
     return string == '' or string.isspace() and string != '  '
