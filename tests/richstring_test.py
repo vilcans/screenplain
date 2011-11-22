@@ -126,7 +126,6 @@ class ParseEmphasisTests(unittest2.TestCase):
             (bold + italic)('really strong')
         )
 
-    @unittest2.expectedFailure
     def test_additional_star(self):
         self.assertEquals(
             parse_emphasis('*foo* bar* baz'),
@@ -151,4 +150,31 @@ class ParseEmphasisTests(unittest2.TestCase):
         self.assertEquals(
             parse_emphasis('_*he_llo*'),
             (italic + underline)('he') + italic('llo')
+        )
+
+    def test_complicated(self):
+        # As reported by Stu
+        self.assertEquals(
+            parse_emphasis('You can _underline_ words, make them **bold** or *italic* or even ***bold italic.***'),
+            (plain('You can ') + underline('underline') +
+            plain(' words, make them ') + bold('bold') + plain(' or ') +
+            italic('italic') + plain(' or even ') + (bold + italic)('bold italic.'))
+        )
+
+    def test_simplified_complicated(self):
+        self.assertEquals(
+            parse_emphasis('*italic* or even ***bold italic.***'),
+            italic('italic') + plain(' or even ') + (bold + italic)('bold italic.')
+        )
+
+    def test_two_italic_should_not_create_one_long_italic_string(self):
+        self.assertEquals(
+            parse_emphasis('*first* *second*'),
+            italic('first') + plain(' ') + italic('second')
+        )
+
+    def test_two_bold_should_not_create_one_long_bold_string(self):
+        self.assertEquals(
+            parse_emphasis('**first** **second**'),
+            bold('first') + plain(' ') + bold('second')
         )

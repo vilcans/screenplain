@@ -107,9 +107,8 @@ class Italic(Style):
 
     parse_re = re.compile(
         r'\*'            # one star
-        r'(?=\S)'        # must not be followed by space
-        r'(.+)'          # inside text
-        r'(?<=\S)\*'     # finishing with one star
+        r'([^\s].*?)'        # anything but a space, then text
+        r'\*' # finishing with one star
         r'(?!\*)'        # must not be followed by star
     )
 
