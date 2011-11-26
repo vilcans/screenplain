@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-# Run with:
-#   PYTHONPATH=. python screenplain/main.py filename.txt
-
 import fileinput
 import sys
 import codecs

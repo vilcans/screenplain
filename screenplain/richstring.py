@@ -56,14 +56,16 @@ class RichString(object):
         else:
             raise ValueError('Concatenating requires RichString')
 
+
 class Segment(object):
     """A piece of a rich string. Has a set of styles."""
 
     def __init__(self, text, styles):
         """
         Creates a segment with a set of styles.
-        text is the raw text string, and 
-        styles is a set of Style subclasses"""
+        text is the raw text string, and
+        styles is a set of Style subclasses.
+        """
         self.styles = set(styles)
         self.text = text
 
@@ -106,10 +108,14 @@ class Style(object):
 class Italic(Style):
 
     parse_re = re.compile(
-        r'\*'            # one star
-        r'([^\s].*?)'        # anything but a space, then text
-        r'\*' # finishing with one star
-        r'(?!\*)'        # must not be followed by star
+        # one star
+        r'\*'
+        # anything but a space, then text
+        r'([^\s].*?)'
+        # finishing with one star
+        r'\*'
+        # must not be followed by star
+        r'(?!\*)'
     )
 
     start_magic = u'\ue700'
@@ -122,10 +128,14 @@ class Italic(Style):
 class Bold(Style):
 
     parse_re = re.compile(
-        r'\*\*'          # two stars
-        r'(?=\S)'        # must not be followed by space
-        r'(.+?[*_]*)'    # inside text
-        r'(?<=\S)\*\*'   # finishing with two stars
+        # two stars
+        r'\*\*'
+        # must not be followed by space
+        r'(?=\S)'
+        # inside text
+        r'(.+?[*_]*)'
+        # finishing with two stars
+        r'(?<=\S)\*\*'
     )
 
     start_magic = u'\ue702'
@@ -137,11 +147,15 @@ class Bold(Style):
 
 class Underline(Style):
 
-    parse_re =  re.compile(
-        r'_'             # underline
-        r'(?=\S)'        # must not be followed by space
-        r'([^_]+)'       # inside text
-        r'(?<=\S)_'      # finishing with underline
+    parse_re = re.compile(
+        # underline
+        r'_'
+        # must not be followed by space
+        r'(?=\S)'
+        # inside text
+        r'([^_]+)'
+        # finishing with underline
+        r'(?<=\S)_'
     )
 
     start_magic = u'\ue704'

@@ -72,6 +72,7 @@ class RichStringTests(unittest2.TestCase):
             s.to_html()
         )
 
+
 class ParseEmphasisTests(unittest2.TestCase):
 
     def test_parse_without_emphasis(self):
@@ -87,7 +88,7 @@ class ParseEmphasisTests(unittest2.TestCase):
     def test_parse_pre_and_postfix_and_bold(self):
         self.assertEquals(
             parse_emphasis('pre**Hello**post'),
-            plain('pre') +  bold('Hello') + plain('post')
+            plain('pre') + bold('Hello') + plain('post')
         )
 
     def test_parse_multiple_bold(self):
@@ -155,16 +156,21 @@ class ParseEmphasisTests(unittest2.TestCase):
     def test_complicated(self):
         # As reported by Stu
         self.assertEquals(
-            parse_emphasis('You can _underline_ words, make them **bold** or *italic* or even ***bold italic.***'),
+            parse_emphasis(
+                'You can _underline_ words, make them **bold** or *italic* '
+                'or even ***bold italic.***'
+            ),
             (plain('You can ') + underline('underline') +
             plain(' words, make them ') + bold('bold') + plain(' or ') +
-            italic('italic') + plain(' or even ') + (bold + italic)('bold italic.'))
+            italic('italic') + plain(' or even ') +
+            (bold + italic)('bold italic.'))
         )
 
     def test_simplified_complicated(self):
         self.assertEquals(
             parse_emphasis('*italic* or even ***bold italic.***'),
-            italic('italic') + plain(' or even ') + (bold + italic)('bold italic.')
+            italic('italic') + plain(' or even ') +
+            (bold + italic)('bold italic.')
         )
 
     def test_two_italic_should_not_create_one_long_italic_string(self):

@@ -35,7 +35,7 @@ class OutputTests(unittest2.TestCase):
         )
 
     def test_several_styles(self):
-        rich = bold('outer') +  (bold + italic)('inner') + bold('outer')
+        rich = bold('outer') + (bold + italic)('inner') + bold('outer')
         write_text(self.out, rich, False)
         self.assertEqual(
             self.out.getvalue(),
@@ -45,7 +45,7 @@ class OutputTests(unittest2.TestCase):
         )
 
     def test_write_text_adds_line_break_if_requested(self):
-        rich = bold('outer') +  (bold + italic)('inner') + bold('outer')
+        rich = bold('outer') + (bold + italic)('inner') + bold('outer')
         write_text(self.out, rich, True)
         self.assertEqual(
             self.out.getvalue(),

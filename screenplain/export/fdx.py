@@ -31,6 +31,7 @@ def write_text(out, rich, trailing_linebreak):
         else:
             _write_text_element(out, fdx_styles, segment.text)
 
+
 def write_paragraph(out, para_type, lines, centered=False):
     if centered:
         out.write('    <Paragraph Alignment="Center" Type="%s">\n' % para_type)

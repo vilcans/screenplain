@@ -3,6 +3,7 @@ from screenplain.parsers.spmd import parse
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 from screenplain.richstring import plain
 
+
 class ParseTests(unittest2.TestCase):
 
     # A Scene Heading, or "slugline," is any line that has a blank
