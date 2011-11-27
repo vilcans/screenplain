@@ -5,8 +5,12 @@ class Slug(object):
     indent = ''
     top_margin = 1
 
-    def __init__(self, lines):
-        self.line = lines[0]
+    def __init__(self, line):
+        self.line = line
+
+    @property
+    def lines(self):
+        return [self.line]
 
 
 class Dialog(object):
@@ -88,17 +92,17 @@ class Action(object):
                 yield self.indent + line
 
 
-class Centered(Action):
-    pass
-
-
 class Transition(object):
     indent = ''
     fill = 68
     top_margin = 1
 
-    def __init__(self, lines):
-        self.lines = lines
+    def __init__(self, line):
+        self.line = line
+
+    @property
+    def lines(self):
+        return [self.line]
 
     def format(self):
         for logical_line in self.lines:

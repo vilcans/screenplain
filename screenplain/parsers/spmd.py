@@ -64,7 +64,7 @@ def _to_rich(line_list):
 
 def create_paragraph(blanks_before, line_list):
     if is_slug(blanks_before, line_list):
-        return Slug(_to_rich(line_list))
+        return Slug(_to_rich(line_list)[0])
     elif all(centered_re.match(line) for line in line_list):
         return Action(_to_rich(
             centered_re.match(line).group(1) for line in line_list
@@ -81,7 +81,7 @@ def create_paragraph(blanks_before, line_list):
     ):
         # Assume this is a transition. It may be changed to Action
         # later if we find that it's not followed by a slug.
-        return Transition(_to_rich(line_list))
+        return Transition(_to_rich(line_list)[0])
     else:
         return Action(_to_rich(line_list))
 
