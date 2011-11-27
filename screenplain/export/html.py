@@ -67,8 +67,23 @@ def _read_file(filename):
         return stream.read()
 
 
-def convert(screenplay, out, annotated=False):
+def convert(screenplay, out, bare=False):
+    """Convert the screenplay into HTML, written to the file-like object `out`.
 
+    The output will be a complete HTML document unless `bare` is true.
+
+    """
+    if bare:
+        convert_bare(screenplay, out)
+    else:
+        convert_full(screenplay, out)
+
+
+def convert_full(screenplay, out):
+    """Convert the screenplay into a complete HTML document,
+    written to the file-like object `out`.
+
+    """
     css = _read_file('default.css')
     out.write(
         '<!DOCTYPE html>\n'
@@ -84,7 +99,7 @@ def convert(screenplay, out, annotated=False):
         '<body>'
         '<div class="screenplay">\n'
     )
-    convert_body_html(screenplay, out)
+    convert_bare(screenplay, out)
     out.write(
         '</div>'
         '</body>'
@@ -92,7 +107,12 @@ def convert(screenplay, out, annotated=False):
     )
 
 
-def convert_body_html(screenplay, out):
+def convert_bare(screenplay, out):
+    """Convert the screenplay into HTML, written to the file-like object `out`.
+    Does not create a complete HTML document, as it doesn't include
+    <html>, <body>, etc.
+
+    """
     for para in screenplay:
         if isinstance(para, Slug):
             # Slugs are h2 tags not inside a div

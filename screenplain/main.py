@@ -22,6 +22,15 @@ def main(args):
         help=('Set what kind of file to create. FORMAT can be any of '
             + ', '.join(output_formats))
     )
+    parser.add_option(
+        '--bare',
+        action='store_true',
+        dest='bare',
+        help=(
+            'For HTML output, only output the actual screenplay, '
+            'not a complete HTML document.'
+        )
+    )
     options, args = parser.parse_args(args)
     if len(args) != 2:
         parser.error('Expected input-file and output-file arguments')
@@ -59,7 +68,7 @@ def main(args):
                 to_fdx(screenplay, output)
             elif options.output_format == 'html':
                 from screenplain.export.html import convert
-                convert(screenplay, output)
+                convert(screenplay, output, bare=options.bare)
         finally:
             output.close()
 
