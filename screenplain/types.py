@@ -6,10 +6,7 @@ class Slug(object):
     top_margin = 1
 
     def __init__(self, lines):
-        self.lines = lines
-
-    def format(self):
-        return self.lines
+        self.line = lines[0]
 
 
 class Dialog(object):
