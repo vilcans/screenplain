@@ -61,6 +61,24 @@ def format_slug(slug, out):
     out.write('</h2>')
 
 
+def format_action(para, out):
+    if para.centered:
+        out.write('<div class="action centered">')
+    else:
+        out.write('<div class="action">')
+    for line in para.lines:
+        out.write('<p>')
+        out.write(to_html(line))
+        out.write('</p>')
+    out.write('</div>')
+
+
+def format_transition(para, out):
+    out.write('<div class="transition">')
+    out.write(to_html(para.line))
+    out.write('</div>')
+
+
 def _read_file(filename):
     path = os.path.join(os.path.dirname(__file__), filename)
     with open(path) as stream:
@@ -117,6 +135,8 @@ def convert_bare(screenplay, out):
         if isinstance(para, Slug):
             # Slugs are h2 tags not inside a div
             format_slug(para, out)
+        elif isinstance(para, Action):
+            format_action(para, out)
         elif isinstance(para, Dialog):
             out.write('<div class="dialog">')
             format_dialog(para, out)
@@ -125,14 +145,8 @@ def convert_bare(screenplay, out):
             out.write('<div class="dual">')
             format_dual(para, out)
             out.write('</div>')
+        elif isinstance(para, Transition):
+            format_transition(para, out)
         else:
-            classname = types.get(type(para))
-            out.write('<div class="')
-            out.write(classname)
-            out.write('">')
-            for line in para.lines:
-                out.write('<p>')
-                out.write(to_html(line))
-                out.write('</p>')
-            out.write('</div>')
+            assert False, 'Unknown type: %s' % type(para)
         out.write('\n')

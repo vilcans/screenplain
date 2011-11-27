@@ -50,6 +50,9 @@ footer, header, hgroup, menu, nav, section {
   margin-top: 1em;
   width:36.14em;
 }
+.screenplay .centered {
+  text-align: center;
+}
 .screenplay div.dialog, .screenplay div.dual {
   margin-top: 1em;
 }
