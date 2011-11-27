@@ -24,16 +24,15 @@ footer, header, hgroup, menu, nav, section {
 /* Styles for Screenplain */
 
 .screenplay {
-    background: white;
-    font-family: Courier;
-    font-size: 12pt;
-    max-width: 68em;
+  background: white;
+  font-family:'Courier Final Draft',Courier;
+  font-size: 12pt;
+  width: 36.14em;
 }
-
-em {
+.screenplay em {
     font-style: italic;
 }
-strong {
+.screenplay strong {
     font-weight: bold;
 }
 .screenplay br {
@@ -42,33 +41,43 @@ strong {
 
 /* Slug */
 .screenplay > h2 {
+  width:36.14em;
   margin-top: 2em;
   font-weight: bold;
+  text-transform:uppercase;
 }
 .screenplay div.action {
   margin-top: 1em;
+  width:36.14em;
 }
 .screenplay div.dialog, .screenplay div.dual {
   margin-top: 1em;
 }
 .screenplay div.transition {
-  text-align: right;
   margin-top: 1em;
+  margin-left:24.09em;
+  margin-right:2.4em;
+  margin-bottom:12pt;
+  width: 9.64em;
+  text-align:right;
 }
 
 .screenplay .dialog p.character {
-  padding-left: 11em;
+  padding-left: 12em;
+  width: 23em;
 }
 .screenplay .dialog p.parenthetical {
-  padding-left: 8em;
+  padding-left: 9.03em;
+  width: 15.06em;
 }
 .screenplay .dialog p {
-  padding-left: 5em;
-  width: 22.5em;
+  padding-left: 6.05em;
+  width: 21.07em;
 }
 
 .screenplay .dual > div {
   float: left;
+  width:48% !important;
 }
 .screenplay .dual p.character {
   padding-left: 6em;
@@ -77,10 +86,11 @@ strong {
   padding-left: 3em;
 }
 .screenplay .dual p {
-  padding-left: 0;
+  padding-left:0em;
+  width: 19em;
 }
 .screenplay .dual .right {
-  margin-left: .5em;
+  margin-left: 1em;
 }
 .screenplay .dual .right p.character {
   padding-left: 6em;

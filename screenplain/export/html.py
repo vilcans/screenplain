@@ -75,7 +75,7 @@ def convert(screenplay, out, annotated=False):
         '<html>'
         '<head>'
         '<title>Screenplay</title>'
-        '<style>'
+        '<style type="text/css">'
     )
     out.write(css)
     out.write(
