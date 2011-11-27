@@ -41,12 +41,12 @@ def format_dialog(dialog, out):
 
 def format_dual(dual, out):
     out.write(
-        '<div class="left dialog">'
+        '<div class="left">'
     )
     format_dialog(dual.left, out)
     out.write(
         '</div>'
-        '<div class="right dialog">'
+        '<div class="right">'
     )
     format_dialog(dual.right, out)
     out.write(
