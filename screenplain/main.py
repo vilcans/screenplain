@@ -8,7 +8,7 @@ from optparse import OptionParser
 from screenplain.parsers.spmd import parse
 
 output_formats = (
-    'text', 'pdf', 'fdx', 'annotated_html'
+    'text', 'pdf', 'fdx', 'html'
 )
 
 usage = 'Usage: %prog [options] input-file output-file'
@@ -32,6 +32,8 @@ def main(args):
             options.output_format = 'pdf'
         elif output_file.endswith('.fdx'):
             options.output_format = 'fdx'
+        elif output_file.endswith('.html'):
+            options.output_format = 'html'
         else:
             options.output_format = 'text'
 
@@ -55,9 +57,9 @@ def main(args):
             elif options.output_format == 'fdx':
                 from screenplain.export.fdx import to_fdx
                 to_fdx(screenplay, output)
-            elif options.output_format == 'annotated_html':
-                from screenplain.export.annotated_html import to_annotated_html
-                to_annotated_html(screenplay, output)
+            elif options.output_format == 'html':
+                from screenplain.export.html import convert
+                convert(screenplay, output)
         finally:
             output.close()
 

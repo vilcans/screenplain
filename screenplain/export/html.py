@@ -61,7 +61,7 @@ def format_dual(dual):
     )
 
 
-def to_annotated_html(screenplay, out):
+def convert(screenplay, out, annotated=False):
     for para in screenplay:
         classname = types.get(type(para))
         if isinstance(para, Dialog):
