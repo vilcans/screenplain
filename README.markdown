@@ -41,6 +41,13 @@ Input format
 
 The input to Screenplain is *Screenplay Markdown* as [proposed by Stu Maschwitz](http://prolost.com/storage/downloads/spmd/SPMD_proposal.html).
 
+
+License
+=======
+
+Screenplain is released under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+
+
 Developing
 ==========
 

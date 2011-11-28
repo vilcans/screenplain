@@ -1,3 +1,7 @@
+# Copyright (c) 2011 Martin Vilcans
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+
 #!/usr/bin/python
 import fileinput
 from reportlab.pdfgen import canvas

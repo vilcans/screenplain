@@ -1,3 +1,7 @@
+# Copyright (c) 2011 Martin Vilcans
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+
 # Numbers from http://www.emacswiki.org/emacs/ScreenPlay
 # According to http://johnaugust.com/2004/how-many-lines-per-page
 lines_per_page = 56
