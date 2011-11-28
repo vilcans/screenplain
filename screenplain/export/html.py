@@ -17,66 +17,90 @@ types = {
 }
 
 
+class tags(object):
+    """Handler for automatically opening and closing tags.
+
+    E.g.
+
+    >>> import sys
+    >>> from __future__ import with_statement
+    >>> with tags(sys.stdout, 'div', 'p', 'a'):
+    ...     sys.stdout.write('hello')
+    ...
+    <div><p><a>hello</a></p></div>
+
+    Tags with attributes are also supported:
+
+    >>> with tags(sys.stdout, 'div class="foo"'):
+    ...     sys.stdout.write('hello')
+    <div class="foo">hello</div>
+
+    """
+    def __init__(self, out, *tags):
+        self.out = out
+        self.tags = list(tags)
+
+    def __enter__(self):
+        for tag in self.tags:
+            self.out.write('<%s>' % tag)
+
+    def __exit__(self, exception_type, value, traceback):
+        if not exception_type:
+            for tag in reversed(self.tags):
+                self.out.write('</%s>' % tag.split()[0])
+        return False
+
+
 def to_html(text):
     return re.sub('  ', '&nbsp; ', text.to_html())
 
 
 def format_dialog(dialog, out):
-    out.write(
-        '<p class="character">'
-    )
-    out.write(to_html(dialog.character))
-    out.write('</p>')
-
-    for parenthetical, text in dialog.blocks:
-        if parenthetical:
-            out.write('<p class="parenthetical">')
-            out.write(to_html(text))
-            out.write('</p>')
-        else:
-            out.write('<p>')
-            out.write(to_html(text))
-            out.write('</p>')
+    with tags(out, 'div class="dialog"'):
+        _write_dialog_block(dialog, out)
 
 
 def format_dual(dual, out):
-    out.write(
-        '<div class="left">'
-    )
-    format_dialog(dual.left, out)
-    out.write(
-        '</div>'
-        '<div class="right">'
-    )
-    format_dialog(dual.right, out)
-    out.write(
-        '</div>'
-        '<br />'
-    )
+    with tags(out, 'div class="dual"'):
+        with tags(out, 'div class="left"'):
+            _write_dialog_block(dual.left, out)
+        with tags(out, 'div class="right"'):
+            _write_dialog_block(dual.right, out)
+        out.write('<br />')
+
+
+def _write_dialog_block(dialog, out):
+    with tags(out, 'p class="character"'):
+        out.write(to_html(dialog.character))
+
+    for parenthetical, text in dialog.blocks:
+        if parenthetical:
+            with tags(out, 'p class="parenthetical"'):
+                out.write(to_html(text))
+        else:
+            with tags(out, 'p'):
+                out.write(to_html(text))
 
 
 def format_slug(slug, out):
-    out.write('<h2>')
-    out.write(to_html(slug.line))
-    out.write('</h2>')
+    with tags(out, 'h2'):
+        out.write(to_html(slug.line))
 
 
 def format_action(para, out):
     if para.centered:
-        out.write('<div class="action centered">')
+        tag = 'div class="action centered"'
     else:
-        out.write('<div class="action">')
-    for line in para.lines:
-        out.write('<p>')
-        out.write(to_html(line))
-        out.write('</p>')
-    out.write('</div>')
+        tag = 'div class="action"'
+    with tags(out, tag):
+        for line in para.lines:
+            with tags(out, 'p'):
+                out.write(to_html(line))
 
 
 def format_transition(para, out):
-    out.write('<div class="transition">')
-    out.write(to_html(para.line))
-    out.write('</div>')
+    with tags(out, 'div class="transition"'):
+        out.write(to_html(para.line))
 
 
 def _read_file(filename):
@@ -138,13 +162,9 @@ def convert_bare(screenplay, out):
         elif isinstance(para, Action):
             format_action(para, out)
         elif isinstance(para, Dialog):
-            out.write('<div class="dialog">')
             format_dialog(para, out)
-            out.write('</div>')
         elif isinstance(para, DualDialog):
-            out.write('<div class="dual">')
             format_dual(para, out)
-            out.write('</div>')
         elif isinstance(para, Transition):
             format_transition(para, out)
         else:
