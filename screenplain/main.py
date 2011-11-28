@@ -12,7 +12,7 @@ from optparse import OptionParser
 from screenplain.parsers.spmd import parse
 
 output_formats = (
-    'text', 'pdf', 'fdx', 'html'
+    'fdx', 'html'
 )
 
 usage = 'Usage: %prog [options] input-file output-file'
@@ -41,9 +41,7 @@ def main(args):
     input_file, output_file = args
 
     if options.output_format == None:
-        if output_file.endswith('.pdf'):
-            options.output_format = 'pdf'
-        elif output_file.endswith('.fdx'):
+        if output_file.endswith('.fdx'):
             options.output_format = 'fdx'
         elif output_file.endswith('.html'):
             options.output_format = 'html'
