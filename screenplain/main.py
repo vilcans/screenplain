@@ -15,7 +15,13 @@ output_formats = (
     'fdx', 'html'
 )
 
-usage = 'Usage: %prog [options] input-file output-file'
+usage = """Usage: %prog [options] [input-file [output-file]]
+
+If a file name parameter is missing or a dash (-), input will be read
+from standard input and output will be written to standard output.
+
+Screenplain will try to auto-detect the output format if
+an output-file is given. Otherwise use the --format option."""
 
 
 def main(args):
@@ -23,7 +29,7 @@ def main(args):
     parser.add_option(
         '-f', '--format', dest='output_format',
         metavar='FORMAT',
-        help=('Set what kind of file to create. FORMAT can be any of '
+        help=('Set what kind of file to create. FORMAT can be one of '
             + ', '.join(output_formats))
     )
     parser.add_option(
@@ -36,11 +42,12 @@ def main(args):
         )
     )
     options, args = parser.parse_args(args)
-    if len(args) != 2:
-        parser.error('Expected input-file and output-file arguments')
-    input_file, output_file = args
+    if len(args) >= 3:
+        parser.error('Too many arguments')
+    input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
+    output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
 
-    if options.output_format == None:
+    if options.output_format == None and output_file:
         if output_file.endswith('.fdx'):
             options.output_format = 'fdx'
         elif output_file.endswith('.html'):
@@ -50,17 +57,27 @@ def main(args):
 
     if options.output_format not in output_formats:
         parser.error(
-            'Unknown output format. Expected one of: ' +
-            ', '.join(output_formats))
+            'Could not detect output format.\n'
+            'Use --format with one of the following formats: ' +
+            ' '.join(output_formats))
 
-    input = codecs.open(input_file, 'r', 'utf-8')
+    if input_file:
+        input = codecs.open(input_file, 'r', 'utf-8')
+    else:
+        input = codecs.getreader('utf-8')(sys.stdin)
     screenplay = parse(input)
 
     if options.output_format == 'pdf':
         from screenplain.export.pdf import to_pdf
+        if not output_file:
+            sys.stderr.write("Can't write PDF to standard output")
+            sys.exit(2)
         to_pdf(screenplay, output_file)
     else:
-        output = codecs.open(output_file, 'w', 'utf-8')
+        if output_file:
+            output = codecs.open(output_file, 'w', 'utf-8')
+        else:
+            output = codecs.getwriter('utf-8')(sys.stdout)
         try:
             if options.output_format == 'text':
                 from screenplain.export.text import to_text
@@ -72,7 +89,8 @@ def main(args):
                 from screenplain.export.html import convert
                 convert(screenplay, output, bare=options.bare)
         finally:
-            output.close()
+            if output_file:
+                output.close()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
