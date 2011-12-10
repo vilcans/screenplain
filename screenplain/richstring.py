@@ -91,7 +91,7 @@ class Segment(object):
         ordered_styles = list(self.styles)
         return (
             ''.join(style.start_html for style in ordered_styles) +
-            cgi.escape(self.text) +
+            cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace') +
             ''.join(style.end_html for style in reversed(ordered_styles))
         )
 
