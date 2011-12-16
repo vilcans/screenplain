@@ -5,7 +5,7 @@
 import unittest2
 from screenplain.parsers.spmd import parse
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
-from screenplain.richstring import plain
+from screenplain.richstring import plain, empty_string
 
 
 class ParseTests(unittest2.TestCase):
@@ -99,6 +99,20 @@ class ParseTests(unittest2.TestCase):
             (False, plain('So much for retirement!')),
             dialog.blocks[1]
         )
+
+    def test_twospace_keeps_dialog_together(self):
+        paras = list(parse([
+            'SOMEONE',
+            'One',
+            '  ',
+            'Two',
+        ]))
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals([
+            (False, plain('One')),
+            (False, empty_string),
+            (False, plain('Two')),
+        ], paras[0].blocks)
 
     def test_dual_dialog(self):
         paras = list(parse([

@@ -27,7 +27,7 @@ centered_re = re.compile(r'\s*>\s*(.*)\s*<\s*$')
 
 
 def is_blank(string):
-    return string == '' or string.isspace() and string != '  '
+    return string == '' or string.isspace() and string != TWOSPACE
 
 
 def is_slug(blanks_before, line_list):
@@ -97,7 +97,10 @@ def clean_line(line):
     Leading whitespace is insignificant in SPMD, and trailing EOL
     appear when reading from a file or HTML form.
     """
-    return line.lstrip().rstrip('\r\n')
+    stripped = line.rstrip('\r\n')
+    if line == '  ':
+        return line
+    return line.lstrip()
 
 
 def parse(source):
