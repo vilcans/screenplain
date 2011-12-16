@@ -6,7 +6,8 @@ import unittest2
 from screenplain.richstring import (
     RichString, Segment,
     Bold, Italic,
-    plain, bold, italic, underline
+    plain, bold, italic, underline,
+    empty_string
 )
 from screenplain.richstring import parse_emphasis
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
@@ -15,8 +16,10 @@ from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 class LowLevelRichStringTests(unittest2.TestCase):
 
     def test_plain_string_has_one_single_segment(self):
-        s = RichString(plain('hello'))
-        self.assertEqual((plain('hello'),), s.segments)
+        s = plain('hello')
+        self.assertEqual(1, len(s.segments))
+        self.assertEqual('hello', s.segments[0].text)
+        self.assertEqual(set(), s.segments[0].styles)
 
 
 class RichStringOperatorTests(unittest2.TestCase):
@@ -26,6 +29,16 @@ class RichStringOperatorTests(unittest2.TestCase):
         self.assertEquals(
             "(bold)('Hello') + (plain)(' there ') + (bold)('folks')",
             repr(s)
+        )
+
+    def test_repr_on_empty_string(self):
+        self.assertEquals('empty_string', repr(empty_string))
+
+    def test_unicode(self):
+        s = bold('Hello') + plain(' there ') + bold('folks')
+        self.assertEquals(
+            u'Hello there folks',
+            unicode(s)
         )
 
     def test_eq(self):
@@ -62,14 +75,12 @@ class StyleGeneratorTests(unittest2.TestCase):
 class RichStringTests(unittest2.TestCase):
 
     def test_plain_to_html(self):
-        self.assertEquals('hello', RichString(plain('hello')).to_html())
+        self.assertEquals('hello', plain('hello').to_html())
 
     def test_to_html(self):
-        s = RichString(
-            bold('bold'),
-            plain(' normal '),
-            italic('italic'),
-            underline('wonderline')
+        s = (
+            bold('bold') + plain(' normal ') +
+            italic('italic') + underline('wonderline')
         )
         self.assertEquals(
             '<strong>bold</strong> normal <em>italic</em><u>wonderline</u>',

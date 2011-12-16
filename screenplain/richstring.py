@@ -12,10 +12,15 @@ class RichString(object):
     """A sequence of segments where each segment can have its own style."""
 
     def __init__(self, *segments):
-        self.segments = tuple(segments)
+        self.segments = segments
 
     def __repr__(self):
+        if not self.segments:
+            return "empty_string"
         return ' + '.join(repr(s) for s in self.segments)
+
+    def __unicode__(self):
+        return ''.join(unicode(s) for s in self.segments)
 
     def startswith(self, string):
         """Checks if the first segment in this string starts with a
@@ -29,7 +34,7 @@ class RichString(object):
         return self.segments[0].text.startswith(string)
 
     def endswith(self, string):
-        """Checks if the last segment in this string starts with a
+        """Checks if the last segment in this string ends with a
         specific string.
 
         """
@@ -81,11 +86,20 @@ class Segment(object):
             self.text
         )
 
+    def __unicode__(self):
+        return self.text
+
     def __eq__(self, other):
-        return self.text == other.text and self.styles == other.styles
+        return (
+            isinstance(other, Segment) and
+            self.text == other.text and self.styles == other.styles
+        )
 
     def __ne__(self, other):
-        return self.text != other.text or self.styles != other.styles
+        return (
+            not isinstance(other, Segment) or
+            self.text != other.text or self.styles != other.styles
+        )
 
     def to_html(self):
         ordered_styles = list(self.styles)
@@ -186,6 +200,8 @@ plain = _CreateStyledString(set())
 bold = _CreateStyledString(set((Bold,)))
 italic = _CreateStyledString(set((Italic,)))
 underline = _CreateStyledString((Underline,))
+
+empty_string = RichString()
 
 
 def parse_emphasis(source):
