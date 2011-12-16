@@ -203,6 +203,32 @@ underline = _CreateStyledString((Underline,))
 
 empty_string = RichString()
 
+# A special unicode character to use for a literal '*'
+literal_star = u'\ue706'
+
+# All styles. Note: order matters! This is the order they are parsed.
+all_styles = (Bold, Italic, Underline)
+
+
+def _unescape(source):
+    """Converts backslash-escaped stars in a string to the magic
+    "literal star" character.
+
+    >>> _unescape(r'\*hello\*')
+    u'\ue706hello\ue706'
+
+    """
+    return source.replace('\\*', literal_star)
+
+
+def _demagic_literals(text):
+    """Converts "literal star" characters to actual stars: "*"
+
+    >>> _demagic_literals(u'\ue706hello\ue706')
+    u'*hello*'
+    """
+    return text.replace(literal_star, '*')
+
 
 def parse_emphasis(source):
     """Parses emphasis markers like * and ** in a string
@@ -215,15 +241,18 @@ def parse_emphasis(source):
     >>> parse_emphasis(u'**hello** there')
     (bold)(u'hello') + (plain)(u' there')
     """
-    source = Bold.parse_re.sub(
-        Bold.start_magic + r'\1' + Bold.end_magic, source
-    )
-    source = Italic.parse_re.sub(
-        Italic.start_magic + r'\1' + Italic.end_magic, source
-    )
-    source = Underline.parse_re.sub(
-        Underline.start_magic + r'\1' + Underline.end_magic, source
-    )
+
+    # Convert escaped characters to magic characters so they aren't parsed
+    # as emphasis.
+    source = _unescape(source)
+
+    for style in all_styles:
+        source = style.parse_re.sub(
+            style.start_magic + r'\1' + style.end_magic, source
+        )
+
+    # Convert magic characters back, so they are printable again.
+    source = _demagic_literals(source)
 
     styles = set()
     segments = []
@@ -240,18 +269,11 @@ def parse_emphasis(source):
         append(pos, end)
         pos = end + 1
         magic = match.group(0)
-        if magic == Bold.start_magic:
-            styles.add(Bold)
-        elif magic == Bold.end_magic:
-            styles.remove(Bold)
-        elif magic == Italic.start_magic:
-            styles.add(Italic)
-        elif magic == Italic.end_magic:
-            styles.remove(Italic)
-        elif magic == Underline.start_magic:
-            styles.add(Underline)
-        elif magic == Underline.end_magic:
-            styles.remove(Underline)
+        for style in all_styles:
+            if magic == style.start_magic:
+                styles.add(style)
+            elif magic == style.end_magic:
+                styles.remove(style)
     append(pos, len(source))
 
     return RichString(*segments)

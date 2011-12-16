@@ -199,3 +199,9 @@ class ParseEmphasisTests(unittest2.TestCase):
             parse_emphasis('**first** **second**'),
             bold('first') + plain(' ') + bold('second')
         )
+
+    def test_escaping_star_creates_a_literal_star(self):
+        self.assertEquals(
+            parse_emphasis(r'\*hello*'),
+            plain('*hello*')
+        )
