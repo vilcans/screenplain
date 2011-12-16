@@ -67,6 +67,7 @@ def _to_rich(line_list):
 
 
 def create_paragraph(blanks_before, line_list):
+    first_line = line_list[0]
     if is_slug(blanks_before, line_list):
         return Slug(_to_rich(line_list)[0])
     elif all(centered_re.match(line) for line in line_list):
@@ -75,17 +76,20 @@ def create_paragraph(blanks_before, line_list):
         ), centered=True)
     elif (
         len(line_list) > 1 and
-        line_list[0].isupper() and
-        not line_list[0].endswith(TWOSPACE)
+        first_line.isupper() and
+        not first_line.endswith(TWOSPACE)
     ):
         return _create_dialog(line_list)
     elif (
-        len(line_list) == 1 and
-        line_list[0].endswith(':') and line_list[0].isupper()
+        len(line_list) == 1 and first_line.isupper()
+        and (first_line.endswith(':') or first_line.startswith('>'))
     ):
         # Assume this is a transition. It may be changed to Action
         # later if we find that it's not followed by a slug.
-        return Transition(_to_rich(line_list)[0])
+        if first_line.startswith('>'):
+            return Transition(_to_rich([first_line[1:]])[0])
+        else:
+            return Transition(_to_rich([first_line])[0])
     else:
         return Action(_to_rich(line_list))
 

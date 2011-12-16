@@ -190,6 +190,27 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Action, Action], [type(p) for p in paras])
 
+    def test_greater_than_sign_means_transition(self):
+        paras = list(parse([
+            'Bill blows out the match.',
+            '',
+            '> FADE OUT.',
+            '',
+            '',
+            'DARKNESS',
+        ]))
+        self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
+        self.assertEquals(plain('FADE OUT.'), paras[1].line)
+
+    def test_transition_at_end(self):
+        paras = list(parse([
+            'They stroll hand in hand down the street.',
+            '',
+            '> FADE OUT.',
+        ]))
+        self.assertEquals([Action, Transition], [type(p) for p in paras])
+        self.assertEquals(plain('FADE OUT.'), paras[1].line)
+
     def test_multiline_paragraph(self):
         """Check that we don't join lines like Markdown does.
         """
