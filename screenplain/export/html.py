@@ -12,15 +12,6 @@ import os.path
 from screenplain.types import *
 
 
-types = {
-    Slug: 'slug',
-    Dialog: 'dialog',
-    DualDialog: 'dual',
-    Action: 'action',
-    Transition: 'transition',
-}
-
-
 class tags(object):
     """Handler for automatically opening and closing tags.
 
@@ -56,7 +47,10 @@ class tags(object):
 
 
 def to_html(text):
-    return re.sub('  ', '&nbsp; ', text.to_html())
+    html = text.to_html()
+    if html == '':
+        return '&nbsp;'
+    return re.sub('  ', '&nbsp; ', html)
 
 
 def format_dialog(dialog, out):
@@ -161,7 +155,6 @@ def convert_bare(screenplay, out):
     """
     for para in screenplay:
         if isinstance(para, Slug):
-            # Slugs are h2 tags not inside a div
             format_slug(para, out)
         elif isinstance(para, Action):
             format_action(para, out)
