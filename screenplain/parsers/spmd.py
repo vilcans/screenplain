@@ -24,10 +24,7 @@ slug_prefixes = (
 TWOSPACE = ' ' * 2
 
 centered_re = re.compile(r'\s*>\s*(.*)\s*<\s*$')
-
-
-def is_blank(string):
-    return string == '' or string.isspace() and string != TWOSPACE
+preprocess_re = re.compile(r'^(\s*)(.*?)([ \t]*)[\r\n]*$')
 
 
 def is_slug(blanks_before, line_list):
@@ -94,29 +91,49 @@ def create_paragraph(blanks_before, line_list):
         return Action(_to_rich(line_list))
 
 
-def clean_line(line):
-    """Strips leading whitespace and trailing end of line characters
-    in a string.
+def _preprocess_line(raw_line):
+    """Splits a line into leading spaces, text content, and trailing spaces.
 
-    Leading whitespace is insignificant in SPMD, and trailing EOL
-    appear when reading from a file or HTML form.
+    >>> _preprocess_line('  foo  ')
+    ('  ', 'foo', '  ')
+
+    For a blank line, the trailing spaces will be returned as trailing
+    whitespace:
+
+    >>> _preprocess_line('   ')
+    ('', '', '   ')
     """
-    stripped = line.rstrip('\r\n')
-    if line == '  ':
-        return line
-    return line.lstrip()
+    line = raw_line.expandtabs(4)
+    leading, text, trailing = preprocess_re.match(line).groups()
+    if not text:
+        trailing = leading
+        leading = ''
+    return leading, text, trailing
+
+
+def _is_blank(preprocessed_line):
+    leading, text, trailing = preprocessed_line
+    return not text and not trailing
 
 
 def parse(source):
     """Reads raw text input and generates paragraph objects."""
     blank_count = 0
-    source = (clean_line(line) for line in source)
+    source = (_preprocess_line(line) for line in source)
     paragraphs = []
-    for blank, lines in itertools.groupby(source, is_blank):
+    for blank, preprocessed_lines in itertools.groupby(source, _is_blank):
         if blank:
-            blank_count = len(list(lines))
+            blank_count = sum(1 for line in preprocessed_lines)
         else:
-            paragraphs.append(create_paragraph(blank_count, list(lines)))
+            paragraphs.append(
+                create_paragraph(
+                    blank_count,
+                    [
+                        text + trailing
+                        for (leading, text, trailing) in preprocessed_lines
+                    ]
+                )
+            )
 
     # Make a second pass over the script and replace transitions not
     # followed by sluglines with action.
