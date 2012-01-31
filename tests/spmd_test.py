@@ -43,14 +43,24 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action], [type(p) for p in paras])
 
-    def test_two_lines_creates_a_slug(self):
+    def test_two_lines_creates_no_slug(self):
         types = [type(p) for p in parse([
             '',
             '',
             'This is a slug',
             '',
         ])]
-        self.assertEquals([Slug], types)
+        # This used to be Slug. Changed in the Jan 2012 version of the spec.
+        self.assertEquals([Action], types)
+
+    def test_period_creates_slug(self):
+        paras = parse([
+            '.SNIPER SCOPE POV',
+            '',
+        ])
+        self.assertEquals(1, len(paras))
+        self.assertEquals(Slug, type(paras[0]))
+        self.assertEquals(plain('SNIPER SCOPE POV'), paras[0].line)
 
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
@@ -196,8 +206,7 @@ class ParseTests(unittest2.TestCase):
             '',
             '> FADE OUT.',
             '',
-            '',
-            'DARKNESS',
+            '.DARKNESS',
         ]))
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
