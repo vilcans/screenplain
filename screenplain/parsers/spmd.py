@@ -141,10 +141,4 @@ def parse(source):
                 )
             )
 
-    # Make a second pass over the script and replace transitions not
-    # followed by sluglines with action.
-    for i in xrange(len(paragraphs) - 1):
-        if (isinstance(paragraphs[i], Transition) and
-            not isinstance(paragraphs[i + 1], Slug)):
-            paragraphs[i] = Action(paragraphs[i].lines)
     return paragraphs

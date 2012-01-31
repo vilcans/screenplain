@@ -190,7 +190,8 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
 
-    def test_transition_must_be_followed_by_slug(self):
+    def test_transition_does_not_have_to_be_followed_by_slug(self):
+        # The "followed by slug" requirement is gone from the Jan 2012 spec
         paras = list(parse([
             'Bill lights a cigarette.',
             '',
@@ -198,7 +199,10 @@ class ParseTests(unittest2.TestCase):
             '',
             'SOME GUY mowing the lawn.',
         ]))
-        self.assertEquals([Action, Action, Action], [type(p) for p in paras])
+        self.assertEquals(
+            [Action, Transition, Action],
+            [type(p) for p in paras]
+        )
 
     def test_greater_than_sign_means_transition(self):
         paras = list(parse([
@@ -210,6 +214,16 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
+
+    def test_centered_text_is_not_parsed_as_transition(self):
+        paras = list(parse([
+            'Bill blows out the match.',
+            '',
+            '> THE END. <',
+            '',
+            'bye!'
+        ]))
+        self.assertEquals([Action, Action, Action], [type(p) for p in paras])
 
     def test_transition_at_end(self):
         paras = list(parse([
