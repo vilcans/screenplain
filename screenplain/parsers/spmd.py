@@ -24,7 +24,7 @@ slug_prefixes = (
 TWOSPACE = ' ' * 2
 
 centered_re = re.compile(r'\s*>\s*(.*)\s*<\s*$')
-preprocess_re = re.compile(r'^(\s*)(.*?)([ \t]*)[\r\n]*$')
+preprocess_re = re.compile(r'^([ \t]*)(.*?)([ \t]*)[\r\n]*$')
 
 
 def is_slug(blanks_before, line_list):
