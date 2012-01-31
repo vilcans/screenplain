@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+
+  <Content>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. SOMEWHERE - DAY</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>GUY and GURL walks down the street.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>GUY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>So what's up?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>GURL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nothing much.</Text>
+    </Paragraph>
+  </Content>
+</FinalDraft>
