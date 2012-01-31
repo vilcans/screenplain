@@ -18,8 +18,10 @@ them on devices such as tablets and phones. No need for specific screenwriting
 software.
 
 The magic that Screenplain performs is to take your plain text file and
-convert it to a good looking PDF in standard screenplay format. Send that file
-off to your producer, agent, director or screenwriting competition.
+convert it to a good looking screenplay in an industry standard format.
+Send that file off to your producer, agent, director or screenwriting
+competition. Currently, the supported output formats are FDX and HTML.
+PDF will hopefully be supported in a not too distant future.
 
 An [Online version of Screenplain](http://screenplain.appspot.com) is
 available, running on Google App Engine.
