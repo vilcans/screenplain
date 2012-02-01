@@ -234,28 +234,22 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action, Transition], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
 
-    def test_multiline_paragraph(self):
-        """Check that we don't join lines like Markdown does.
-        """
+    def test_action_preserves_leading_whitespace(self):
         paras = list(parse([
-            'They drink long and well from the beers.',
+            'hello',
             '',
-            "And then there's a long beat.",
-            "Longer than is funny. ",
-            "   Long enough to be depressing.",
-            '',
-            'The men look at each other.',
+            '  two spaces',
+            '   three spaces ',
         ]))
-        self.assertEquals([Action, Action, Action], [type(p) for p in paras])
+        self.assertEquals([Action, Action], [type(p) for p in paras])
         self.assertEquals(
             [
-                plain("And then there's a long beat."),
-                plain("Longer than is funny."),
-                plain("Long enough to be depressing."),
+                plain(u'  two spaces'),
+                plain(u'   three spaces'),
             ], paras[1].lines
         )
 
-    def test_multiline_dialog(self):
+    def test_leading_and_trailing_spaces_in_dialog(self):
         paras = list(parse([
             'JULIET',
             'O Romeo, Romeo! wherefore art thou Romeo?',
@@ -265,10 +259,10 @@ class ParseTests(unittest2.TestCase):
         ]))
         self.assertEquals([Dialog], [type(p) for p in paras])
         self.assertEquals([
-            (False, plain('O Romeo, Romeo! wherefore art thou Romeo?')),
-            (False, plain('Deny thy father and refuse thy name;')),
-            (False, plain('Or, if thou wilt not, be but sworn my love,')),
-            (False, plain("And I'll no longer be a Capulet.")),
+            (False, plain(u'O Romeo, Romeo! wherefore art thou Romeo?')),
+            (False, plain(u'Deny thy father and refuse thy name;')),
+            (False, plain(u'Or, if thou wilt not, be but sworn my love,')),
+            (False, plain(u"And I'll no longer be a Capulet.")),
         ], paras[0].blocks)
 
     def test_single_centered_line(self):
