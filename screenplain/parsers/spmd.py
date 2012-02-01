@@ -41,8 +41,7 @@ def _to_rich(line_or_line_list):
 
 
 class InputParagraph(object):
-    def __init__(self, blanks_before, lines):
-        self.blanks_before = 0
+    def __init__(self, lines):
         self.lines = lines
 
     def update_list(self, previous_paragraphs):
@@ -142,14 +141,11 @@ def _is_blank(line):
 
 def parse(source):
     """Reads raw text input and generates paragraph objects."""
-    blank_count = 0
     source = (_preprocess_line(line) for line in source)
     paragraphs = []
     for blank, input_lines in itertools.groupby(source, _is_blank):
-        if blank:
-            blank_count = sum(1 for line in input_lines)
-        else:
-            paragraph = InputParagraph(blank_count, list(input_lines))
+        if not blank:
+            paragraph = InputParagraph(list(input_lines))
             paragraph.update_list(paragraphs)
 
     return paragraphs
