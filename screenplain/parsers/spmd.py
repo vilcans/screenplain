@@ -25,6 +25,7 @@ TWOSPACE = ' ' * 2
 
 centered_re = re.compile(r'\s*>\s*(.*)\s*<\s*$')
 preprocess_re = re.compile(r'^([ \t]*)(.*?)([ \t]*)[\r\n]*$')
+dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
 
 
 def is_slug(blanks_before, line_list):
@@ -42,26 +43,22 @@ def _create_slug(line):
     return Slug(_to_rich([line])[0])
 
 
-def _create_dialog(line_list):
-    dual_index = None
-    try:
-        dual_index = line_list.index('||', 0, len(line_list) - 1)
-    except ValueError:
-        return Dialog(
-            parse_emphasis(line_list[0]),
-            _to_rich(line_list[1:])
-        )
-    else:
-        return DualDialog(
-            # character1
-            parse_emphasis(line_list[0].strip()),
-            # lines1
-            _to_rich(line_list[1:dual_index]),
-            # character2
-            parse_emphasis(line_list[dual_index + 1].strip()),
-            # lines2
-            _to_rich(line_list[dual_index + 2:])
-        )
+def _create_dialog(line_list, previous_paragraphs):
+
+    if previous_paragraphs and isinstance(previous_paragraphs[-1], Dialog):
+        dual_match = dual_dialog_re.match(line_list[0])
+        if dual_match:
+            previous = previous_paragraphs.pop()
+            dialog = Dialog(
+                parse_emphasis(dual_match.group(1)),
+                _to_rich(line_list[1:])
+            )
+            return DualDialog(previous, dialog)
+
+    return Dialog(
+        parse_emphasis(line_list[0]),
+        _to_rich(line_list[1:])
+    )
 
 
 def _to_rich(line_list):
@@ -69,7 +66,7 @@ def _to_rich(line_list):
     return [parse_emphasis(line.strip()) for line in line_list]
 
 
-def create_paragraph(blanks_before, line_list):
+def create_paragraph(blanks_before, line_list, previous_paragraphs):
     first_line = line_list[0]
     if is_slug(blanks_before, line_list):
         return _create_slug(line_list[0])
@@ -82,13 +79,11 @@ def create_paragraph(blanks_before, line_list):
         first_line.isupper() and
         not first_line.endswith(TWOSPACE)
     ):
-        return _create_dialog(line_list)
+        return _create_dialog(line_list, previous_paragraphs)
     elif (
         len(line_list) == 1 and first_line.isupper()
         and (first_line.endswith(':') or first_line.startswith('>'))
     ):
-        # Assume this is a transition. It may be changed to Action
-        # later if we find that it's not followed by a slug.
         if first_line.startswith('>'):
             return Transition(_to_rich([first_line[1:]])[0])
         else:
@@ -131,14 +126,14 @@ def parse(source):
         if blank:
             blank_count = sum(1 for line in preprocessed_lines)
         else:
-            paragraphs.append(
-                create_paragraph(
-                    blank_count,
-                    [
-                        text + trailing
-                        for (leading, text, trailing) in preprocessed_lines
-                    ]
-                )
+            paragraph = create_paragraph(
+                blank_count,
+                [
+                    text + trailing
+                    for (leading, text, trailing) in preprocessed_lines
+                ],
+                paragraphs
             )
+            paragraphs.append(paragraph)
 
     return paragraphs

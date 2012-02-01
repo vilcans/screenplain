@@ -34,9 +34,9 @@ class Dialog(object):
 
 
 class DualDialog(object):
-    def __init__(self, character1, lines1, character2, lines2):
-        self.left = Dialog(character1, lines1)
-        self.right = Dialog(character2, lines2)
+    def __init__(self, left_dialog, right_dialog):
+        self.left = left_dialog
+        self.right = right_dialog
 
 
 class Action(object):
