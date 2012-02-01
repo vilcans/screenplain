@@ -13,6 +13,7 @@ from screenplain.main import main
 
 source_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'files'))
 
+
 def read_file(path):
     with open(path) as stream:
         return stream.read()
@@ -23,7 +24,7 @@ class ParseTests(unittest2.TestCase):
     """
 
     maxDiff = None
-    
+
     def setUp(self):
         self.dir = tempfile.mkdtemp()
 
