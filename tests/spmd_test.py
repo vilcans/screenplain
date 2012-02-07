@@ -72,9 +72,13 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals(plain('42'), paras[0].scene_number)
         self.assertEquals(plain('INT ROOM #237'), paras[0].line)
 
-    def test_scene_number_can_be_styled(self):
+    def test_scene_number_must_be_alphanumeric(self):
         paras = parse(['.SOMEWHERE #*HELLO*#'])
-        self.assertEquals(italic('HELLO'), paras[0].scene_number)
+        self.assertIsNone(paras[0].scene_number)
+        self.assertEquals(
+            (plain)(u'SOMEWHERE #') + (italic)(u'HELLO') + (plain)(u'#'),
+            paras[0].line
+        )
 
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.

@@ -8,7 +8,7 @@ import re
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition
 )
-from screenplain.richstring import parse_emphasis
+from screenplain.richstring import parse_emphasis, plain
 
 slug_regexes = (
     re.compile(r'^(INT|EXT|EST)[ .]'),
@@ -21,7 +21,7 @@ TWOSPACE = ' ' * 2
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
 slug_re = re.compile(r'(?:(\.)\s*)?(\S.*?)\s*$')
-scene_number_re = re.compile(r'(.*?)\s*(?:#([^#]+)#)\s*$')
+scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
 transition_re = re.compile(r'(>?)\s*(.+?)(:?)$')
 
 
@@ -68,7 +68,7 @@ class InputParagraph(object):
         match = scene_number_re.match(text)
         if match:
             text, scene_number = match.groups()
-            return Slug(_to_rich(text), _to_rich(scene_number))
+            return Slug(_to_rich(text), plain(scene_number))
         else:
             return Slug(_to_rich(text))
 
