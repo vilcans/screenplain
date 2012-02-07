@@ -81,8 +81,15 @@ def _write_dialog_block(dialog, out):
 
 
 def format_slug(slug, out):
+    num = slug.scene_number
     with tags(out, 'h2'):
+        if num:
+            with tags(out, 'span class="scnuml"'):
+                out.write(to_html(slug.scene_number))
         out.write(to_html(slug.line))
+        if num:
+            with tags(out, 'span class="scnumr"'):
+                out.write(to_html(slug.scene_number))
 
 
 def format_action(para, out):

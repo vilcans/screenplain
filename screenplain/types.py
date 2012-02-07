@@ -9,8 +9,14 @@ class Slug(object):
     indent = ''
     top_margin = 1
 
-    def __init__(self, line):
+    def __init__(self, line, scene_number=None):
+        """Creates a scene heading (slug).
+        The line parameter is a RichString with the slugline.
+        The scene_number parameter is an optional RichString.
+
+        """
         self.line = line
+        self.scene_number = scene_number
 
     @property
     def lines(self):

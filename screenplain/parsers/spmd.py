@@ -10,15 +10,10 @@ from screenplain.types import (
 )
 from screenplain.richstring import parse_emphasis
 
-slug_prefixes = (
-    'INT. ',
-    'EXT. ',
-    'INT./EXT. ',
-    'INT/EXT. ',
-    'INT ',
-    'EXT ',
-    'INT/EXT ',
-    'I/E ',
+slug_regexes = (
+    re.compile(r'^(INT|EXT|EST)[ .]'),
+    re.compile(r'^(INT\.?/EXT\.?)[ .]'),
+    re.compile(r'^I/E[ .]'),
 )
 
 TWOSPACE = ' ' * 2
@@ -26,6 +21,7 @@ TWOSPACE = ' ' * 2
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
 slug_re = re.compile(r'(?:(\.)\s*)?(\S.*?)\s*$')
+scene_number_re = re.compile(r'(.*?)\s*(?:#([^#]+)#)\s*$')
 transition_re = re.compile(r'(>?)\s*(.+?)(:?)$')
 
 
@@ -62,17 +58,19 @@ class InputParagraph(object):
 
         match = slug_re.match(self.lines[0])
         if not match:
-            return
-
-        period, text = match.groups()
-        if period:
-            return Slug(_to_rich(text.upper()))
-
-        upper = text.upper()
-        if not any(upper.startswith(s) for s in slug_prefixes):
             return None
 
-        return Slug(_to_rich(upper))
+        period, text = match.groups()
+        text = text.upper()
+        if not period and not any(regex.match(text) for regex in slug_regexes):
+            return None
+
+        match = scene_number_re.match(text)
+        if match:
+            text, scene_number = match.groups()
+            return Slug(_to_rich(text), _to_rich(scene_number))
+        else:
+            return Slug(_to_rich(text))
 
     def as_centered_action(self):
         if not all(centered_re.match(line) for line in self.lines):

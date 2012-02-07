@@ -5,7 +5,7 @@
 import unittest2
 from screenplain.parsers.spmd import parse
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
-from screenplain.richstring import plain, empty_string
+from screenplain.richstring import plain, italic, empty_string
 
 
 class ParseTests(unittest2.TestCase):
@@ -61,6 +61,20 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals(1, len(paras))
         self.assertEquals(Slug, type(paras[0]))
         self.assertEquals(plain('SNIPER SCOPE POV'), paras[0].line)
+
+    def test_scene_number_is_parsed(self):
+        paras = parse(['EXT SOMEWHERE - DAY #42#'])
+        self.assertEquals(plain('EXT SOMEWHERE - DAY'), paras[0].line)
+        self.assertEquals(plain('42'), paras[0].scene_number)
+
+    def test_only_last_two_hashes_in_slug_used_for_scene_number(self):
+        paras = parse(['INT ROOM #237 #42#'])
+        self.assertEquals(plain('42'), paras[0].scene_number)
+        self.assertEquals(plain('INT ROOM #237'), paras[0].line)
+
+    def test_scene_number_can_be_styled(self):
+        paras = parse(['.SOMEWHERE #*HELLO*#'])
+        self.assertEquals(italic('HELLO'), paras[0].scene_number)
 
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
