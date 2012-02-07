@@ -40,7 +40,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 /* Slug */
-.screenplay > h2 {
+.screenplay > h6 {
   width:36.14em;
   margin-top: 2em;
   font-weight: bold;
