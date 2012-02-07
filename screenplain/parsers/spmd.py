@@ -6,7 +6,7 @@ import itertools
 import re
 
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition
+    Slug, Action, Dialog, DualDialog, Transition, Section
 )
 from screenplain.richstring import parse_emphasis, plain
 
@@ -22,6 +22,7 @@ centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
 slug_re = re.compile(r'(?:(\.)\s*)?(\S.*?)\s*$')
 scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
+section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
 transition_re = re.compile(r'(>?)\s*(.+?)(:?)$')
 
 
@@ -45,6 +46,7 @@ class InputParagraph(object):
         Modifies the `previous_paragraphs` list.
         """
         previous_paragraphs.append(
+            self.as_section() or
             self.as_slug() or
             self.as_centered_action() or
             self.as_dialog(previous_paragraphs) or
@@ -71,6 +73,17 @@ class InputParagraph(object):
             return Slug(_to_rich(text), plain(scene_number))
         else:
             return Slug(_to_rich(text))
+
+    def as_section(self):
+        if len(self.lines) != 1:
+            return None
+
+        match = section_re.match(self.lines[0])
+        if not match:
+            return None
+
+        hashes, text = match.groups()
+        return Section(_to_rich(text), len(hashes))
 
     def as_centered_action(self):
         if not all(centered_re.match(line) for line in self.lines):

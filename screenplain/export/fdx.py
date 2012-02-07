@@ -91,7 +91,9 @@ def to_fdx(screenplay, out):
         elif isinstance(para, Transition):
             write_paragraph(out, 'Transition', para.lines)
         else:
-            raise RuntimeError('Unknown type: %s' % type(para))
+            # Ignore unknown types
+            pass
+
     out.write(
         '  </Content>\n'
         '</FinalDraft>\n'

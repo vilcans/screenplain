@@ -92,6 +92,11 @@ def format_slug(slug, out):
                 out.write(to_html(slug.scene_number))
 
 
+def format_section(section, out):
+    with tags(out, 'h%d' % section.level):
+        out.write(to_html(section.text))
+
+
 def format_action(para, out):
     if para.centered:
         tag = 'div class="action centered"'
@@ -153,6 +158,15 @@ def convert_full(screenplay, out):
         '</html>\n'
     )
 
+_format_functions = {
+    Slug: format_slug,
+    Action: format_action,
+    Dialog: format_dialog,
+    DualDialog: format_dual,
+    Transition: format_transition,
+    Section: format_section,
+}
+
 
 def convert_bare(screenplay, out):
     """Convert the screenplay into HTML, written to the file-like object `out`.
@@ -161,16 +175,7 @@ def convert_bare(screenplay, out):
 
     """
     for para in screenplay:
-        if isinstance(para, Slug):
-            format_slug(para, out)
-        elif isinstance(para, Action):
-            format_action(para, out)
-        elif isinstance(para, Dialog):
-            format_dialog(para, out)
-        elif isinstance(para, DualDialog):
-            format_dual(para, out)
-        elif isinstance(para, Transition):
-            format_transition(para, out)
-        else:
-            assert False, 'Unknown type: %s' % type(para)
-        out.write('\n')
+        format_function = _format_functions.get(type(para), None)
+        if format_function:
+            format_function(para, out)
+            out.write('\n')

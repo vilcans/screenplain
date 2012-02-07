@@ -64,3 +64,9 @@ class ParseTests(unittest2.TestCase):
             'scene-numbers.spmd', 'scene-numbers.html',
             'scene-numbers.spmd.html', '--bare')
         self.assertMultiLineEqual(expected, actual)
+
+    def test_sections(self):
+        actual, expected = self.convert(
+            'sections.spmd', 'sections.html',
+            'sections.spmd.html', '--bare')
+        self.assertMultiLineEqual(expected, actual)

@@ -6,8 +6,6 @@ import textwrap
 
 
 class Slug(object):
-    indent = ''
-    top_margin = 1
 
     def __init__(self, line, scene_number=None):
         """Creates a scene heading (slug).
@@ -21,6 +19,13 @@ class Slug(object):
     @property
     def lines(self):
         return [self.line]
+
+
+class Section(object):
+    """A section heading."""
+    def __init__(self, text, level):
+        self.text = text
+        self.level = level
 
 
 class Dialog(object):

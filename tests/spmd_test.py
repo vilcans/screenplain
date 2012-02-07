@@ -4,7 +4,9 @@
 
 import unittest2
 from screenplain.parsers.spmd import parse
-from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
+from screenplain.types import (
+    Slug, Action, Dialog, DualDialog, Transition, Section
+)
 from screenplain.richstring import plain, italic, empty_string
 
 
@@ -79,6 +81,18 @@ class ParseTests(unittest2.TestCase):
             (plain)(u'SOMEWHERE #') + (italic)(u'HELLO') + (plain)(u'#'),
             paras[0].line
         )
+
+    def test_section_parsed_correctly(self):
+        paras = parse([
+            '# first level',
+            '',
+            '## second level',
+        ])
+        self.assertEquals([Section, Section], [type(p) for p in paras])
+        self.assertEquals(1, paras[0].level)
+        self.assertEquals(plain('first level'), paras[0].text)
+        self.assertEquals(2, paras[1].level)
+        self.assertEquals(plain('second level'), paras[1].text)
 
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
