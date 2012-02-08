@@ -11,7 +11,8 @@ tools just because you're writing a screenplay instead of a shell script.
 
 Enter Screenplain.
 
-Screenplain allows you to write a screenplay as a plain text file. Text files
+Screenplain allows you to write a screenplay as a plain text file using
+a format called [Fountain](http://fountain.io). Text files
 are simple and supported by all text manipulation software. It's not just for
 hackers, too. The simplicity of plain text allows you to easily view and edit
 them on devices such as tablets and phones. No need for specific screenwriting
@@ -23,25 +24,27 @@ Send that file off to your producer, agent, director or screenwriting
 competition. Currently, the supported output formats are FDX and HTML.
 PDF will hopefully be supported in a not too distant future.
 
-An [Online version of Screenplain](http://screenplain.appspot.com) is
-available, running on Google App Engine.
+Screenplain can be used as a command-line application or a library.
+An [Online version of Screenplain](http://www.screenplain.com) is also
+available.
 
 Note that Screenplain is under development and is missing features and
-the master branch may not always work.
+the master branch may not always work. I'm currently working on supporting
+the whole [Fountain](http://fountain.io) specification. (Fountain
+was previously known as "Screenplay Markdown" or "SPMD.")
 
-Thanks for the inspiration goes to:
+Credits
+=======
 
-  * [Stu Maschwitz](http://prolost.com) for the [Screenplay Markdown](http://prolost.com/spmd)
-    post that got me around to actually publish this work when far from finished.
-  * [John August](http://johnaugust.com/) for the [Scrippets](http://scrippets.org/) project.
-    The idea for that is similar, as it converts plain text to a formatted output. The focus of
-    Scrippets is on presenting snippets of screenplays online, specificially in blog posts and
-    comments. Screenplain's format is similar to Scrippets.
+Screenplain was coded by [Martin Vilcans](http://www.librador.com).
 
-Input format
-============
+The CSS code that formats Screenplain's HTML output as something that
+looks as much as a printed screenplay as is possible in HTML was
+created by [Jonathan Poritsky](http://www.candlerblog.com/).
 
-The input to Screenplain is *Screenplay Markdown* as [proposed by Stu Maschwitz](http://prolost.com/storage/downloads/spmd/SPMD_proposal.html).
+The [Fountain](http://fountain.io) file format is the result of a
+collaboration between [Stu Maschwitz](http://prolost.com) and
+[John August](http://johnaugust.com/).
 
 
 License
@@ -53,12 +56,13 @@ Screenplain is released under the [MIT license](http://www.opensource.org/licens
 Developing
 ==========
 
-As it should run under Google App Engine, Screenplain should be
+As it was designed to run under Google App Engine, Screenplain should be
 compatible with Python 2.5. Use that version for development to make
 sure it works. Python 2.5 is no longer available in Ubuntu at least,
 but see
 [this link](http://kovshenin.com/archives/installing-python-2-5-on-ubuntu-linux-10-10/)
-about how to install it.
+about how to install it. The Python 2.5 requirement may be relaxed
+as the online version no longer uses GAE.
 
 To install reportlab, you'll need Python's development files. In
 Ubuntu, just do
@@ -69,4 +73,3 @@ Set up environment using virtualenvwrapper:
 
     mkvirtualenv -p python2.5 --no-site-packages screenplain
     pip install -r requirements.txt
-
