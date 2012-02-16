@@ -3,6 +3,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import itertools
+from itertools import takewhile
 import re
 
 from screenplain.types import (
@@ -17,6 +18,9 @@ slug_regexes = (
 )
 
 TWOSPACE = ' ' * 2
+
+title_page_key_re = re.compile(r'([^:]+):\s*(.*)')
+title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
 
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
@@ -153,6 +157,24 @@ def _is_blank(line):
 def parse(source):
     """Reads raw text input and generates paragraph objects."""
     source = (_preprocess_line(line) for line in source)
+
+    title_page_lines = list(takewhile(lambda line: line != '', source))
+    title_page = parse_title_page(title_page_lines)
+
+    if title_page:
+        # The first lines were a title page.
+        # Parse the rest of the source as screenplay body.
+        # TODO: Create a title page from the data in title_page
+        return parse_body(source)
+    else:
+        # The first lines were not a title page.
+        # Parse them as part of the screenplay body.
+        return parse_body(itertools.chain(title_page_lines, [''], source))
+
+
+def parse_body(source):
+    """Reads lines of the main screenplay and generates paragraph objects."""
+
     paragraphs = []
     for blank, input_lines in itertools.groupby(source, _is_blank):
         if not blank:
@@ -160,3 +182,32 @@ def parse(source):
             paragraph.update_list(paragraphs)
 
     return paragraphs
+
+def parse_title_page(lines):
+
+    result = {}
+
+    it = iter(lines)
+    try:
+        line = it.next()
+        while True:
+            key_match = title_page_key_re.match(line)
+            if not key_match:
+                return None
+            key, value = key_match.groups()
+            if value:
+                # Single line key/value
+                result.setdefault(key, []).append(value)
+                line = it.next()
+            else:
+                for line in it:
+                    value_match = title_page_value_re.match(line)
+                    if not value_match:
+                        break
+                    result.setdefault(key, []).append(value_match.group(1))
+                else:
+                    # Last line has been processed
+                    break
+    except StopIteration:
+        pass
+    return result

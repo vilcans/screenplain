@@ -4,6 +4,7 @@
 
 import unittest2
 from screenplain.parsers.spmd import parse
+from screenplain.parsers import spmd
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section
 )
@@ -12,11 +13,6 @@ from screenplain.richstring import plain, italic, empty_string
 
 class ParseTests(unittest2.TestCase):
 
-    # A Scene Heading, or "slugline," is any line that has a blank
-    # line following it, and either begins with INT or EXT, or has
-    # two empty lines preceding it. A Scene Heading always has at
-    # least one blank line preceding it.
-    # NOTE: Actually the list used in Appendix 1
     def test_slug_with_prefix(self):
         paras = list(parse([
             'INT. SOMEWHERE - DAY',
@@ -336,6 +332,58 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertFalse(paras[0].centered)
         self.assertEquals([plain(line) for line in lines], paras[0].lines)
+
+class TitlePageTests(unittest2.TestCase):
+
+    def test_basic_title_page(self):
+        lines = [
+            'Title:',
+            '    _**BRICK & STEEL**_',
+            '    _**FULL RETIRED**_',
+            'Author: Stu Maschwitz',
+        ]
+        self.assertDictEqual(
+            {
+                'Title': ['_**BRICK & STEEL**_', '_**FULL RETIRED**_'],
+                'Author': ['Stu Maschwitz'],
+            },
+            spmd.parse_title_page(lines)
+        )
+
+    def test_multiple_values(self):
+        lines = [
+            'Title: Death',
+            'Title: - a love story',
+            'Title:',
+            '   (which happens to be true)',
+        ]
+        self.assertDictEqual(
+            {
+                'Title': [
+                    'Death',
+                    '- a love story',
+                    '(which happens to be true)'
+                ]
+            },
+            spmd.parse_title_page(lines)
+        )
+
+    def test_empty_value_ignored(self):
+        lines = [
+            'Title:',
+            'Author: John August',
+        ]
+        self.assertDictEqual(
+            {'Author': ['John August']},
+            spmd.parse_title_page(lines)
+        )
+
+    def test_unparsable_title_page_returns_none(self):
+        lines = [
+            'Title: Inception',
+            '    additional line',
+        ]
+        self.assertIsNone(spmd.parse_title_page(lines))
 
 if __name__ == '__main__':
     unittest2.main()
