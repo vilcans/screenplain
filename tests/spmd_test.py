@@ -333,6 +333,44 @@ class ParseTests(unittest2.TestCase):
         self.assertFalse(paras[0].centered)
         self.assertEquals([plain(line) for line in lines], paras[0].lines)
 
+    def test_synopsis_after_slug_adds_synopsis_to_scene(self):
+        paras = list(parse([
+            "EXT. BRICK'S PATIO - DAY",
+            '',
+            "= Set up Brick & Steel's new life."
+            '',
+        ]))
+        self.assertEquals([Slug], [type(p) for p in paras])
+        self.assertEquals(
+            "Set up Brick & Steel's new life.",
+            paras[0].synopsis
+        )
+
+    def test_synopsis_in_section(self):
+        paras = list(parse([
+            '# section one',
+            '',
+            '= In which we get to know our characters'
+        ]))
+        self.assertEquals([Section], [type(p) for p in paras])
+        self.assertEquals(
+            'In which we get to know our characters',
+            paras[0].synopsis
+        )
+
+    def test_synopsis_syntax_parsed_as_literal(self):
+        paras = list(parse([
+            'Some action',
+            '',
+            '= A line that just happens to look like a synopsis'
+        ]))
+        self.assertEquals([Action, Action], [type(p) for p in paras])
+        self.assertEquals(
+            [plain('= A line that just happens to look like a synopsis')],
+            paras[1].lines
+        )
+
+
 class TitlePageTests(unittest2.TestCase):
 
     def test_basic_title_page(self):

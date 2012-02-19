@@ -20,12 +20,18 @@ class Slug(object):
     def lines(self):
         return [self.line]
 
+    def set_synopsis(self, text):
+        self.synopsis = text
+
 
 class Section(object):
     """A section heading."""
     def __init__(self, text, level):
         self.text = text
         self.level = level
+
+    def set_synopsis(self, text):
+        self.synopsis = text
 
 
 class Dialog(object):

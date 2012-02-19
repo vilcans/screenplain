@@ -50,6 +50,7 @@ class InputParagraph(object):
         Modifies the `previous_paragraphs` list.
         """
         previous_paragraphs.append(
+            self.as_synopsis(previous_paragraphs) or
             self.as_section() or
             self.as_slug() or
             self.as_centered_action() or
@@ -139,6 +140,19 @@ class InputParagraph(object):
     def as_action(self):
         return Action(_to_rich(line.rstrip() for line in self.lines))
 
+    def as_synopsis(self, previous_paragraphs):
+        if (
+            len(self.lines) == 1 and
+            self.lines[0].startswith('=') and
+            previous_paragraphs and
+            hasattr(previous_paragraphs[-1], 'set_synopsis')
+        ):
+            paragraph = previous_paragraphs.pop()
+            paragraph.set_synopsis(self.lines[0][1:].lstrip())
+            return paragraph
+        else:
+            return None
+
 
 def _preprocess_line(raw_line):
     r"""Replaces tabs with spaces and removes trailing end of line markers.
@@ -182,6 +196,7 @@ def parse_body(source):
             paragraph.update_list(paragraphs)
 
     return paragraphs
+
 
 def parse_title_page(lines):
 
