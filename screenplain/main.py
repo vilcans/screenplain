@@ -24,6 +24,12 @@ Screenplain will try to auto-detect the output format if
 an output-file is given. Otherwise use the --format option."""
 
 
+def invalid_format(parser, message):
+    parser.error(
+        '%s\nUse --format with one of the following formats: %s' %
+        (message, ' '.join(output_formats))
+    )
+
 def main(args):
     parser = OptionParser(usage=usage)
     parser.add_option(
@@ -47,19 +53,22 @@ def main(args):
     input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
     output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
 
-    if options.output_format == None and output_file:
+    format = options.output_format
+    if format is None and output_file:
         if output_file.endswith('.fdx'):
-            options.output_format = 'fdx'
+            format = 'fdx'
         elif output_file.endswith('.html'):
-            options.output_format = 'html'
+            format = 'html'
         else:
-            options.output_format = 'text'
+            invalid_format(
+                parser,
+                'Could not detect output format from file name ' + output_file
+            )
 
-    if options.output_format not in output_formats:
-        parser.error(
-            'Could not detect output format.\n'
-            'Use --format with one of the following formats: ' +
-            ' '.join(output_formats))
+    if format not in output_formats:
+        invalid_format(
+            parser, 'Unsupported output format: "%s".' % format
+        )
 
     if input_file:
         input = codecs.open(input_file, 'r', 'utf-8')
@@ -67,7 +76,7 @@ def main(args):
         input = codecs.getreader('utf-8')(sys.stdin)
     screenplay = parse(input)
 
-    if options.output_format == 'pdf':
+    if format == 'pdf':
         from screenplain.export.pdf import to_pdf
         if not output_file:
             sys.stderr.write("Can't write PDF to standard output")
@@ -79,13 +88,13 @@ def main(args):
         else:
             output = codecs.getwriter('utf-8')(sys.stdout)
         try:
-            if options.output_format == 'text':
+            if format == 'text':
                 from screenplain.export.text import to_text
                 to_text(screenplay, output)
-            elif options.output_format == 'fdx':
+            elif format == 'fdx':
                 from screenplain.export.fdx import to_fdx
                 to_fdx(screenplay, output)
-            elif options.output_format == 'html':
+            elif format == 'html':
                 from screenplain.export.html import convert
                 convert(screenplay, output, bare=options.bare)
         finally:
