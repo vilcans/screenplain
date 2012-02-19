@@ -11,8 +11,7 @@ from screenplain.types import (
 from screenplain.richstring import plain, italic, empty_string
 
 
-class ParseTests(unittest2.TestCase):
-
+class SlugTests(unittest2.TestCase):
     def test_slug_with_prefix(self):
         paras = list(parse([
             'INT. SOMEWHERE - DAY',
@@ -78,6 +77,8 @@ class ParseTests(unittest2.TestCase):
             paras[0].line
         )
 
+
+class SectionTests(unittest2.TestCase):
     def test_section_parsed_correctly(self):
         paras = parse([
             '# first level',
@@ -90,6 +91,8 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals(2, paras[1].level)
         self.assertEquals(plain('second level'), paras[1].text)
 
+
+class DialogTests(unittest2.TestCase):
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
     def test_all_caps_is_character(self):
@@ -187,8 +190,26 @@ class ParseTests(unittest2.TestCase):
             (False, plain('Nice retirement.'))
         ], dialog.blocks)
 
-    def test_standard_transition(self):
+    def test_leading_and_trailing_spaces_in_dialog(self):
+        paras = list(parse([
+            'JULIET',
+            'O Romeo, Romeo! wherefore art thou Romeo?',
+            '  Deny thy father and refuse thy name;  ',
+            'Or, if thou wilt not, be but sworn my love,',
+            " And I'll no longer be a Capulet.",
+        ]))
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals([
+            (False, plain(u'O Romeo, Romeo! wherefore art thou Romeo?')),
+            (False, plain(u'Deny thy father and refuse thy name;')),
+            (False, plain(u'Or, if thou wilt not, be but sworn my love,')),
+            (False, plain(u"And I'll no longer be a Capulet.")),
+        ], paras[0].blocks)
 
+
+class TransitionTests(unittest2.TestCase):
+
+    def test_standard_transition(self):
         paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
@@ -262,6 +283,9 @@ class ParseTests(unittest2.TestCase):
         self.assertEquals([Action, Transition], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
 
+
+class ActionTests(unittest2.TestCase):
+
     def test_action_preserves_leading_whitespace(self):
         paras = list(parse([
             'hello',
@@ -276,22 +300,6 @@ class ParseTests(unittest2.TestCase):
                 plain(u'   three spaces'),
             ], paras[1].lines
         )
-
-    def test_leading_and_trailing_spaces_in_dialog(self):
-        paras = list(parse([
-            'JULIET',
-            'O Romeo, Romeo! wherefore art thou Romeo?',
-            '  Deny thy father and refuse thy name;  ',
-            'Or, if thou wilt not, be but sworn my love,',
-            " And I'll no longer be a Capulet.",
-        ]))
-        self.assertEquals([Dialog], [type(p) for p in paras])
-        self.assertEquals([
-            (False, plain(u'O Romeo, Romeo! wherefore art thou Romeo?')),
-            (False, plain(u'Deny thy father and refuse thy name;')),
-            (False, plain(u'Or, if thou wilt not, be but sworn my love,')),
-            (False, plain(u"And I'll no longer be a Capulet.")),
-        ], paras[0].blocks)
 
     def test_single_centered_line(self):
         paras = list(parse(['> center me! <']))
@@ -333,6 +341,8 @@ class ParseTests(unittest2.TestCase):
         self.assertFalse(paras[0].centered)
         self.assertEquals([plain(line) for line in lines], paras[0].lines)
 
+
+class SynopsisTests(unittest2.TestCase):
     def test_synopsis_after_slug_adds_synopsis_to_scene(self):
         paras = list(parse([
             "EXT. BRICK'S PATIO - DAY",
