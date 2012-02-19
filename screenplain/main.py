@@ -9,7 +9,7 @@ import sys
 import codecs
 from optparse import OptionParser
 
-from screenplain.parsers.spmd import parse
+from screenplain.parsers.fountain import parse
 
 output_formats = (
     'fdx', 'html'

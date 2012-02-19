@@ -49,24 +49,24 @@ class ParseTests(unittest2.TestCase):
         expected = read_file(self.source(expected_results_file))
         return actual, expected
 
-    def test_spmd_to_fdx(self):
+    def test_fountain_to_fdx(self):
         actual, expected = self.convert(
-            'simple.spmd', 'simple.fdx', 'simple.spmd.fdx')
+            'simple.fountain', 'simple.fdx', 'simple.fountain.fdx')
         self.assertMultiLineEqual(expected, actual)
 
-    def test_spmd_to_html(self):
+    def test_fountain_to_html(self):
         actual, expected = self.convert(
-            'simple.spmd', 'simple.html', 'simple.spmd.html', '--bare')
+            'simple.fountain', 'simple.html', 'simple.fountain.html', '--bare')
         self.assertMultiLineEqual(expected, actual)
 
     def test_scene_numbers(self):
         actual, expected = self.convert(
-            'scene-numbers.spmd', 'scene-numbers.html',
-            'scene-numbers.spmd.html', '--bare')
+            'scene-numbers.fountain', 'scene-numbers.html',
+            'scene-numbers.fountain.html', '--bare')
         self.assertMultiLineEqual(expected, actual)
 
     def test_sections(self):
         actual, expected = self.convert(
-            'sections.spmd', 'sections.html',
-            'sections.spmd.html', '--bare')
+            'sections.fountain', 'sections.html',
+            'sections.fountain.html', '--bare')
         self.assertMultiLineEqual(expected, actual)

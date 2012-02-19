@@ -3,8 +3,8 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import unittest2
-from screenplain.parsers.spmd import parse
-from screenplain.parsers import spmd
+from screenplain.parsers.fountain import parse
+from screenplain.parsers import fountain
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section
 )
@@ -105,7 +105,7 @@ class DialogTests(unittest2.TestCase):
         self.assertEquals(Dialog, type(dialog))
         self.assertEquals(plain('SOME GUY'), dialog.character)
 
-    # SPMD would not be able to support a character named "23". We
+    # Fountain would not be able to support a character named "23". We
     # might need a syntax to force a character element.
     def test_nonalpha_character(self):
         paras = list(parse([
@@ -114,8 +114,6 @@ class DialogTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action], [type(p) for p in paras])
 
-    # See
-    # http://prolost.com/storage/downloads/spmd/SPMD_proposal.html#section-br
     def test_twospaced_line_is_not_character(self):
         paras = list(parse([
             'SCANNING THE AISLES...  ',
@@ -395,7 +393,7 @@ class TitlePageTests(unittest2.TestCase):
                 'Title': ['_**BRICK & STEEL**_', '_**FULL RETIRED**_'],
                 'Author': ['Stu Maschwitz'],
             },
-            spmd.parse_title_page(lines)
+            fountain.parse_title_page(lines)
         )
 
     def test_multiple_values(self):
@@ -413,7 +411,7 @@ class TitlePageTests(unittest2.TestCase):
                     '(which happens to be true)'
                 ]
             },
-            spmd.parse_title_page(lines)
+            fountain.parse_title_page(lines)
         )
 
     def test_empty_value_ignored(self):
@@ -423,7 +421,7 @@ class TitlePageTests(unittest2.TestCase):
         ]
         self.assertDictEqual(
             {'Author': ['John August']},
-            spmd.parse_title_page(lines)
+            fountain.parse_title_page(lines)
         )
 
     def test_unparsable_title_page_returns_none(self):
@@ -431,7 +429,7 @@ class TitlePageTests(unittest2.TestCase):
             'Title: Inception',
             '    additional line',
         ]
-        self.assertIsNone(spmd.parse_title_page(lines))
+        self.assertIsNone(fountain.parse_title_page(lines))
 
 if __name__ == '__main__':
     unittest2.main()
