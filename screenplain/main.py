@@ -30,6 +30,7 @@ def invalid_format(parser, message):
         (message, ' '.join(output_formats))
     )
 
+
 def main(args):
     parser = OptionParser(usage=usage)
     parser.add_option(

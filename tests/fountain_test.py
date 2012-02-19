@@ -217,6 +217,14 @@ class TransitionTests(unittest2.TestCase):
         ]))
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
 
+    def test_transition_must_end_with_to(self):
+        paras = list(parse([
+            'CUT TOO:',
+            '',
+            "EXT. BRICK'S POOL - DAY",
+        ]))
+        self.assertEquals([Action, Slug], [type(p) for p in paras])
+
     def test_transition_needs_to_be_upper_case(self):
         paras = list(parse([
             'Jack begins to argue vociferously in Vietnamese (?)',

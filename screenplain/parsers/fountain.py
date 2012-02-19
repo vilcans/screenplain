@@ -27,7 +27,7 @@ dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
 slug_re = re.compile(r'(?:(\.)\s*)?(\S.*?)\s*$')
 scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
 section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
-transition_re = re.compile(r'(>?)\s*(.+?)(:?)$')
+transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
 
 
 def _to_rich(line_or_line_list):
@@ -127,13 +127,13 @@ class InputParagraph(object):
         match = transition_re.match(self.lines[0])
         if not match:
             return None
-        greater_than, text, colon = match.groups()
+        greater_than, text, to_colon = match.groups()
 
         if greater_than:
-            return Transition(_to_rich(text.upper() + colon))
+            return Transition(_to_rich(text.upper() + (to_colon or '')))
 
-        if text.isupper() and colon:
-            return Transition(_to_rich(text + colon))
+        if text.isupper() and to_colon:
+            return Transition(_to_rich(text + to_colon))
 
         return None
 
