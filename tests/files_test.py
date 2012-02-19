@@ -70,3 +70,9 @@ class ParseTests(unittest2.TestCase):
             'sections.fountain', 'sections.html',
             'sections.fountain.html', '--bare')
         self.assertMultiLineEqual(expected, actual)
+
+    def test_boneyard(self):
+        actual, expected = self.convert(
+            'boneyard.fountain', 'sections.html',
+            'boneyard.fountain.html', '--bare')
+        self.assertMultiLineEqual(expected, actual)

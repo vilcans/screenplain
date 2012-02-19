@@ -3,12 +3,17 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import unittest2
-from screenplain.parsers.fountain import parse
 from screenplain.parsers import fountain
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section
 )
 from screenplain.richstring import plain, italic, empty_string
+from StringIO import StringIO
+
+
+def parse(lines):
+    content = '\n'.join(lines)
+    return fountain.parse(StringIO(content))
 
 
 class SlugTests(unittest2.TestCase):

@@ -17,7 +17,11 @@ slug_regexes = (
     re.compile(r'^I/E[ .]'),
 )
 
+boneyard_re = re.compile(r'/\*.*?\*/', flags=re.DOTALL)
+
 TWOSPACE = ' ' * 2
+
+linebreak_re = re.compile('\r\n|\n|\r')
 
 title_page_key_re = re.compile(r'([^:]+):\s*(.*)')
 title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
@@ -168,8 +172,17 @@ def _is_blank(line):
     return line == ''
 
 
-def parse(source):
+def parse(stream):
+    content = stream.read()
+    content = boneyard_re.sub('', content)
+    lines = linebreak_re.split(content)
+    del content
+    return parse_lines(lines)
+
+
+def parse_lines(source):
     """Reads raw text input and generates paragraph objects."""
+
     source = (_preprocess_line(line) for line in source)
 
     title_page_lines = list(takewhile(lambda line: line != '', source))

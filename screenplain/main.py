@@ -9,7 +9,7 @@ import sys
 import codecs
 from optparse import OptionParser
 
-from screenplain.parsers.fountain import parse
+from screenplain.parsers import fountain
 
 output_formats = (
     'fdx', 'html'
@@ -75,7 +75,7 @@ def main(args):
         input = codecs.open(input_file, 'r', 'utf-8')
     else:
         input = codecs.getreader('utf-8')(sys.stdin)
-    screenplay = parse(input)
+    screenplay = fountain.parse(input)
 
     if format == 'pdf':
         from screenplain.export.pdf import to_pdf
