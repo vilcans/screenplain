@@ -1,0 +1,3 @@
+#!/bin/bash
+nosetests --nocapture --with-doctest $* && \
+  pep8 screenplain tests
