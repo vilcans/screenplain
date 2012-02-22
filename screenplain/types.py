@@ -15,6 +15,7 @@ class Slug(object):
         """
         self.line = line
         self.scene_number = scene_number
+        self.synopsis = None
 
     @property
     def lines(self):
@@ -29,6 +30,7 @@ class Section(object):
     def __init__(self, text, level):
         self.text = text
         self.level = level
+        self.synopsis = None
 
     def set_synopsis(self, text):
         self.synopsis = text

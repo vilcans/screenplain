@@ -10,6 +10,7 @@ import os
 import os.path
 
 from screenplain.types import *
+from screenplain.richstring import plain
 
 
 class tags(object):
@@ -90,11 +91,18 @@ def format_slug(slug, out):
         if num:
             with tags(out, 'span class="scnumr"'):
                 out.write(to_html(slug.scene_number))
+    if slug.synopsis:
+        # TODO: allow formatting in synopsis
+        with tags(out, 'span class="h6-synopsis"'):
+            out.write(to_html(plain(slug.synopsis)))
 
 
 def format_section(section, out):
     with tags(out, 'h%d' % section.level):
         out.write(to_html(section.text))
+    if section.synopsis:
+        with tags(out, 'span class="h%d-synopsis"' % section.level):
+            out.write(to_html(plain(section.synopsis)))
 
 
 def format_action(para, out):
@@ -149,7 +157,7 @@ def convert_full(screenplay, out):
         '</style>'
         '</head>'
         '<body>'
-        '<div class="screenplay">\n'
+        '<div id="wrapper" class="screenplay">\n'
     )
     convert_bare(screenplay, out)
     out.write(
