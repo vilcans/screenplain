@@ -6,7 +6,14 @@
       <Text>EXT. SOMEWHERE - DAY</Text>
     </Paragraph>
     <Paragraph Type="Action">
-      <Text>GUY and GURL walks down the street.</Text>
+      <Text>GUY and GURL walk down the street.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>It's a sunny day.
+</Text>
+      <Text>Sunnier than normal.
+</Text>
+      <Text>Too sunny to be funny.</Text>
     </Paragraph>
     <Paragraph Type="Character">
       <Text>GUY</Text>
@@ -19,6 +26,18 @@
     </Paragraph>
     <Paragraph Type="Dialogue">
       <Text>Nothing much.</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Just thinking.</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>And you?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>GUY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nothing.</Text>
     </Paragraph>
   </Content>
 </FinalDraft>

@@ -110,10 +110,11 @@ def format_action(para, out):
         tag = 'div class="action centered"'
     else:
         tag = 'div class="action"'
-    with tags(out, tag):
-        for line in para.lines:
-            with tags(out, 'p'):
-                out.write(to_html(line))
+    with tags(out, tag, 'p'):
+        for number, line in enumerate(para.lines):
+            if number != 0:
+                out.write('<br/>')
+            out.write(to_html(line))
 
 
 def format_transition(para, out):
