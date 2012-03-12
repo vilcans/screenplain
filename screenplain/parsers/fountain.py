@@ -55,7 +55,7 @@ class InputParagraph(object):
         """
         previous_paragraphs.append(
             self.as_synopsis(previous_paragraphs) or
-            self.as_section() or
+            self.as_section(previous_paragraphs) or
             self.as_slug() or
             self.as_centered_action() or
             self.as_dialog(previous_paragraphs) or
@@ -83,16 +83,18 @@ class InputParagraph(object):
         else:
             return Slug(_to_rich(text))
 
-    def as_section(self):
-        if len(self.lines) != 1:
-            return None
+    def as_section(self, previous_paragraphs):
+        sections = []
 
-        match = section_re.match(self.lines[0])
-        if not match:
-            return None
+        for line in self.lines:
+            match = section_re.match(line)
+            if not match:
+                return None
+            hashes, text = match.groups()
+            sections.append(Section(_to_rich(text), len(hashes)))
 
-        hashes, text = match.groups()
-        return Section(_to_rich(text), len(hashes))
+        previous_paragraphs += sections[:-1]
+        return sections[-1]
 
     def as_centered_action(self):
         if not all(centered_re.match(line) for line in self.lines):
