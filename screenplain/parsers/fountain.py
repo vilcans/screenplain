@@ -53,55 +53,57 @@ class InputParagraph(object):
         """Inserts this paragraph into a list.
         Modifies the `previous_paragraphs` list.
         """
-        previous_paragraphs.append(
-            self.as_synopsis(previous_paragraphs) or
-            self.as_section(previous_paragraphs) or
-            self.as_slug() or
-            self.as_centered_action() or
-            self.as_dialog(previous_paragraphs) or
-            self.as_transition() or
-            self.as_action()
+        (
+            self.append_synopsis(previous_paragraphs) or
+            self.append_section(previous_paragraphs) or
+            self.append_slug(previous_paragraphs) or
+            self.append_centered_action(previous_paragraphs) or
+            self.append_dialog(previous_paragraphs) or
+            self.append_transition(previous_paragraphs) or
+            self.append_action(previous_paragraphs)
         )
 
-    def as_slug(self):
+    def append_slug(self, paragraphs):
         if len(self.lines) != 1:
-            return None
+            return False
 
         match = slug_re.match(self.lines[0])
         if not match:
-            return None
+            return False
 
         period, text = match.groups()
         text = text.upper()
         if not period and not any(regex.match(text) for regex in slug_regexes):
-            return None
+            return False
 
         match = scene_number_re.match(text)
         if match:
             text, scene_number = match.groups()
-            return Slug(_to_rich(text), plain(scene_number))
+            paragraphs.append(Slug(_to_rich(text), plain(scene_number)))
         else:
-            return Slug(_to_rich(text))
+            paragraphs.append(Slug(_to_rich(text)))
+        return True
 
-    def as_section(self, previous_paragraphs):
+    def append_section(self, paragraphs):
         sections = []
 
         for line in self.lines:
             match = section_re.match(line)
             if not match:
-                return None
+                return False
             hashes, text = match.groups()
             sections.append(Section(_to_rich(text), len(hashes)))
 
-        previous_paragraphs += sections[:-1]
-        return sections[-1]
+        paragraphs += sections
+        return True
 
-    def as_centered_action(self):
+    def append_centered_action(self, paragraphs):
         if not all(centered_re.match(line) for line in self.lines):
-            return None
-        return Action(_to_rich(
+            return False
+        paragraphs.append(Action(_to_rich(
             centered_re.match(line).group(1) for line in self.lines
-        ), centered=True)
+        ), centered=True))
+        return True
 
     def _create_dialog(self, character):
         return Dialog(
@@ -109,55 +111,65 @@ class InputParagraph(object):
             _to_rich(line.strip() for line in self.lines[1:])
         )
 
-    def as_dialog(self, previous_paragraphs):
+    def append_dialog(self, paragraphs):
         if len(self.lines) < 2:
-            return None
+            return False
 
         character = self.lines[0]
         if not character.isupper() or character.endswith(TWOSPACE):
-            return None
+            return False
 
-        if previous_paragraphs and isinstance(previous_paragraphs[-1], Dialog):
+        if paragraphs and isinstance(paragraphs[-1], Dialog):
             dual_match = dual_dialog_re.match(character)
             if dual_match:
-                previous = previous_paragraphs.pop()
+                previous = paragraphs.pop()
                 dialog = self._create_dialog(dual_match.group(1))
-                return DualDialog(previous, dialog)
+                paragraphs.append(DualDialog(previous, dialog))
+                return True
 
-        return self._create_dialog(character)
+        paragraphs.append(self._create_dialog(character))
+        return True
 
-    def as_transition(self):
+    def append_transition(self, paragraphs):
         if len(self.lines) != 1:
-            return None
+            return False
 
         match = transition_re.match(self.lines[0])
         if not match:
-            return None
+            return False
         greater_than, text, to_colon = match.groups()
 
         if greater_than:
-            return Transition(_to_rich(text.upper() + (to_colon or '')))
+            paragraphs.append(
+                Transition(_to_rich(text.upper() + (to_colon or '')))
+            )
+            return True
 
         if text.isupper() and to_colon:
-            return Transition(_to_rich(text + to_colon))
+            paragraphs.append(
+                Transition(_to_rich(text + to_colon))
+            )
+            return True
 
-        return None
+        return False
 
-    def as_action(self):
-        return Action(_to_rich(line.rstrip() for line in self.lines))
+    def append_action(self, paragraphs):
+        paragraphs.append(
+            Action(_to_rich(line.rstrip() for line in self.lines))
+        )
+        return True
 
-    def as_synopsis(self, previous_paragraphs):
+    def append_synopsis(self, paragraphs):
         if (
             len(self.lines) == 1 and
             self.lines[0].startswith('=') and
-            previous_paragraphs and
-            hasattr(previous_paragraphs[-1], 'set_synopsis')
+            paragraphs and
+            hasattr(paragraphs[-1], 'set_synopsis')
         ):
-            paragraph = previous_paragraphs.pop()
-            paragraph.set_synopsis(self.lines[0][1:].lstrip())
-            return paragraph
+            paragraphs[-1].set_synopsis(self.lines[0][1:].lstrip())
+            return True
         else:
-            return None
+            return False
 
 
 def _preprocess_line(raw_line):
