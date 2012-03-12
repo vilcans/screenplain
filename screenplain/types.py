@@ -27,13 +27,24 @@ class Slug(object):
 
 class Section(object):
     """A section heading."""
-    def __init__(self, text, level):
+
+    def __init__(self, text, level, synopsis=None):
         self.text = text
         self.level = level
-        self.synopsis = None
+        self.synopsis = synopsis
 
     def set_synopsis(self, text):
         self.synopsis = text
+
+    def __repr__(self):
+        return 'Section(%r, %r, %r)' % (self.text, self.level, self.synopsis)
+
+    def __eq__(self, other):
+        return (
+            self.text == other.text and
+            self.level == other.level and
+            self.synopsis == other.synopsis
+        )
 
 
 class Dialog(object):

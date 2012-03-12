@@ -113,6 +113,16 @@ class SectionTests(unittest2.TestCase):
         self.assertEquals(1, paras[2].level)
         self.assertEquals(plain('first level again'), paras[2].text)
 
+    def test_multiple_sections_with_synopsis(self):
+        paras = parse([
+            '# first level',
+            '= level one synopsis',
+            '## second level',
+        ])
+        self.assertEquals([
+            Section(plain(u'first level'), 1, 'level one synopsis'),
+            Section(plain(u'second level'), 2, None),
+        ], paras)
 
 class DialogTests(unittest2.TestCase):
     # A Character element is any line entirely in caps, with one empty

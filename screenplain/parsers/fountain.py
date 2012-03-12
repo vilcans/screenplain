@@ -55,7 +55,7 @@ class InputParagraph(object):
         """
         (
             self.append_synopsis(previous_paragraphs) or
-            self.append_section(previous_paragraphs) or
+            self.append_sections_and_synopsises(previous_paragraphs) or
             self.append_slug(previous_paragraphs) or
             self.append_centered_action(previous_paragraphs) or
             self.append_dialog(previous_paragraphs) or
@@ -84,17 +84,26 @@ class InputParagraph(object):
             paragraphs.append(Slug(_to_rich(text)))
         return True
 
-    def append_section(self, paragraphs):
-        sections = []
+    def append_sections_and_synopsises(self, paragraphs):
+
+        new_paragraphs = []
 
         for line in self.lines:
             match = section_re.match(line)
-            if not match:
+            if match:
+                hashes, text = match.groups()
+                section = Section(_to_rich(text), len(hashes))
+                new_paragraphs.append(section)
+            elif (
+                line.startswith('=') and
+                new_paragraphs and
+                hasattr(new_paragraphs[-1], 'set_synopsis')
+            ):
+                new_paragraphs[-1].set_synopsis(line[1:].lstrip())
+            else:
                 return False
-            hashes, text = match.groups()
-            sections.append(Section(_to_rich(text), len(hashes)))
 
-        paragraphs += sections
+        paragraphs += new_paragraphs
         return True
 
     def append_centered_action(self, paragraphs):
