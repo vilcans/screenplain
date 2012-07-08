@@ -133,6 +133,7 @@ class SectionTests(unittest2.TestCase):
             Section(plain(u'second level'), 2, None),
         ], paras)
 
+
 class DialogTests(unittest2.TestCase):
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.

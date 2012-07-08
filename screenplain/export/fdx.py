@@ -21,8 +21,9 @@ def _write_text_element(out, styles, text):
     if style_value == '':
         out.write('      <Text>%s</Text>\n' % (escape(text)))
     else:
-        out.write('      <Text Style="%s">%s</Text>\n' %
-          (style_value, escape(text))
+        out.write(
+            '      <Text Style="%s">%s</Text>\n' %
+            (style_value, escape(text))
         )
 
 

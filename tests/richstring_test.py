@@ -91,7 +91,8 @@ class RichStringTests(unittest2.TestCase):
 class ParseEmphasisTests(unittest2.TestCase):
 
     def test_parse_without_emphasis(self):
-        self.assertEquals(plain('Hello'), parse_emphasis('Hello'),
+        self.assertEquals(
+            plain('Hello'), parse_emphasis('Hello'),
             'Expected parse_emphasis to return a plain string')
 
     def test_parse_bold(self):
@@ -174,11 +175,12 @@ class ParseEmphasisTests(unittest2.TestCase):
             parse_emphasis(
                 'You can _underline_ words, make them **bold** or *italic* '
                 'or even ***bold italic.***'
-            ),
-            (plain('You can ') + underline('underline') +
-            plain(' words, make them ') + bold('bold') + plain(' or ') +
-            italic('italic') + plain(' or even ') +
-            (bold + italic)('bold italic.'))
+            ), (
+                plain('You can ') + underline('underline') +
+                plain(' words, make them ') + bold('bold') + plain(' or ') +
+                italic('italic') + plain(' or even ') +
+                (bold + italic)('bold italic.')
+            )
         )
 
     def test_simplified_complicated(self):

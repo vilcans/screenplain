@@ -36,8 +36,10 @@ def main(args):
     parser.add_option(
         '-f', '--format', dest='output_format',
         metavar='FORMAT',
-        help=('Set what kind of file to create. FORMAT can be one of '
-            + ', '.join(output_formats))
+        help=(
+            'Set what kind of file to create. FORMAT can be one of ' +
+            ', '.join(output_formats)
+        )
     )
     parser.add_option(
         '--bare',
