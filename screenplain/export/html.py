@@ -66,68 +66,98 @@ def to_html(text):
     return re.sub('  ', '&nbsp; ', html)
 
 
-def format_dialog(dialog, out):
-    with tag(out, 'div', classes='dialog'):
-        _write_dialog_block(dialog, out)
+class Formatter(object):
+    """Class for converting paragraphs into HTML."""
 
+    def __init__(self, out):
+        """Initializes the formatter.
 
-def format_dual(dual, out):
-    with tag(out, 'div', classes='dual'):
-        with tag(out, 'div', classes='left'):
-            _write_dialog_block(dual.left, out)
-        with tag(out, 'div', classes='right'):
-            _write_dialog_block(dual.right, out)
-        out.write('<br />')
+        `out` is a file-like object to write to.
+        After initializing, call the convert function to convert
+        any number of paragraphs.
 
+        """
+        self.out = out
+        self._format_functions = {
+            Slug: self.format_slug,
+            Action: self.format_action,
+            Dialog: self.format_dialog,
+            DualDialog: self.format_dual,
+            Transition: self.format_transition,
+            Section: self.format_section,
+        }
 
-def _write_dialog_block(dialog, out):
-    with tag(out, 'p', classes='character'):
-        out.write(to_html(dialog.character))
+    def convert(self, screenplay):
+        """Converts a number of paragraphs into HTML and writes
+        it to the output stream.
+        `screenplay` is a sequence of paragraphs.
 
-    for parenthetical, text in dialog.blocks:
-        classes = 'parenthetical' if parenthetical else None
-        with tag(out, 'p', classes=classes):
-            out.write(to_html(text))
+        """
+        for para in screenplay:
+            format_function = self._format_functions.get(type(para), None)
+            if format_function:
+                format_function(para)
+                self.out.write('\n')
 
+    def format_dialog(self, dialog):
+        with self._tag('div', classes='dialog'):
+            self._write_dialog_block(dialog)
 
-def format_slug(slug, out):
-    num = slug.scene_number
-    with tag(out, 'h6'):
-        if num:
-            with tag(out, 'span', classes='scnuml'):
-                out.write(to_html(slug.scene_number))
-        out.write(to_html(slug.line))
-        if num:
-            with tag(out, 'span', classes='scnumr'):
-                out.write(to_html(slug.scene_number))
-    if slug.synopsis:
-        with tag(out, 'span', classes='h6-synopsis'):
-            out.write(to_html(plain(slug.synopsis)))
+    def format_dual(self, dual):
+        with self._tag('div', classes='dual'):
+            with self._tag('div', classes='left'):
+                self._write_dialog_block(dual.left)
+            with self._tag('div', classes='right'):
+                self._write_dialog_block(dual.right)
+            out.write('<br />')
 
+    def _write_dialog_block(self, dialog):
+        with self._tag('p', classes='character'):
+            self.out.write(to_html(dialog.character))
 
-def format_section(section, out):
-    with tag(out, 'h%d' % section.level):
-        out.write(to_html(section.text))
-    if section.synopsis:
-        with tag(out, 'span', classes='h%d-synopsis' % section.level):
-            out.write(to_html(plain(section.synopsis)))
+        for parenthetical, text in dialog.blocks:
+            classes = 'parenthetical' if parenthetical else None
+            with self._tag('p', classes=classes):
+                self.out.write(to_html(text))
 
+    def format_slug(self, slug):
+        num = slug.scene_number
+        with self._tag('h6'):
+            if num:
+                with self._tag('span', classes='scnuml'):
+                    self.out.write(to_html(slug.scene_number))
+            self.out.write(to_html(slug.line))
+            if num:
+                with self._tag('span', classes='scnumr'):
+                    self.out.write(to_html(slug.scene_number))
+        if slug.synopsis:
+            with self._tag('span', classes='h6-synopsis'):
+                self.out.write(to_html(plain(slug.synopsis)))
 
-def format_action(para, out):
-    classes = ['action']
-    if para.centered:
-        classes.append('centered')
-    with tag(out, 'div', classes=classes):
-        with tag(out, 'p'):
-            for number, line in enumerate(para.lines):
-                if number != 0:
-                    out.write('<br/>')
-                out.write(to_html(line))
+    def format_section(self, section):
+        with self._tag('h%d' % section.level):
+            self.out.write(to_html(section.text))
+        if section.synopsis:
+            with self._tag('span', classes='h%d-synopsis' % section.level):
+                self.out.write(to_html(plain(section.synopsis)))
 
+    def format_action(self, para):
+        classes = ['action']
+        if para.centered:
+            classes.append('centered')
+        with self._tag('div', classes=classes):
+            with self._tag('p'):
+                for number, line in enumerate(para.lines):
+                    if number != 0:
+                        self.out.write('<br/>')
+                    self.out.write(to_html(line))
 
-def format_transition(para, out):
-    with tag(out, 'div', classes='transition'):
-        out.write(to_html(para.line))
+    def format_transition(self, para):
+        with self._tag('div', classes='transition'):
+            self.out.write(to_html(para.line))
+
+    def _tag(self, tag_name, classes=None):
+        return tag(self.out, tag_name, classes)
 
 
 def _read_file(filename):
@@ -175,15 +205,6 @@ def convert_full(screenplay, out):
         '</html>\n'
     )
 
-_format_functions = {
-    Slug: format_slug,
-    Action: format_action,
-    Dialog: format_dialog,
-    DualDialog: format_dual,
-    Transition: format_transition,
-    Section: format_section,
-}
-
 
 def convert_bare(screenplay, out):
     """Convert the screenplay into HTML, written to the file-like object `out`.
@@ -191,8 +212,5 @@ def convert_bare(screenplay, out):
     <html>, <body>, etc.
 
     """
-    for para in screenplay:
-        format_function = _format_functions.get(type(para), None)
-        if format_function:
-            format_function(para, out)
-            out.write('\n')
+    formatter = Formatter(out)
+    formatter.convert(screenplay)
