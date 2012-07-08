@@ -5,7 +5,7 @@
 import unittest2
 from screenplain.parsers import fountain
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section
+    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
 )
 from screenplain.richstring import plain, italic, empty_string
 from StringIO import StringIO
@@ -480,6 +480,16 @@ class TitlePageTests(unittest2.TestCase):
             '    additional line',
         ]
         self.assertIsNone(fountain.parse_title_page(lines))
+
+
+class PageBreakTests(unittest2.TestCase):
+    def test_page_break_sets_page_break_flag_on_next_paragraph(self):
+        paras = list(parse([
+            '====',
+            '',
+            'So here we go'
+        ]))
+        self.assertEquals([PageBreak, Action], [type(p) for p in paras])
 
 if __name__ == '__main__':
     unittest2.main()

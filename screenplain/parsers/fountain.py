@@ -7,7 +7,7 @@ from itertools import takewhile
 import re
 
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section
+    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
 )
 from screenplain.richstring import parse_emphasis, plain
 
@@ -32,6 +32,7 @@ slug_re = re.compile(r'(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$')
 scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
 section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
 transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
+page_break_re = re.compile(r'^={3,}$')
 
 
 def _to_rich(line_or_line_list):
@@ -54,6 +55,7 @@ class InputParagraph(object):
         Modifies the `previous_paragraphs` list.
         """
         (
+            self.append_page_break(previous_paragraphs) or
             self.append_synopsis(previous_paragraphs) or
             self.append_sections_and_synopsises(previous_paragraphs) or
             self.append_slug(previous_paragraphs) or
@@ -176,6 +178,13 @@ class InputParagraph(object):
             hasattr(paragraphs[-1], 'set_synopsis')
         ):
             paragraphs[-1].set_synopsis(self.lines[0][1:].lstrip())
+            return True
+        else:
+            return False
+
+    def append_page_break(self, paragraphs):
+        if len(self.lines) == 1 and page_break_re.match(self.lines[0]):
+            paragraphs.append(PageBreak())
             return True
         else:
             return False

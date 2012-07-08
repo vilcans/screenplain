@@ -162,3 +162,6 @@ font-weight: inherit;
 -o-user-select: none;
 user-select: none;
 }
+.page-break {
+page-break-before: always;
+}

@@ -85,6 +85,7 @@ class Formatter(object):
             DualDialog: self.format_dual,
             Transition: self.format_transition,
             Section: self.format_section,
+            PageBreak: self.format_page_break,
         }
 
     def convert(self, screenplay):
@@ -93,6 +94,7 @@ class Formatter(object):
         `screenplay` is a sequence of paragraphs.
 
         """
+        self.page_break_before_next = False
         for para in screenplay:
             format_function = self._format_functions.get(type(para), None)
             if format_function:
@@ -156,7 +158,17 @@ class Formatter(object):
         with self._tag('div', classes='transition'):
             self.out.write(to_html(para.line))
 
+    def format_page_break(self, para):
+        self.page_break_before_next = True
+
     def _tag(self, tag_name, classes=None):
+        if self.page_break_before_next:
+            if isinstance(classes, basestring):
+                classes = [classes]
+            else:
+                classes = classes or []
+            self.page_break_before_next = False
+            classes.append('page-break')
         return tag(self.out, tag_name, classes)
 
 

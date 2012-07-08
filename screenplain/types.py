@@ -2,8 +2,6 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import textwrap
-
 
 class Slug(object):
 
@@ -82,3 +80,7 @@ class Transition(object):
     @property
     def lines(self):
         return [self.line]
+
+
+class PageBreak(object):
+    pass
