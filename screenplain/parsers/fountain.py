@@ -28,7 +28,7 @@ title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
 
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
-slug_re = re.compile(r'(?:(\.)\s*)?(\S.*?)\s*$')
+slug_re = re.compile(r'(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$')
 scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
 section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
 transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')

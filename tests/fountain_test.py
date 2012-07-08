@@ -64,6 +64,15 @@ class SlugTests(unittest2.TestCase):
         self.assertEquals(Slug, type(paras[0]))
         self.assertEquals(plain('SNIPER SCOPE POV'), paras[0].line)
 
+    def test_more_than_one_period_does_not_create_slug(self):
+        paras = parse([
+            '..AND THEN...',
+            '',
+        ])
+        self.assertEquals(1, len(paras))
+        self.assertEquals(Action, type(paras[0]))
+        self.assertEquals(plain('..AND THEN...'), paras[0].lines[0])
+
     def test_scene_number_is_parsed(self):
         paras = parse(['EXT SOMEWHERE - DAY #42#'])
         self.assertEquals(plain('EXT SOMEWHERE - DAY'), paras[0].line)
