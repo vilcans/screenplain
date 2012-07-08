@@ -13,37 +13,49 @@ from screenplain.types import *
 from screenplain.richstring import plain
 
 
-class tags(object):
-    """Handler for automatically opening and closing tags.
+class tag(object):
+    """Handler for automatically opening and closing a tag.
 
     E.g.
 
     >>> import sys
     >>> from __future__ import with_statement
-    >>> with tags(sys.stdout, 'div', 'p', 'a'):
+    >>> with tag(sys.stdout, 'div'):
     ...     sys.stdout.write('hello')
     ...
-    <div><p><a>hello</a></p></div>
+    <div>hello</div>
 
-    Tags with attributes are also supported:
+    Adding classes to the element is possible:
 
-    >>> with tags(sys.stdout, 'div class="foo"'):
+    >>> with tag(sys.stdout, 'div', classes='action'):
     ...     sys.stdout.write('hello')
-    <div class="foo">hello</div>
+    <div class="action">hello</div>
+
+    >>> with tag(sys.stdout, 'div', classes=['action', 'centered']):
+    ...     sys.stdout.write('hello')
+    <div class="action centered">hello</div>
 
     """
-    def __init__(self, out, *tags):
+    def __init__(self, out, tag, classes=None):
         self.out = out
-        self.tags = list(tags)
+        self.tag = tag
+        if isinstance(classes, basestring):
+            self.classes = [classes]
+        else:
+            self.classes = classes
 
     def __enter__(self):
-        for tag in self.tags:
-            self.out.write('<%s>' % tag)
+        if self.classes:
+            self.out.write('<%s class="%s">' % (
+                self.tag,
+                ' '.join(self.classes)
+            ))
+        else:
+            self.out.write('<%s>' % self.tag)
 
     def __exit__(self, exception_type, value, traceback):
         if not exception_type:
-            for tag in reversed(self.tags):
-                self.out.write('</%s>' % tag.split()[0])
+            self.out.write('</%s>' % self.tag)
         return False
 
 
@@ -55,70 +67,66 @@ def to_html(text):
 
 
 def format_dialog(dialog, out):
-    with tags(out, 'div class="dialog"'):
+    with tag(out, 'div', classes='dialog'):
         _write_dialog_block(dialog, out)
 
 
 def format_dual(dual, out):
-    with tags(out, 'div class="dual"'):
-        with tags(out, 'div class="left"'):
+    with tag(out, 'div', classes='dual'):
+        with tag(out, 'div', classes='left'):
             _write_dialog_block(dual.left, out)
-        with tags(out, 'div class="right"'):
+        with tag(out, 'div', classes='right'):
             _write_dialog_block(dual.right, out)
         out.write('<br />')
 
 
 def _write_dialog_block(dialog, out):
-    with tags(out, 'p class="character"'):
+    with tag(out, 'p', classes='character'):
         out.write(to_html(dialog.character))
 
     for parenthetical, text in dialog.blocks:
-        if parenthetical:
-            with tags(out, 'p class="parenthetical"'):
-                out.write(to_html(text))
-        else:
-            with tags(out, 'p'):
-                out.write(to_html(text))
+        classes = 'parenthetical' if parenthetical else None
+        with tag(out, 'p', classes=classes):
+            out.write(to_html(text))
 
 
 def format_slug(slug, out):
     num = slug.scene_number
-    with tags(out, 'h6'):
+    with tag(out, 'h6'):
         if num:
-            with tags(out, 'span class="scnuml"'):
+            with tag(out, 'span', classes='scnuml'):
                 out.write(to_html(slug.scene_number))
         out.write(to_html(slug.line))
         if num:
-            with tags(out, 'span class="scnumr"'):
+            with tag(out, 'span', classes='scnumr'):
                 out.write(to_html(slug.scene_number))
     if slug.synopsis:
-        # TODO: allow formatting in synopsis
-        with tags(out, 'span class="h6-synopsis"'):
+        with tag(out, 'span', classes='h6-synopsis'):
             out.write(to_html(plain(slug.synopsis)))
 
 
 def format_section(section, out):
-    with tags(out, 'h%d' % section.level):
+    with tag(out, 'h%d' % section.level):
         out.write(to_html(section.text))
     if section.synopsis:
-        with tags(out, 'span class="h%d-synopsis"' % section.level):
+        with tag(out, 'span', classes='h%d-synopsis' % section.level):
             out.write(to_html(plain(section.synopsis)))
 
 
 def format_action(para, out):
+    classes = ['action']
     if para.centered:
-        tag = 'div class="action centered"'
-    else:
-        tag = 'div class="action"'
-    with tags(out, tag, 'p'):
-        for number, line in enumerate(para.lines):
-            if number != 0:
-                out.write('<br/>')
-            out.write(to_html(line))
+        classes.append('centered')
+    with tag(out, 'div', classes=classes):
+        with tag(out, 'p'):
+            for number, line in enumerate(para.lines):
+                if number != 0:
+                    out.write('<br/>')
+                out.write(to_html(line))
 
 
 def format_transition(para, out):
-    with tags(out, 'div class="transition"'):
+    with tag(out, 'div', classes='transition'):
         out.write(to_html(para.line))
 
 
