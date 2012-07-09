@@ -483,7 +483,7 @@ class TitlePageTests(unittest2.TestCase):
 
 
 class PageBreakTests(unittest2.TestCase):
-    def test_page_break_sets_page_break_flag_on_next_paragraph(self):
+    def test_page_break_is_parsed(self):
         paras = list(parse([
             '====',
             '',
