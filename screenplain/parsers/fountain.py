@@ -118,7 +118,7 @@ class InputParagraph(object):
 
     def _create_dialog(self, character):
         return Dialog(
-            parse_emphasis(character),
+            parse_emphasis(character.strip()),
             _to_rich(line.strip() for line in self.lines[1:])
         )
 
