@@ -6,6 +6,7 @@ from __future__ import with_statement
 
 import unittest2
 import tempfile
+import os
 import os.path
 import shutil
 import re
@@ -35,7 +36,7 @@ def clean_string(s):
     return spaces_re.sub(' ', line_break_re.sub('\n', s))
 
 
-class ParseTests(unittest2.TestCase):
+class FileTests(unittest2.TestCase):
     """High level tests that runs Screenplain using command line arguments.
     """
 
@@ -65,36 +66,53 @@ class ParseTests(unittest2.TestCase):
         expected = read_file(self.source(expected_results_file))
         return clean_string(actual), clean_string(expected)
 
-    def test_fountain_to_fdx(self):
-        actual, expected = self.convert(
-            'simple.fountain', 'simple.fdx', 'simple.fountain.fdx')
-        self.assertMultiLineEqual(expected, actual)
+    @classmethod
+    def add_file_case(cls, source_file, expected_results_file):
+        """Add a test case that compares the content
+        of a generated file with the expected results.
 
-    def test_fountain_to_html(self):
-        actual, expected = self.convert(
-            'simple.fountain', 'simple.html', 'simple.fountain.html', '--bare')
-        self.assertMultiLineEqual(expected, actual)
+        """
+        extension = os.path.splitext(expected_results_file)[1][1:]
 
-    def test_scene_numbers(self):
-        actual, expected = self.convert(
-            'scene-numbers.fountain', 'scene-numbers.html',
-            'scene-numbers.fountain.html', '--bare')
-        self.assertMultiLineEqual(expected, actual)
+        def test_function(self):
+            actual, expected = self.convert(
+                source_file, source_file + '.' + extension,
+                source_file + '.' + extension,
+                '--bare'
+            )
+            self.assertMultiLineEqual(expected, actual)
 
-    def test_sections(self):
-        actual, expected = self.convert(
-            'sections.fountain', 'sections.html',
-            'sections.fountain.html', '--bare')
-        self.assertMultiLineEqual(expected, actual)
+        func_name = (
+            'test_' +
+            source_file.replace('.', '_') +
+            '_to_' +
+            extension
+        )
+        setattr(cls, func_name, test_function)
 
-    def test_boneyard(self):
-        actual, expected = self.convert(
-            'boneyard.fountain', 'sections.html',
-            'boneyard.fountain.html', '--bare')
-        self.assertMultiLineEqual(expected, actual)
 
-    def test_page_break(self):
-        actual, expected = self.convert(
-            'page-break.fountain', 'page-break.html',
-            'page-break.fountain.html', '--bare')
-        self.assertMultiLineEqual(expected, actual)
+def _create_tests():
+    """Creates a test case for every source/expect file pair.
+
+    Finds all the source files in the test files directory.
+    (A source file is one with just one extension, e.g. 'foo.fountain'.)
+    For each of them, finds the corresponding expect files.
+    (An expect file has two extensions, e.g. 'foo.fountain.html'
+    which contains the expected output when converting foo.fountain
+    to HTML.)
+
+    """
+    source_file_re = re.compile(r'^[^.]+\.[^.]+$')
+    expect_file_re = re.compile(r'^[^.]+\.[^.]+\.[^.]+$')
+
+    test_files = os.listdir(source_dir)
+    source_files = [f for f in test_files if source_file_re.match(f)]
+    expect_files = [f for f in test_files if expect_file_re.match(f)]
+
+    for source in source_files:
+        for expected in (
+            f for f in expect_files if f.startswith(source + '.')
+        ):
+            FileTests.add_file_case(source, expected)
+
+_create_tests()
