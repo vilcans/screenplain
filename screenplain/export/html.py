@@ -111,7 +111,7 @@ class Formatter(object):
                 self._write_dialog_block(dual.left)
             with self._tag('div', classes='right'):
                 self._write_dialog_block(dual.right)
-            out.write('<br />')
+            self.out.write('<br />')
 
     def _write_dialog_block(self, dialog):
         with self._tag('p', classes='character'):
