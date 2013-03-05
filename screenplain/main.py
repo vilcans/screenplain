@@ -63,7 +63,7 @@ def main(args):
         )
     )
     options, args = parser.parse_args(args)
-    if len(args) >= 4:
+    if len(args) >= 3:
         parser.error('Too many arguments')
     input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
     output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
