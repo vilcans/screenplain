@@ -50,8 +50,20 @@ def main(args):
             'not a complete HTML document.'
         )
     )
+    from screenplain.stationery import list_stationery
+    parser.add_option(
+        '-s', '--stationery', dest='stationery',
+        metavar='STATIONERY',
+        help=(
+            'For FDX output, choose one of the installed stationery ' +
+            'templates below, or specify the absolute path to any ' +
+            'properly formatted Final Draft Document. Currently installed ' +
+            'stationery: ' +
+            ', '.join(list_stationery())
+        )
+    )
     options, args = parser.parse_args(args)
-    if len(args) >= 3:
+    if len(args) >= 4:
         parser.error('Too many arguments')
     input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
     output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
@@ -96,7 +108,7 @@ def main(args):
                 to_text(screenplay, output)
             elif format == 'fdx':
                 from screenplain.export.fdx import to_fdx
-                to_fdx(screenplay, output)
+                to_fdx(screenplay, output, stationery=options.stationery)
             elif format == 'html':
                 from screenplain.export.html import convert
                 convert(screenplay, output, bare=options.bare)

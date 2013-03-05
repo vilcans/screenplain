@@ -71,7 +71,12 @@ def write_dual_dialog(out, dual):
     )
 
 
-def to_fdx(screenplay, out):
+def write_stationery(out, builtin):
+    from screenplain.stationery import get_stationery
+    out.write(get_stationery(builtin))
+
+
+def to_fdx(screenplay, out, stationery=None):
 
     out.write(
         '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\n'
@@ -95,7 +100,9 @@ def to_fdx(screenplay, out):
             # Ignore unknown types
             pass
 
-    out.write(
-        '  </Content>\n'
-        '</FinalDraft>\n'
-    )
+    out.write('  </Content>\n')
+
+    if stationery is not None:
+        write_stationery(out, stationery)
+
+    out.write('</FinalDraft>\n')
