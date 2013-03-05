@@ -1,5 +1,5 @@
-STATIONERIES
-============
+STATIONERY
+==========
 
 Stationery files are essentially Final Draft template files. They usually have the extension .fdxt.
 
