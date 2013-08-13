@@ -35,15 +35,15 @@ transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
 page_break_re = re.compile(r'^={3,}$')
 
 
-def _to_rich(line_or_line_list):
-    """Converts a line list into a list of RichString
-    or a single string to a RichString.
+def _sequence_to_rich(lines):
+    """Converts a sequence of strings into a list of RichString."""
+    return [parse_emphasis(line) for line in lines]
 
+
+def _string_to_rich(line):
+    """Converts a single string into a RichString.
     """
-    if isinstance(line_or_line_list, basestring):
-        return parse_emphasis(line_or_line_list)
-    else:
-        return [parse_emphasis(line) for line in line_or_line_list]
+    return parse_emphasis(line)
 
 
 class InputParagraph(object):
@@ -81,9 +81,9 @@ class InputParagraph(object):
         match = scene_number_re.match(text)
         if match:
             text, scene_number = match.groups()
-            paragraphs.append(Slug(_to_rich(text), plain(scene_number)))
+            paragraphs.append(Slug(_string_to_rich(text), plain(scene_number)))
         else:
-            paragraphs.append(Slug(_to_rich(text)))
+            paragraphs.append(Slug(_string_to_rich(text)))
         return True
 
     def append_sections_and_synopsises(self, paragraphs):
@@ -94,7 +94,7 @@ class InputParagraph(object):
             match = section_re.match(line)
             if match:
                 hashes, text = match.groups()
-                section = Section(_to_rich(text), len(hashes))
+                section = Section(_string_to_rich(text), len(hashes))
                 new_paragraphs.append(section)
             elif (
                 line.startswith('=') and
@@ -111,7 +111,7 @@ class InputParagraph(object):
     def append_centered_action(self, paragraphs):
         if not all(centered_re.match(line) for line in self.lines):
             return False
-        paragraphs.append(Action(_to_rich(
+        paragraphs.append(Action(_sequence_to_rich(
             centered_re.match(line).group(1) for line in self.lines
         ), centered=True))
         return True
@@ -119,7 +119,7 @@ class InputParagraph(object):
     def _create_dialog(self, character):
         return Dialog(
             parse_emphasis(character.strip()),
-            _to_rich(line.strip() for line in self.lines[1:])
+            _sequence_to_rich(line.strip() for line in self.lines[1:])
         )
 
     def append_dialog(self, paragraphs):
@@ -152,13 +152,13 @@ class InputParagraph(object):
 
         if greater_than:
             paragraphs.append(
-                Transition(_to_rich(text.upper() + (to_colon or '')))
+                Transition(_string_to_rich(text.upper() + (to_colon or '')))
             )
             return True
 
         if text.isupper() and to_colon:
             paragraphs.append(
-                Transition(_to_rich(text + to_colon))
+                Transition(_string_to_rich(text + to_colon))
             )
             return True
 
@@ -166,7 +166,7 @@ class InputParagraph(object):
 
     def append_action(self, paragraphs):
         paragraphs.append(
-            Action(_to_rich(line.rstrip() for line in self.lines))
+            Action(_sequence_to_rich(line.rstrip() for line in self.lines))
         )
         return True
 
