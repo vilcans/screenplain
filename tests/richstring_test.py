@@ -2,7 +2,7 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import unittest2
+from unittest import TestCase
 from screenplain.richstring import (
     RichString, Segment,
     Bold, Italic,
@@ -13,7 +13,7 @@ from screenplain.richstring import parse_emphasis
 from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 
 
-class LowLevelRichStringTests(unittest2.TestCase):
+class LowLevelRichStringTests(TestCase):
 
     def test_plain_string_has_one_single_segment(self):
         s = plain('hello')
@@ -22,7 +22,7 @@ class LowLevelRichStringTests(unittest2.TestCase):
         self.assertEqual(set(), s.segments[0].styles)
 
 
-class RichStringOperatorTests(unittest2.TestCase):
+class RichStringOperatorTests(TestCase):
 
     def test_repr(self):
         s = bold('Hello') + plain(' there ') + bold('folks')
@@ -57,7 +57,7 @@ class RichStringOperatorTests(unittest2.TestCase):
         self.assertEquals(expected, result)
 
 
-class StyleGeneratorTests(unittest2.TestCase):
+class StyleGeneratorTests(TestCase):
 
     def test_bold_function_creates_bold_richstring(self):
         self.assertEquals(
@@ -72,7 +72,7 @@ class StyleGeneratorTests(unittest2.TestCase):
         )
 
 
-class RichStringTests(unittest2.TestCase):
+class RichStringTests(TestCase):
 
     def test_plain_to_html(self):
         self.assertEquals('hello', plain('hello').to_html())
@@ -88,7 +88,7 @@ class RichStringTests(unittest2.TestCase):
         )
 
 
-class ParseEmphasisTests(unittest2.TestCase):
+class ParseEmphasisTests(TestCase):
 
     def test_parse_without_emphasis(self):
         self.assertEquals(

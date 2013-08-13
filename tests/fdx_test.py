@@ -2,14 +2,14 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import unittest2
+from unittest import TestCase
 from StringIO import StringIO
 
 from screenplain.export.fdx import write_text
 from screenplain.richstring import plain, bold, italic
 
 
-class OutputTests(unittest2.TestCase):
+class OutputTests(TestCase):
 
     def setUp(self):
         self.out = StringIO()

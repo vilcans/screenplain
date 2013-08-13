@@ -2,7 +2,7 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import unittest2
+from unittest import TestCase
 from screenplain.parsers import fountain
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
@@ -16,7 +16,7 @@ def parse(lines):
     return fountain.parse(StringIO(content))
 
 
-class SlugTests(unittest2.TestCase):
+class SlugTests(TestCase):
     def test_slug_with_prefix(self):
         paras = list(parse([
             'INT. SOMEWHERE - DAY',
@@ -92,7 +92,7 @@ class SlugTests(unittest2.TestCase):
         )
 
 
-class SectionTests(unittest2.TestCase):
+class SectionTests(TestCase):
     def test_section_parsed_correctly(self):
         paras = parse([
             '# first level',
@@ -134,7 +134,7 @@ class SectionTests(unittest2.TestCase):
         ], paras)
 
 
-class DialogTests(unittest2.TestCase):
+class DialogTests(TestCase):
     # A Character element is any line entirely in caps, with one empty
     # line before it and without an empty line after it.
     def test_all_caps_is_character(self):
@@ -247,7 +247,7 @@ class DialogTests(unittest2.TestCase):
         ], paras[0].blocks)
 
 
-class TransitionTests(unittest2.TestCase):
+class TransitionTests(TestCase):
 
     def test_standard_transition(self):
         paras = list(parse([
@@ -332,7 +332,7 @@ class TransitionTests(unittest2.TestCase):
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
 
 
-class ActionTests(unittest2.TestCase):
+class ActionTests(TestCase):
 
     def test_action_preserves_leading_whitespace(self):
         paras = list(parse([
@@ -390,7 +390,7 @@ class ActionTests(unittest2.TestCase):
         self.assertEquals([plain(line) for line in lines], paras[0].lines)
 
 
-class SynopsisTests(unittest2.TestCase):
+class SynopsisTests(TestCase):
     def test_synopsis_after_slug_adds_synopsis_to_scene(self):
         paras = list(parse([
             "EXT. BRICK'S PATIO - DAY",
@@ -429,7 +429,7 @@ class SynopsisTests(unittest2.TestCase):
         )
 
 
-class TitlePageTests(unittest2.TestCase):
+class TitlePageTests(TestCase):
 
     def test_basic_title_page(self):
         lines = [
@@ -482,7 +482,7 @@ class TitlePageTests(unittest2.TestCase):
         self.assertIsNone(fountain.parse_title_page(lines))
 
 
-class PageBreakTests(unittest2.TestCase):
+class PageBreakTests(TestCase):
     def test_page_break_is_parsed(self):
         paras = list(parse([
             '====',
@@ -490,6 +490,3 @@ class PageBreakTests(unittest2.TestCase):
             'So here we go'
         ]))
         self.assertEquals([PageBreak, Action], [type(p) for p in paras])
-
-if __name__ == '__main__':
-    unittest2.main()

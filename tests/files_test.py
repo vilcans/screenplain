@@ -4,7 +4,7 @@
 
 from __future__ import with_statement
 
-import unittest2
+from unittest import TestCase
 import tempfile
 import os
 import os.path
@@ -36,7 +36,7 @@ def clean_string(s):
     return spaces_re.sub(' ', line_break_re.sub('\n', s))
 
 
-class FileTests(unittest2.TestCase):
+class FileTests(TestCase):
     """High level tests that runs Screenplain using command line arguments.
     """
 
