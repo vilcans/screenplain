@@ -56,20 +56,7 @@ Screenplain is released under the [MIT license](http://www.opensource.org/licens
 Developing
 ==========
 
-As it was designed to run under Google App Engine, Screenplain should be
-compatible with Python 2.5. Use that version for development to make
-sure it works. Python 2.5 is no longer available in Ubuntu at least,
-but see
-[this link](http://kovshenin.com/archives/installing-python-2-5-on-ubuntu-linux-10-10/)
-about how to install it. The Python 2.5 requirement may be relaxed
-as the online version no longer uses GAE.
-
-To install reportlab, you'll need Python's development files. In
-Ubuntu, just do
-
-    sudo apt-get install python2.5-dev
-
 Set up environment using virtualenvwrapper:
 
-    mkvirtualenv -p python2.5 --no-site-packages screenplain
+    mkvirtualenv --no-site-packages screenplain
     pip install -r requirements.txt
