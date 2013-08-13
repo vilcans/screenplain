@@ -2,7 +2,8 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from unittest import TestCase
+from testcompat import TestCase
+
 from screenplain.parsers import fountain
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
