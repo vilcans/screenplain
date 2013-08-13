@@ -3,6 +3,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from testcompat import TestCase
+import six
 from screenplain.richstring import (
     RichString, Segment,
     Bold, Italic,
@@ -38,7 +39,7 @@ class RichStringOperatorTests(TestCase):
         s = bold('Hello') + plain(' there ') + bold('folks')
         self.assertEquals(
             u'Hello there folks',
-            unicode(s)
+            six.text_type(s)
         )
 
     def test_eq(self):
