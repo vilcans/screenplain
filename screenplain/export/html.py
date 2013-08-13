@@ -27,7 +27,7 @@ class tag(object):
 
     Adding classes to the element is possible:
 
-    >>> with tag(sys.stdout, 'div', classes='action'):
+    >>> with tag(sys.stdout, 'div', classes=['action']):
     ...     sys.stdout.write('hello')
     <div class="action">hello</div>
 
@@ -39,10 +39,7 @@ class tag(object):
     def __init__(self, out, tag, classes=None):
         self.out = out
         self.tag = tag
-        if isinstance(classes, basestring):
-            self.classes = [classes]
-        else:
-            self.classes = classes
+        self.classes = classes
 
     def __enter__(self):
         if self.classes:
@@ -102,19 +99,19 @@ class Formatter(object):
                 self.out.write('\n')
 
     def format_dialog(self, dialog):
-        with self._tag('div', classes='dialog'):
+        with self._tag('div', classes=['dialog']):
             self._write_dialog_block(dialog)
 
     def format_dual(self, dual):
-        with self._tag('div', classes='dual'):
-            with self._tag('div', classes='left'):
+        with self._tag('div', classes=['dual']):
+            with self._tag('div', classes=['left']):
                 self._write_dialog_block(dual.left)
-            with self._tag('div', classes='right'):
+            with self._tag('div', classes=['right']):
                 self._write_dialog_block(dual.right)
             self.out.write('<br />')
 
     def _write_dialog_block(self, dialog):
-        with self._tag('p', classes='character'):
+        with self._tag('p', classes=['character']):
             self.out.write(to_html(dialog.character))
 
         for parenthetical, text in dialog.blocks:
@@ -126,21 +123,21 @@ class Formatter(object):
         num = slug.scene_number
         with self._tag('h6'):
             if num:
-                with self._tag('span', classes='scnuml'):
+                with self._tag('span', classes=['scnuml']):
                     self.out.write(to_html(slug.scene_number))
             self.out.write(to_html(slug.line))
             if num:
-                with self._tag('span', classes='scnumr'):
+                with self._tag('span', classes=['scnumr']):
                     self.out.write(to_html(slug.scene_number))
         if slug.synopsis:
-            with self._tag('span', classes='h6-synopsis'):
+            with self._tag('span', classes=['h6-synopsis']):
                 self.out.write(to_html(plain(slug.synopsis)))
 
     def format_section(self, section):
         with self._tag('h%d' % section.level):
             self.out.write(to_html(section.text))
         if section.synopsis:
-            with self._tag('span', classes='h%d-synopsis' % section.level):
+            with self._tag('span', classes=['h%d-synopsis' % section.level]):
                 self.out.write(to_html(plain(section.synopsis)))
 
     def format_action(self, para):
@@ -155,20 +152,16 @@ class Formatter(object):
                     self.out.write(to_html(line))
 
     def format_transition(self, para):
-        with self._tag('div', classes='transition'):
+        with self._tag('div', classes=['transition']):
             self.out.write(to_html(para.line))
 
     def format_page_break(self, para):
         self.page_break_before_next = True
 
-    def _tag(self, tag_name, classes=None):
+    def _tag(self, tag_name, classes=[]):
         if self.page_break_before_next:
-            if isinstance(classes, basestring):
-                classes = [classes]
-            else:
-                classes = classes or []
             self.page_break_before_next = False
-            classes.append('page-break')
+            classes = set(classes).union(('page-break',))
         return tag(self.out, tag_name, classes)
 
 
