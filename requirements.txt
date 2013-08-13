@@ -2,3 +2,4 @@
 unittest2
 nose
 pep8
+six
