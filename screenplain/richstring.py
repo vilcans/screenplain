@@ -81,7 +81,7 @@ class Segment(object):
     def __repr__(self):
         return '(%s)(%r)' % (
             '+'.join(
-                style.name() for style in self.styles
+                style.name() for style in self.get_ordered_styles()
             ) or 'plain',
             self.text
         )
@@ -101,8 +101,12 @@ class Segment(object):
             self.text != other.text or self.styles != other.styles
         )
 
+    def get_ordered_styles(self):
+        """Get the styles in this segment in a deterministic order."""
+        return [style for style in all_styles if style in self.styles]
+
     def to_html(self):
-        ordered_styles = list(self.styles)
+        ordered_styles = self.get_ordered_styles()
         return (
             ''.join(style.start_html for style in ordered_styles) +
             cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace') +

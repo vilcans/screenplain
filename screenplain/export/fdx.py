@@ -30,7 +30,7 @@ def _write_text_element(out, styles, text):
 def write_text(out, rich, trailing_linebreak):
     """Writes <Text Style="..."> elements."""
     for seg_no, segment in enumerate(rich.segments):
-        fdx_styles = set(style_names[n] for n in segment.styles)
+        fdx_styles = [style_names[n] for n in segment.get_ordered_styles()]
         if trailing_linebreak and seg_no == len(rich.segments) - 1:
             _write_text_element(out, fdx_styles, segment.text + '\n')
         else:
