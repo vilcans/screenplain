@@ -232,7 +232,7 @@ all_styles = (Bold, Italic, Underline)
 
 
 def _unescape(source):
-    """Converts backslash-escaped stars in a string to the magic
+    r"""Converts backslash-escaped stars in a string to the magic
     "literal star" character.
 
     >>> _unescape(r'\*hello\*')
@@ -243,7 +243,7 @@ def _unescape(source):
 
 
 def _demagic_literals(text):
-    """Converts "literal star" characters to actual stars: "*"
+    r"""Converts "literal star" characters to actual stars: "*"
 
     >>> _demagic_literals(u'\ue706hello\ue706')
     u'*hello*'
