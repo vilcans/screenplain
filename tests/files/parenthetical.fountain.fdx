@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+<Content>
+<Paragraph Type="Character">
+<Text>JOHN DOE</Text>
+</Paragraph>
+<Paragraph Type="Parenthetical">
+<Text>(screaming)</Text>
+</Paragraph>
+<Paragraph Type="Dialogue">
+<Text>Hello!!!</Text>
+</Paragraph>
+</Content>
+</FinalDraft>
