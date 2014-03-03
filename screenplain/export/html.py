@@ -115,7 +115,7 @@ class Formatter(object):
             self.out.write(to_html(dialog.character))
 
         for parenthetical, text in dialog.blocks:
-            classes = 'parenthetical' if parenthetical else None
+            classes = ['parenthetical'] if parenthetical else None
             with self._tag('p', classes=classes):
                 self.out.write(to_html(text))
 
