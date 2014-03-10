@@ -1,3 +1,2 @@
 #!/bin/bash
-nosetests --nocapture --with-doctest --doctest-tests $* && \
-  pep8 screenplain tests
+python test.py && pep8 screenplain tests
