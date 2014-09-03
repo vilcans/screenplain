@@ -192,7 +192,7 @@ class _CreateStyledString(object):
     with a single segment with a specified style.
     """
     def __init__(self, styles):
-        self.styles = styles
+        self.styles = set(styles)
 
     def __call__(self, text):
         return RichString(Segment(text, self.styles))
@@ -200,9 +200,9 @@ class _CreateStyledString(object):
     def __add__(self, other):
         return _CreateStyledString(self.styles.union(other.styles))
 
-plain = _CreateStyledString(set())
-bold = _CreateStyledString(set((Bold,)))
-italic = _CreateStyledString(set((Italic,)))
+plain = _CreateStyledString(())
+bold = _CreateStyledString((Bold,))
+italic = _CreateStyledString((Italic,))
 underline = _CreateStyledString((Underline,))
 
 empty_string = RichString()
