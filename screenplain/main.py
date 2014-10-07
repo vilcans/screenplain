@@ -4,7 +4,6 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import fileinput
 import sys
 import codecs
 from optparse import OptionParser
@@ -12,7 +11,7 @@ from optparse import OptionParser
 from screenplain.parsers import fountain
 
 output_formats = (
-    'fdx', 'html'
+    'fdx', 'html', 'pdf'
 )
 
 usage = """Usage: %prog [options] [input-file [output-file]]
@@ -62,6 +61,8 @@ def main(args):
             format = 'fdx'
         elif output_file.endswith('.html'):
             format = 'html'
+        elif output_file.endswith('.pdf'):
+            format = 'pdf'
         else:
             invalid_format(
                 parser,
