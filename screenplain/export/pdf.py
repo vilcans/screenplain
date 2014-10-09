@@ -12,6 +12,7 @@ from reportlab.platypus import (
 from reportlab import platypus
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
 
 from screenplain.types import (
     Action, Dialog, DualDialog, Transition, Slug
@@ -59,6 +60,10 @@ parenthentical_style = ParagraphStyle(
 action_style = ParagraphStyle(
     'action', default_style,
     spaceBefore=12,
+)
+centered_action_style = ParagraphStyle(
+    'centered-action', action_style,
+    alignment=TA_CENTER,
 )
 slug_style = ParagraphStyle(
     'slug', default_style,
@@ -132,8 +137,10 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
         elif isinstance(para, DualDialog):
             add_dual_dialog(story, para)
         elif isinstance(para, Action):
-            # TODO: heed para.centered
-            add_paragraph(story, para, action_style)
+            add_paragraph(
+                story, para,
+                centered_action_style if para.centered else action_style
+            )
         elif isinstance(para, Slug):
             add_paragraph(story, para, slug_style)
         elif isinstance(para, Transition):
