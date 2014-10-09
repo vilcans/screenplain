@@ -53,7 +53,8 @@ dialog_style = ParagraphStyle(
 )
 parenthentical_style = ParagraphStyle(
     'parenthentical', default_style,
-    leftIndent=13 * character_width
+    leftIndent=13 * character_width,
+    keepWithNext=1,
 )
 action_style = ParagraphStyle(
     'action', default_style,
