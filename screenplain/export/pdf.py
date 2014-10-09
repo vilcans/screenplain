@@ -3,13 +3,20 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from reportlab.lib import pagesizes
-from reportlab.platypus import BaseDocTemplate, Paragraph, Frame, PageTemplate
+from reportlab.platypus import (
+    BaseDocTemplate,
+    Paragraph,
+    Frame,
+    PageTemplate,
+)
+from reportlab import platypus
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
 
 from screenplain.types import (
     Action, Dialog, DualDialog, Transition, Slug
 )
+from screenplain import types
 
 lines_per_page = 55
 characters_per_line = 61
@@ -130,8 +137,8 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
             add_paragraph(story, para, slug_style)
         elif isinstance(para, Transition):
             add_paragraph(story, para, transition_style)
-        #elif isinstance(para, PageBreak):
-            # TODO: page break
+        elif isinstance(para, types.PageBreak):
+            story.append(platypus.PageBreak())
         else:
             # Ignore unknown types
             pass
