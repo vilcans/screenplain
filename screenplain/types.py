@@ -46,10 +46,11 @@ class Section(object):
 
 
 class Dialog(object):
-    def __init__(self, character, lines):
+    def __init__(self, character, lines=None):
         self.character = character
         self.blocks = []  # list of tuples of (is_parenthetical, text)
-        self._parse(lines)
+        if lines:
+            self._parse(lines)
 
     def _parse(self, lines):
         inside_parenthesis = False
@@ -59,6 +60,10 @@ class Dialog(object):
             self.blocks.append((inside_parenthesis, line))
             if line.endswith(')'):
                 inside_parenthesis = False
+
+    def add_line(self, line):
+        parenthetical = line.startswith('(')
+        self.blocks.append((parenthetical, line))
 
 
 class DualDialog(object):

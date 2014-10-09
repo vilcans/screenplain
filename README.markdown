@@ -33,6 +33,11 @@ the master branch may not always work. I'm currently working on supporting
 the whole [Fountain](http://fountain.io) specification. (Fountain
 was previously known as "Screenplay Markdown" or "SPMD.")
 
+Installing
+==========
+
+    pip install screenplain
+
 Credits
 =======
 
