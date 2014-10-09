@@ -128,7 +128,6 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
     doc = template_constructor(
         output_filename,
         pagesize=(page_width, page_height),
-        #showBoundary=True,
     )
     story = []
     for para in screenplay:
