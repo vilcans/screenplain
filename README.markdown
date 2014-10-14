@@ -38,6 +38,10 @@ Installing
 
     pip install screenplain
 
+To enable PDF output, install with the PDF extra (installs ReportLab):
+
+    pip install 'screenplain[PDF]'
+
 Credits
 =======
 
