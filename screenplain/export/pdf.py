@@ -2,6 +2,15 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
+import sys
+
+try:
+    import reportlab
+except ImportError:
+    sys.stderr.write('ERROR: ReportLab is required for PDF output\n')
+    raise
+del reportlab
+
 from reportlab.lib import pagesizes
 from reportlab.platypus import (
     BaseDocTemplate,

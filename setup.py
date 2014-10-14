@@ -9,9 +9,9 @@ setup(
     author='Martin Vilcans',
     author_email='screenplain@librador.com',
     url='http://www.screenplain.com/',
-    requires=[
-        'reportlab',
-    ],
+    extras_require={
+        'PDF': 'reportlab'
+    },
     packages=[
         'screenplain',
         'screenplain.export',
