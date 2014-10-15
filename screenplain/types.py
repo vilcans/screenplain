@@ -3,6 +3,36 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 
+class Screenplay(object):
+    def __init__(self, title_page=None, paragraphs=None):
+        """
+        Create a Screenplay object.
+
+        `title_page` is a dictionary mapping string keys to strings.
+        `paragraphs` is a sequence of paragraph objects.
+        """
+
+        # Key/value pairs for title page
+        if title_page is None:
+            self.title_page = {}
+        else:
+            self.title_page = title_page
+
+        # The paragraphs of the actual script
+        if paragraphs is None:
+            self.paragraphs = []
+        else:
+            self.paragraphs = paragraphs
+
+    def append(self, paragraph):
+        """Append a paragraph to this screenplay."""
+        self.paragraphs.append(paragraph)
+
+    def __iter__(self):
+        """Get an iterator over the paragraphs of this screenplay."""
+        return iter(self.paragraphs)
+
+
 class Slug(object):
 
     def __init__(self, line, scene_number=None):
