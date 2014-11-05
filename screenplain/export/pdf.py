@@ -17,6 +17,7 @@ from reportlab.platypus import (
     Paragraph,
     Frame,
     PageTemplate,
+    Spacer,
 )
 from reportlab import platypus
 from reportlab.lib.units import inch
@@ -50,6 +51,12 @@ default_style = ParagraphStyle(
     leftIndent=0,
     rightIndent=0,
 )
+default_centered_style = ParagraphStyle(
+    'default-centered', default_style,
+    alignment=TA_CENTER,
+)
+
+# Screenplay styles
 character_style = ParagraphStyle(
     'character', default_style,
     spaceBefore=12,
@@ -84,6 +91,18 @@ transition_style = ParagraphStyle(
     'transition', default_style,
     spaceBefore=12,
     spaceAfter=12,
+)
+
+# Title page styles
+title_style = ParagraphStyle(
+    'title', default_style,
+    fontSize=24, leading=36,
+    alignment=TA_CENTER,
+)
+contact_style = ParagraphStyle(
+    'contact', default_style,
+    leftIndent=2.7 * inch,
+    rightIndent=0,
 )
 
 
@@ -133,12 +152,72 @@ def add_dual_dialog(story, dual):
     add_dialog(story, dual.right)
 
 
-def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
-    doc = template_constructor(
-        output_filename,
-        pagesize=(page_width, page_height),
-    )
+def get_title_page_story(screenplay):
+    """Get Platypus flowables for the title page
+
+    """
+    # From Fountain spec:
+    # The recommendation is that Title, Credit, Author (or Authors, either
+    # is a valid key syntax), and Source will be centered on the page in
+    # formatted output. Contact and Draft date would be placed at the lower
+    # left.
+
+    def add_lines(story, attribute, style, space_before=0):
+        lines = screenplay.get_rich_attribute(attribute)
+        if not lines:
+            return 0
+
+        if space_before:
+            story.append(Spacer(frame_width, space_before))
+
+        total_height = 0
+        for line in lines:
+            html = line.to_html()
+            para = Paragraph(html, style)
+            width, height = para.wrap(frame_width, frame_height)
+            story.append(para)
+            total_height += height
+        return space_before + total_height
+
+    title_story = []
+    title_height = sum((
+        add_lines(title_story, 'Title', title_style),
+        add_lines(title_story, 'Credit', default_centered_style, space_before=12),
+        add_lines(title_story, 'Author', default_centered_style),
+        add_lines(title_story, 'Authors', default_centered_style),
+        add_lines(title_story, 'Source', default_centered_style),
+    ))
+
+    lower_story = []
+    lower_height = sum((
+        add_lines(lower_story, 'Draft date', default_style),
+        add_lines(lower_story, 'Contact', contact_style, space_before=12),
+        add_lines(lower_story, 'Copyright', default_style, space_before=12),
+    ))
+
+    if not title_story and not lower_story:
+        return []
+
     story = []
+    top_space = min(
+        frame_height / 3.0,
+        frame_height - lower_height - title_height
+    )
+    if top_space > 0:
+        story.append(Spacer(frame_width, top_space))
+    story += title_story
+    middle_space = frame_height - top_space - title_height - lower_height
+    if middle_space > 0:
+        story.append(Spacer(frame_width, middle_space))
+    story += lower_story
+
+    story.append(platypus.PageBreak())
+    return story
+
+
+def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
+    story = get_title_page_story(screenplay)
+
     for para in screenplay:
         if isinstance(para, Dialog):
             add_dialog(story, para)
@@ -158,4 +237,9 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
         else:
             # Ignore unknown types
             pass
+
+    doc = template_constructor(
+        output_filename,
+        pagesize=(page_width, page_height),
+    )
     doc.build(story)

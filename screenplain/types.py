@@ -2,6 +2,8 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
+from screenplain.richstring import parse_emphasis
+
 
 class Screenplay(object):
     def __init__(self, title_page=None, paragraphs=None):
@@ -23,6 +25,18 @@ class Screenplay(object):
             self.paragraphs = []
         else:
             self.paragraphs = paragraphs
+
+    def get_rich_attribute(self, name, default=[]):
+        """Get an attribute from the title page parsed into a RichString.
+        Returns a list of RichString objects.
+
+        E.g. `screenplay.get_rich_attribute('Title')`
+
+        """
+        if name in self.title_page:
+            return [parse_emphasis(line) for line in self.title_page[name]]
+        else:
+            return default
 
     def append(self, paragraph):
         """Append a paragraph to this screenplay."""
