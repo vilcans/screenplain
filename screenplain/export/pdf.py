@@ -51,7 +51,7 @@ default_style = ParagraphStyle(
     leftIndent=0,
     rightIndent=0,
 )
-default_centered_style = ParagraphStyle(
+centered_style = ParagraphStyle(
     'default-centered', default_style,
     alignment=TA_CENTER,
 )
@@ -182,10 +182,10 @@ def get_title_page_story(screenplay):
     title_story = []
     title_height = sum((
         add_lines(title_story, 'Title', title_style),
-        add_lines(title_story, 'Credit', default_centered_style, space_before=12),
-        add_lines(title_story, 'Author', default_centered_style),
-        add_lines(title_story, 'Authors', default_centered_style),
-        add_lines(title_story, 'Source', default_centered_style),
+        add_lines(title_story, 'Credit', centered_style, space_before=12),
+        add_lines(title_story, 'Author', centered_style),
+        add_lines(title_story, 'Authors', centered_style),
+        add_lines(title_story, 'Source', centered_style),
     ))
 
     lower_story = []

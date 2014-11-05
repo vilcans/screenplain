@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='screenplain',
-    version='0.3.2',
+    version='0.4.0',
     description='Convert text file to viewable screenplay.',
     author='Martin Vilcans',
     author_email='screenplain@librador.com',
