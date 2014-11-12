@@ -108,6 +108,7 @@ contact_style = ParagraphStyle(
 
 class DocTemplate(BaseDocTemplate):
     def __init__(self, *args, **kwargs):
+        self.has_title_page = kwargs.pop('has_title_page', False)
         frame = Frame(
             left_margin, bottom_margin, frame_width, frame_height,
             id='normal',
@@ -122,7 +123,10 @@ class DocTemplate(BaseDocTemplate):
 
     def handle_pageBegin(self):
         self.canv.setFont('Courier', 12, leading=12)
-        page = self.page + 1
+        if self.has_title_page:
+            page = self.page  # self.page is 0 on first page
+        else:
+            page = self.page + 1
         if page >= 2:
             self.canv.drawRightString(
                 left_margin + frame_width,
@@ -218,6 +222,7 @@ def get_title_page_story(screenplay):
 
 def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
     story = get_title_page_story(screenplay)
+    has_title_page = bool(story)
 
     for para in screenplay:
         if isinstance(para, Dialog):
@@ -242,5 +247,6 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
     doc = template_constructor(
         output_filename,
         pagesize=(page_width, page_height),
+        has_title_page=has_title_page
     )
     doc.build(story)
