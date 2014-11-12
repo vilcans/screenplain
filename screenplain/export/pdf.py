@@ -206,7 +206,8 @@ def get_title_page_story(screenplay):
     if top_space > 0:
         story.append(Spacer(frame_width, top_space))
     story += title_story
-    middle_space = frame_height - top_space - title_height - lower_height
+    # The minus 6 adds some room for rounding errors and whatnot
+    middle_space = frame_height - top_space - title_height - lower_height - 6
     if middle_space > 0:
         story.append(Spacer(frame_width, middle_space))
     story += lower_story
