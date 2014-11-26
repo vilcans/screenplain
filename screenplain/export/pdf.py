@@ -101,7 +101,7 @@ title_style = ParagraphStyle(
 )
 contact_style = ParagraphStyle(
     'contact', default_style,
-    leftIndent=2.7 * inch,
+    leftIndent=3.9 * inch,
     rightIndent=0,
 )
 
@@ -196,7 +196,7 @@ def get_title_page_story(screenplay):
     lower_height = sum((
         add_lines(lower_story, 'Draft date', default_style),
         add_lines(lower_story, 'Contact', contact_style, space_before=12),
-        add_lines(lower_story, 'Copyright', default_style, space_before=12),
+        add_lines(lower_story, 'Copyright', centered_style, space_before=12),
     ))
 
     if not title_story and not lower_story:
