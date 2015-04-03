@@ -69,3 +69,10 @@ Set up environment using virtualenvwrapper:
 
     mkvirtualenv --no-site-packages screenplain
     pip install -r requirements.txt
+    pip install -e .
+
+After this, the `screenplain` command will use the working copy of your code.
+
+To run unit tests and style checks, run:
+
+    bin/test
