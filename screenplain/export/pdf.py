@@ -22,7 +22,7 @@ from reportlab.platypus import (
 from reportlab import platypus
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
 
 from screenplain.types import (
     Action, Dialog, DualDialog, Transition, Slug
@@ -91,6 +91,7 @@ transition_style = ParagraphStyle(
     'transition', default_style,
     spaceBefore=12,
     spaceAfter=12,
+    alignment=TA_RIGHT,
 )
 
 # Title page styles
