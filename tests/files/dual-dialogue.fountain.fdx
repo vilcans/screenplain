@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+  <Content>
+    <Paragraph>
+      <DualDialogue>
+        <Paragraph Type="Character">
+          <Text>GIRL</Text>
+        </Paragraph>
+        <Paragraph Type="Dialogue">
+          <Text>Hey!</Text>
+        </Paragraph>
+        <Paragraph Type="Character">
+          <Text>GUY</Text>
+        </Paragraph>
+        <Paragraph Type="Dialogue">
+          <Text>Hello!</Text>
+        </Paragraph>
+      </DualDialogue>
+    </Paragraph>
+  </Content>
+</FinalDraft>
