@@ -39,6 +39,10 @@ right_margin = page_width - left_margin - frame_width
 top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
+# If the current page has below this many pixels remaining,
+# break before starting a new scene / dialogue
+pixels_threshold_page_break = 100
+
 character_width = 1.0 / 10 * inch
 
 default_style = ParagraphStyle(
@@ -142,7 +146,14 @@ def add_paragraph(story, para, style):
         story.append(Paragraph(line.to_html(), style))
 
 
+def add_slug(story, para, style):
+    protect_page_break(story)
+    for line in para.lines:
+        story.append(Paragraph(line.to_html(), style))
+
+
 def add_dialog(story, dialog):
+    protect_page_break(story)
     story.append(Paragraph(dialog.character.to_html(), character_style))
     for parenthetical, line in dialog.blocks:
         if parenthetical:
@@ -155,6 +166,10 @@ def add_dual_dialog(story, dual):
     # TODO: format dual dialog
     add_dialog(story, dual.left)
     add_dialog(story, dual.right)
+
+
+def protect_page_break(story):
+    story.append(platypus.CondPageBreak(pixels_threshold_page_break))
 
 
 def get_title_page_story(screenplay):
@@ -236,7 +251,7 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
                 centered_action_style if para.centered else action_style
             )
         elif isinstance(para, Slug):
-            add_paragraph(story, para, slug_style)
+            add_slug(story, para, slug_style)
         elif isinstance(para, Transition):
             add_paragraph(story, para, transition_style)
         elif isinstance(para, types.PageBreak):
