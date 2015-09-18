@@ -142,6 +142,11 @@ def add_paragraph(story, para, style):
         story.append(Paragraph(line.to_html(), style))
 
 
+def add_slug(story, para, style):
+    for line in para.lines:
+        story.append(Paragraph('<b><u>' + line.to_html() + '</u></b>', style))
+
+
 def add_dialog(story, dialog):
     story.append(Paragraph(dialog.character.to_html(), character_style))
     for parenthetical, line in dialog.blocks:
@@ -236,7 +241,7 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
                 centered_action_style if para.centered else action_style
             )
         elif isinstance(para, Slug):
-            add_paragraph(story, para, slug_style)
+            add_slug(story, para, slug_style)
         elif isinstance(para, Transition):
             add_paragraph(story, para, transition_style)
         elif isinstance(para, types.PageBreak):
