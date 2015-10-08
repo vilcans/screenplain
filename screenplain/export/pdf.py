@@ -29,6 +29,9 @@ from screenplain.types import (
 )
 from screenplain import types
 
+from lxml import etree
+from lxml import objectify
+
 lines_per_page = 55
 characters_per_line = 61
 frame_height = 12 * lines_per_page
@@ -40,6 +43,28 @@ top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
 character_width = 1.0 / 10 * inch
+
+flowable_attributes = (
+    "style",
+    "alignment",
+    "autoLeading",
+    "bulletAnchor",
+    "bulletColor",
+    "bulletFontName",
+    "bulletFontSize",
+    "bulletIndent",
+    "bulletOffsetY",
+    "bulletText",
+    "firstLineIndent",
+    "fontName",
+    "fontSize",
+    "leading",
+    "leftIndent",
+    "rightIndent",
+    "spaceAfter",
+    "spaceBefore",
+    "textColor",
+)
 
 default_style = ParagraphStyle(
     'default',
@@ -221,7 +246,7 @@ def get_title_page_story(screenplay):
     return story
 
 
-def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
+def assemble(screenplay):
     story = get_title_page_story(screenplay)
     has_title_page = bool(story)
 
@@ -244,6 +269,39 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
         else:
             # Ignore unknown types
             pass
+
+    return (story, has_title_page)
+
+
+def element_from_flowable(flowable):
+    el = etree.Element('flowable')
+    if isinstance(flowable, Paragraph):
+        el = etree.fromstring("<para>%s</para>" % flowable.text)
+        for attr in flowable_attributes:
+            try:
+                value = getattr(flowable.style, attr)
+            except AttributeError:
+                pass
+            else:
+                el.set(attr, str(value))
+
+    return el
+
+
+def to_rml(screenplay, output_filename, template_constructor=DocTemplate):
+    story, has_title_page = assemble(screenplay)
+
+    output = etree.Element('document')
+    for flowable in story:
+        output.append(element_from_flowable(flowable))
+
+    output_file = open(output_filename, "w")
+    output_file.write("%s" % etree.tostring(output, pretty_print=True))
+    output_file.close()
+
+
+def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
+    story, has_title_page = assemble(screenplay)
 
     doc = template_constructor(
         output_filename,

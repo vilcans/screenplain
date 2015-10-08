@@ -11,7 +11,7 @@ from optparse import OptionParser
 from screenplain.parsers import fountain
 
 output_formats = (
-    'fdx', 'html', 'pdf'
+    'fdx', 'html', 'rml', 'pdf'
 )
 
 usage = """Usage: %prog [options] [input-file [output-file]]
@@ -61,6 +61,8 @@ def main(args):
             format = 'fdx'
         elif output_file.endswith('.html'):
             format = 'html'
+        elif output_file.endswith('.rml'):
+            format = 'rml'
         elif output_file.endswith('.pdf'):
             format = 'pdf'
         else:
@@ -86,6 +88,12 @@ def main(args):
             sys.stderr.write("Can't write PDF to standard output")
             sys.exit(2)
         to_pdf(screenplay, output_file)
+    elif format == 'rml':
+        from screenplain.export.pdf import to_rml
+        if not output_file:
+            sys.stderr.write("Can't write RML to standard output")
+            sys.exit(2)
+        to_rml(screenplay, output_file)
     else:
         if output_file:
             output = codecs.open(output_file, 'w', 'utf-8')
