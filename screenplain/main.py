@@ -94,7 +94,7 @@ def main(args):
         if not output_file:
             sys.stderr.write("Can't write PDF to standard output")
             sys.exit(2)
-        to_pdf(screenplay, output_file, options.strong)
+        to_pdf(screenplay, output_file, is_strong=options.strong)
     else:
         if output_file:
             output = codecs.open(output_file, 'w', 'utf-8')

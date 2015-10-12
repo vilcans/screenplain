@@ -230,8 +230,11 @@ def get_title_page_story(screenplay):
     return story
 
 
-def to_pdf(screenplay, output_filename, is_strong):
-    template_constructor = DocTemplate
+def to_pdf(
+    screenplay, output_filename,
+    template_constructor=DocTemplate,
+    is_strong=False,
+):
     story = get_title_page_story(screenplay)
     has_title_page = bool(story)
 
