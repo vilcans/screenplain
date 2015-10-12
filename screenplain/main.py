@@ -49,6 +49,15 @@ def main(args):
             'not a complete HTML document.'
         )
     )
+    parser.add_option(
+        '--strong',
+        action='store_true',
+        dest='strong',
+        help=(
+            'For PDF output, scene headings will appear '
+            'Bold and Underlined.'
+        )
+    )
     options, args = parser.parse_args(args)
     if len(args) >= 3:
         parser.error('Too many arguments')
@@ -85,7 +94,7 @@ def main(args):
         if not output_file:
             sys.stderr.write("Can't write PDF to standard output")
             sys.exit(2)
-        to_pdf(screenplay, output_file)
+        to_pdf(screenplay, output_file, options.strong)
     else:
         if output_file:
             output = codecs.open(output_file, 'w', 'utf-8')

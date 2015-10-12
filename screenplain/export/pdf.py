@@ -142,6 +142,15 @@ def add_paragraph(story, para, style):
         story.append(Paragraph(line.to_html(), style))
 
 
+def add_slug(story, para, style, is_strong):
+    for line in para.lines:
+        if is_strong:
+            html = '<b><u>' + line.to_html() + '</u></b>'
+        else:
+            html = line.to_html()
+        story.append(Paragraph(html, style))
+
+
 def add_dialog(story, dialog):
     story.append(Paragraph(dialog.character.to_html(), character_style))
     for parenthetical, line in dialog.blocks:
@@ -221,7 +230,8 @@ def get_title_page_story(screenplay):
     return story
 
 
-def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
+def to_pdf(screenplay, output_filename, is_strong):
+    template_constructor = DocTemplate
     story = get_title_page_story(screenplay)
     has_title_page = bool(story)
 
@@ -236,7 +246,7 @@ def to_pdf(screenplay, output_filename, template_constructor=DocTemplate):
                 centered_action_style if para.centered else action_style
             )
         elif isinstance(para, Slug):
-            add_paragraph(story, para, slug_style)
+            add_slug(story, para, slug_style, is_strong)
         elif isinstance(para, Transition):
             add_paragraph(story, para, transition_style)
         elif isinstance(para, types.PageBreak):
