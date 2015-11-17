@@ -128,8 +128,11 @@ class InputParagraph(object):
             return False
 
         character = self.lines[0]
-        if not character.isupper() or character.endswith(TWOSPACE):
+        if (not character.isupper() and not character.startswith('@')) or character.endswith(TWOSPACE):
             return False
+
+        if character.startswith('@'):
+            character = character[1:]
 
         if paragraphs and isinstance(paragraphs[-1], Dialog):
             dual_match = dual_dialog_re.match(character)
