@@ -128,7 +128,11 @@ class InputParagraph(object):
             return False
 
         character = self.lines[0]
-        if not character.isupper() or character.endswith(TWOSPACE):
+        if character.endswith(TWOSPACE):
+            return False
+        if character.startswith('@') and len(character) >= 2:
+            character = character[1:]
+        elif not character.isupper():
             return False
 
         if paragraphs and isinstance(paragraphs[-1], Dialog):

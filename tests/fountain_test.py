@@ -148,14 +148,26 @@ class DialogTests(TestCase):
         self.assertEquals(Dialog, type(dialog))
         self.assertEquals(plain('SOME GUY'), dialog.character)
 
-    # Fountain would not be able to support a character named "23". We
-    # might need a syntax to force a character element.
+
+    # Spec http://fountain.io/syntax#section-character:
+    # Character names must include at least one alphabetical character.
+    # "R2D2" works, but "23" does not.
     def test_nonalpha_character(self):
         paras = parse([
             '23',
             'Hello',
         ])
         self.assertEquals([Action], [type(p) for p in paras])
+
+    # Spec http://fountain.io/syntax#section-character:
+    # You can force a Character element by preceding it with the "at" symbol @.
+    def test_at_sign_forces_dialog(self):
+        paras = parse([
+            '@McCLANE',
+            'Yippee ki-yay',
+        ])
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals(plain('McCLANE'), paras[0].character)
 
     def test_twospaced_line_is_not_character(self):
         paras = parse([
