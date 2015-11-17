@@ -148,6 +148,13 @@ class DialogTests(TestCase):
         self.assertEquals(Dialog, type(dialog))
         self.assertEquals(plain('SOME GUY'), dialog.character)
 
+    def test_alphanumeric_character(self):
+        paras = parse([
+            'R2D2',
+            'Bee-bop',
+        ])
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals(plain('R2D2'), paras[0].character)
 
     # Spec http://fountain.io/syntax#section-character:
     # Character names must include at least one alphabetical character.
