@@ -50,6 +50,14 @@ def main(args):
         )
     )
     parser.add_option(
+        '--css',
+        metavar='FILE',
+        help=(
+            'For HTML output, inline the given CSS file in the HTML document '
+            'instead of the default.'
+        )
+    )
+    parser.add_option(
         '--strong',
         action='store_true',
         dest='strong',
@@ -109,7 +117,10 @@ def main(args):
                 to_fdx(screenplay, output)
             elif format == 'html':
                 from screenplain.export.html import convert
-                convert(screenplay, output, bare=options.bare)
+                convert(
+                    screenplay, output,
+                    css_file=options.css, bare=options.bare
+                )
         finally:
             if output_file:
                 output.close()
