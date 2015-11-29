@@ -1,0 +1,36 @@
+#title {
+    text-align: center;
+}
+.dialog + h2 {
+    margin-top: 5ex;
+}
+.dialog {
+    font-family: monospace;
+    font-size: 10pt;
+    line-height: 130%;
+    padding-left: 17ex;
+    margin-top: 2ex;
+    widows: 20;
+    orphans: 20;
+}
+p {
+    margin-top: 0.4ex;
+    margin-bottom: 0ex;
+}
+.character {
+    left: 1ex;
+    margin-left: -17ex;
+    margin-top: 0px;
+}
+p.character + p {
+    margin-top: -13pt;
+}
+.parenthetical {
+    font-style: italic;
+    padding-left: 4ex;
+}
+.action {
+    margin-top: 2ex;
+    font-size: 150%;
+    text-align: center;
+}
