@@ -190,13 +190,17 @@ def convert_full(screenplay, out, css_file):
     written to the file-like object `out`.
 
     """
+    title = 'Screenplay'
+    if 'Title' in screenplay.title_page:
+        title = ' - '.join(screenplay.title_page['Title'])
+
     with open(css_file, 'r') as stream:
         css = stream.read()
     out.write(
         '<!DOCTYPE html>\n'
         '<html>'
         '<head>'
-        '<title>Screenplay</title>'
+        '<title>' + to_html(plain(title)) + '</title>'
         '<style type="text/css">'
     )
     out.write(css)
