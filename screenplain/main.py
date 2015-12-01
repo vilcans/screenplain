@@ -98,32 +98,40 @@ def main(args):
     screenplay = fountain.parse(input)
 
     if format == 'pdf':
-        from screenplain.export.pdf import to_pdf
-        if not output_file:
-            sys.stderr.write("Can't write PDF to standard output")
-            sys.exit(2)
-        to_pdf(screenplay, output_file, is_strong=options.strong)
+        output_encoding = None
     else:
-        if output_file:
-            output = codecs.open(output_file, 'w', 'utf-8')
+        output_encoding = 'utf-8'
+
+    if output_file:
+        if output_encoding:
+            output = codecs.open(output_file, 'w', output_encoding)
         else:
-            output = codecs.getwriter('utf-8')(sys.stdout)
-        try:
-            if format == 'text':
-                from screenplain.export.text import to_text
-                to_text(screenplay, output)
-            elif format == 'fdx':
-                from screenplain.export.fdx import to_fdx
-                to_fdx(screenplay, output)
-            elif format == 'html':
-                from screenplain.export.html import convert
-                convert(
-                    screenplay, output,
-                    css_file=options.css, bare=options.bare
-                )
-        finally:
-            if output_file:
-                output.close()
+            output = open(output_file, 'wb')
+    else:
+        if output_encoding:
+            output = codecs.getwriter(output_encoding)(sys.stdout)
+        else:
+            output = sys.stdout
+
+    try:
+        if format == 'text':
+            from screenplain.export.text import to_text
+            to_text(screenplay, output)
+        elif format == 'fdx':
+            from screenplain.export.fdx import to_fdx
+            to_fdx(screenplay, output)
+        elif format == 'html':
+            from screenplain.export.html import convert
+            convert(
+                screenplay, output,
+                css_file=options.css, bare=options.bare
+            )
+        elif format == 'pdf':
+            from screenplain.export.pdf import to_pdf
+            to_pdf(screenplay, output, is_strong=options.strong)
+    finally:
+        if output_file:
+            output.close()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
