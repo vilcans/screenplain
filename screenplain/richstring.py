@@ -109,7 +109,11 @@ class Segment(object):
         ordered_styles = self.get_ordered_styles()
         return (
             ''.join(style.start_html for style in ordered_styles) +
-            cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace') +
+            re.sub(
+                '  ',  # two spaces
+                '&nbsp; ',
+                cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace'),
+            ) +
             ''.join(style.end_html for style in reversed(ordered_styles))
         )
 

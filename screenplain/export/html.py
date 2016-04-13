@@ -3,9 +3,6 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from __future__ import with_statement
-import sys
-import re
-import cgi
 import os
 import os.path
 
@@ -60,7 +57,8 @@ def to_html(text):
     html = text.to_html()
     if html == '':
         return '&nbsp;'
-    return re.sub('  ', '&nbsp; ', html)
+    else:
+        return html
 
 
 class Formatter(object):
