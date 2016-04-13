@@ -45,7 +45,11 @@ class RichString(object):
         return self.segments[-1].text.endswith(string)
 
     def to_html(self):
-        return ''.join(seg.to_html() for seg in self.segments)
+        html = ''.join(seg.to_html() for seg in self.segments)
+        if html.startswith(' '):
+            return '&nbsp;' + html[1:]
+        else:
+            return html
 
     def __eq__(self, other):
         return (
@@ -110,8 +114,8 @@ class Segment(object):
         return (
             ''.join(style.start_html for style in ordered_styles) +
             re.sub(
-                '  ',  # two spaces
-                '&nbsp; ',
+                '  +',  # at least two spaces
+                lambda m: '&nbsp;' * (len(m.group(0)) - 1) + ' ',
                 cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace'),
             ) +
             ''.join(style.end_html for style in reversed(ordered_styles))
