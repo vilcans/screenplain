@@ -5,6 +5,7 @@
 import itertools
 from itertools import takewhile
 import re
+import six
 
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak,
@@ -269,7 +270,7 @@ def parse_title_page(lines):
 
     it = iter(lines)
     try:
-        line = it.next()
+        line = six.next(it)
         while True:
             key_match = title_page_key_re.match(line)
             if not key_match:
