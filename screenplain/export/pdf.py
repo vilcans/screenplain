@@ -141,8 +141,10 @@ class DocTemplate(BaseDocTemplate):
 
 
 def add_paragraph(story, para, style):
-    for line in para.lines:
-        story.append(Paragraph(line.to_html(), style))
+    story.append(Paragraph(
+        '<br/>'.join(line.to_html() for line in para.lines),
+        style
+    ))
 
 
 def add_slug(story, para, style, is_strong):
