@@ -29,10 +29,12 @@ from screenplain.types import (
 )
 from screenplain import types
 
+font_size = 12
+line_height = 12
 lines_per_page = 55
 characters_per_line = 61
 character_width = 1.0 / 10 * inch  # Courier pitch is 10 chars/inch
-frame_height = 12 * lines_per_page
+frame_height = line_height * lines_per_page
 frame_width = characters_per_line * character_width
 
 page_width, page_height = pagesizes.letter
@@ -45,8 +47,8 @@ bottom_margin = page_height - top_margin - frame_height
 default_style = ParagraphStyle(
     'default',
     fontName='Courier',
-    fontSize=12,
-    leading=12,
+    fontSize=font_size,
+    leading=line_height,
     spaceBefore=0,
     spaceAfter=0,
     leftIndent=0,
@@ -60,7 +62,7 @@ centered_style = ParagraphStyle(
 # Screenplay styles
 character_style = ParagraphStyle(
     'character', default_style,
-    spaceBefore=12,
+    spaceBefore=line_height,
     leftIndent=19 * character_width,
     keepWithNext=1,
 )
@@ -76,7 +78,7 @@ parenthentical_style = ParagraphStyle(
 )
 action_style = ParagraphStyle(
     'action', default_style,
-    spaceBefore=12,
+    spaceBefore=line_height,
 )
 centered_action_style = ParagraphStyle(
     'centered-action', action_style,
@@ -84,14 +86,14 @@ centered_action_style = ParagraphStyle(
 )
 slug_style = ParagraphStyle(
     'slug', default_style,
-    spaceBefore=12,
-    spaceAfter=12,
+    spaceBefore=line_height,
+    spaceAfter=line_height,
     keepWithNext=1,
 )
 transition_style = ParagraphStyle(
     'transition', default_style,
-    spaceBefore=12,
-    spaceAfter=12,
+    spaceBefore=line_height,
+    spaceAfter=line_height,
     alignment=TA_RIGHT,
 )
 
@@ -124,7 +126,7 @@ class DocTemplate(BaseDocTemplate):
         )
 
     def handle_pageBegin(self):
-        self.canv.setFont('Courier', 12, leading=12)
+        self.canv.setFont('Courier', font_size, leading=line_height)
         if self.has_title_page:
             page = self.page  # self.page is 0 on first page
         else:
@@ -197,7 +199,9 @@ def get_title_page_story(screenplay):
     title_story = []
     title_height = sum((
         add_lines(title_story, 'Title', title_style),
-        add_lines(title_story, 'Credit', centered_style, space_before=12),
+        add_lines(
+            title_story, 'Credit', centered_style, space_before=line_height
+        ),
         add_lines(title_story, 'Author', centered_style),
         add_lines(title_story, 'Authors', centered_style),
         add_lines(title_story, 'Source', centered_style),
@@ -206,8 +210,12 @@ def get_title_page_story(screenplay):
     lower_story = []
     lower_height = sum((
         add_lines(lower_story, 'Draft date', default_style),
-        add_lines(lower_story, 'Contact', contact_style, space_before=12),
-        add_lines(lower_story, 'Copyright', centered_style, space_before=12),
+        add_lines(
+            lower_story, 'Contact', contact_style, space_before=line_height
+        ),
+        add_lines(
+            lower_story, 'Copyright', centered_style, space_before=line_height
+        ),
     ))
 
     if not title_story and not lower_story:
