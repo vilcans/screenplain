@@ -31,15 +31,16 @@ from screenplain import types
 
 lines_per_page = 55
 characters_per_line = 61
+character_width = 1.0 / 10 * inch  # Courier pitch is 10 chars/inch
 frame_height = 12 * lines_per_page
-frame_width = characters_per_line * 72 / 10.0  # Courier pitch is 10 chars/inch
+frame_width = characters_per_line * character_width
+
 page_width, page_height = pagesizes.letter
 left_margin = 1.5 * inch
 right_margin = page_width - left_margin - frame_width
 top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
-character_width = 1.0 / 10 * inch
 
 default_style = ParagraphStyle(
     'default',
