@@ -1,3 +1,3 @@
 #!/bin/bash
 nosetests --nocapture --with-doctest --doctest-tests $* && \
-  pep8 --ignore=E402 screenplain tests
+  pep8 --ignore=E402 --exclude=screenplain/lib/ screenplain tests
