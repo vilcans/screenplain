@@ -116,7 +116,7 @@ class Segment(object):
             re.sub(
                 '  +',  # at least two spaces
                 lambda m: '&nbsp;' * (len(m.group(0)) - 1) + ' ',
-                cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace'),
+                cgi.escape(self.text).encode('utf-8', 'xmlcharrefreplace').decode('utf-8'),
             ) +
             ''.join(style.end_html for style in reversed(ordered_styles))
         )
