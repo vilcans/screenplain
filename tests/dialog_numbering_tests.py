@@ -1,8 +1,3 @@
-from __future__ import with_statement
-
-
-import codecs
-
 from PDF import PdfFileReader
 from io import BytesIO
 
