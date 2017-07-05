@@ -66,6 +66,14 @@ def main(args):
             'Bold and Underlined.'
         )
     )
+    parser.add_option(
+        '--numbered',
+        action='store_true',
+        dest='numbered',
+        help=(
+            'For Full HTML or PDF output, number the dialog.'
+        )
+    )
     options, args = parser.parse_args(args)
     if len(args) >= 3:
         parser.error('Too many arguments')
@@ -124,11 +132,15 @@ def main(args):
             from screenplain.export.html import convert
             convert(
                 screenplay, output,
-                css_file=options.css, bare=options.bare
+                css_file=options.css, bare=options.bare,
+                numbered=options.numbered
             )
         elif format == 'pdf':
             from screenplain.export.pdf import to_pdf
-            to_pdf(screenplay, output, is_strong=options.strong)
+            to_pdf(
+                screenplay, output, is_strong=options.strong,
+                numbered=options.numbered
+            )
     finally:
         if output_file:
             output.close()
