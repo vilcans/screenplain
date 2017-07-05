@@ -78,15 +78,15 @@ class DialogNumberingTests(TestCase):
                                    'WALTER 6',
                                    ]
 
-    def _test_html(self, bare, numbered, expected):
+    def _html_contains_numbering(self, bare, numbered):
         html_file = BytesIO()
         html.convert(self.screenplay, out=html_file, bare=bare,
                      numbered=numbered)
         generated_html = html_file.getvalue()
-        return (dialog_numbers_css in generated_html) is expected
+        return dialog_numbers_css in generated_html
 
     def test_html_numbering(self):
-        assert self._test_html(bare=False, numbered=False, expected=False)
-        assert self._test_html(bare=False, numbered=True, expected=True)
-        assert self._test_html(bare=True, numbered=False, expected=False)
-        assert self._test_html(bare=True, numbered=True, expected=False)
+        assert self._html_contains_numbering(bare=False, numbered=True)
+        assert not self._html_contains_numbering(bare=False, numbered=False)
+        assert not self._html_contains_numbering(bare=True, numbered=False)
+        assert not self._html_contains_numbering(bare=True, numbered=True)
