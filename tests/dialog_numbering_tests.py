@@ -17,7 +17,7 @@ ROBERT
 I've told you a thousand times, I do not care for sea urchins.
 
 WALTER
-Given our current situation, I hardly think we can afford to picky!
+Given our current situation, I hardly think we can afford to be picky!
 
 ROBERT
 Listen Walt, I'm a kelp man - through and through!
