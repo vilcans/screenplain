@@ -47,7 +47,6 @@ Hey.  This island is made of pie.
 class DialogNumberingTests(TestCase):
 
     def setUp(self):
-        script_file = BytesIO(script)
         self.screenplay = fountain.parse(BytesIO(script))
 
     def _extract_character_lines_from_pdf(self, pdf_file):
