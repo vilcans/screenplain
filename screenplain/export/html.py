@@ -10,6 +10,28 @@ from screenplain.types import *
 from screenplain.richstring import plain
 
 
+dialog_numbers_css = """
+
+/* begin dialog numbering css */
+
+body {
+    counter-reset: dialog_counter;
+}
+
+
+div.dialog:before, div.dual:before {
+    content: counter(dialog_counter);
+    counter-increment: dialog_counter;
+    display: inline;
+    float: left;
+    padding-right: 1em;
+}
+
+/* end dialog numbering css */
+
+"""
+
+
 class tag(object):
     """Handler for automatically opening and closing a tag.
 
@@ -168,7 +190,7 @@ def _read_file(filename):
         return stream.read()
 
 
-def convert(screenplay, out, css_file=None, bare=False):
+def convert(screenplay, out, css_file=None, bare=False, numbered=False):
     """Convert the screenplay into HTML, written to the file-like object `out`.
 
     The output will be a complete HTML document unless `bare` is true.
@@ -179,15 +201,17 @@ def convert(screenplay, out, css_file=None, bare=False):
     else:
         convert_full(
             screenplay, out,
-            css_file or os.path.join(os.path.dirname(__file__), 'default.css')
+            css_file or os.path.join(os.path.dirname(__file__), 'default.css'),
+            numbered
         )
 
 
-def convert_full(screenplay, out, css_file):
+def convert_full(screenplay, out, css_file, numbered=False):
     """Convert the screenplay into a complete HTML document,
     written to the file-like object `out`.
 
     """
+
     with open(css_file, 'r') as stream:
         css = stream.read()
     out.write(
@@ -198,6 +222,8 @@ def convert_full(screenplay, out, css_file):
         '<style type="text/css">'
     )
     out.write(css)
+    if numbered:
+        out.write(dialog_numbers_css)
     out.write(
         '</style>'
         '</head>'
@@ -212,11 +238,13 @@ def convert_full(screenplay, out, css_file):
     )
 
 
-def convert_bare(screenplay, out):
+def convert_bare(screenplay, out, numbered=False):
     """Convert the screenplay into HTML, written to the file-like object `out`.
     Does not create a complete HTML document, as it doesn't include
     <html>, <body>, etc.
 
     """
+    if numbered:
+        out.write(dialog_numbers_css)
     formatter = Formatter(out)
     formatter.convert(screenplay)

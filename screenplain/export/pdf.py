@@ -43,7 +43,6 @@ right_margin = page_width - left_margin - frame_width
 top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
-
 default_style = ParagraphStyle(
     'default',
     fontName='Courier',
@@ -156,8 +155,12 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def add_dialog(story, dialog):
-    story.append(Paragraph(dialog.character.to_html(), character_style))
+def add_dialog(story, dialog, numbered=False):
+    dialog_counter = numbered and \
+        """ <super><seq id="dialog_counter" /></super>""" \
+        or ''
+    story.append(Paragraph(dialog.character.to_html() + dialog_counter,
+                           character_style))
     for parenthetical, line in dialog.blocks:
         if parenthetical:
             story.append(Paragraph(line.to_html(), parenthentical_style))
@@ -165,10 +168,10 @@ def add_dialog(story, dialog):
             story.append(Paragraph(line.to_html(), dialog_style))
 
 
-def add_dual_dialog(story, dual):
+def add_dual_dialog(story, dual, numbered=False):
     # TODO: format dual dialog
-    add_dialog(story, dual.left)
-    add_dialog(story, dual.right)
+    add_dialog(story, dual.left, numbered=numbered)
+    add_dialog(story, dual.right, numbered=numbered)
 
 
 def get_title_page_story(screenplay):
@@ -245,15 +248,16 @@ def to_pdf(
     screenplay, output_filename,
     template_constructor=DocTemplate,
     is_strong=False,
+    numbered=False,
 ):
     story = get_title_page_story(screenplay)
     has_title_page = bool(story)
 
     for para in screenplay:
         if isinstance(para, Dialog):
-            add_dialog(story, para)
+            add_dialog(story, para, numbered=numbered)
         elif isinstance(para, DualDialog):
-            add_dual_dialog(story, para)
+            add_dual_dialog(story, para, numbered=numbered)
         elif isinstance(para, Action):
             add_paragraph(
                 story, para,
