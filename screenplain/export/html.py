@@ -238,13 +238,11 @@ def convert_full(screenplay, out, css_file, numbered=False):
     )
 
 
-def convert_bare(screenplay, out, numbered=False):
+def convert_bare(screenplay, out):
     """Convert the screenplay into HTML, written to the file-like object `out`.
     Does not create a complete HTML document, as it doesn't include
     <html>, <body>, etc.
 
     """
-    if numbered:
-        out.write(dialog_numbers_css)
     formatter = Formatter(out)
     formatter.convert(screenplay)
