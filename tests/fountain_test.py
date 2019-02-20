@@ -14,25 +14,25 @@ from six import StringIO
 
 def parse(lines):
     content = '\n'.join(lines)
-    return fountain.parse(StringIO(content))
+    return list(fountain.parse(StringIO(content)))
 
 
 class SlugTests(TestCase):
     def test_slug_with_prefix(self):
-        paras = list(parse([
+        paras = parse([
             'INT. SOMEWHERE - DAY',
             '',
             'THIS IS JUST ACTION',
-        ]))
+        ])
         self.assertEquals([Slug, Action], [type(p) for p in paras])
 
     def test_slug_must_be_single_line(self):
-        paras = list(parse([
+        paras = parse([
             'INT. SOMEWHERE - DAY',
             'ANOTHER LINE',
             '',
             'Some action',
-        ]))
+        ])
         self.assertEquals([Dialog, Action], [type(p) for p in paras])
         # What looks like a scene headingis parsed as a character name.
         # Unexpected perhaps, but that's how I interpreted the spec.
@@ -40,10 +40,10 @@ class SlugTests(TestCase):
         self.assertEquals([plain('Some action')], paras[1].lines)
 
     def test_action_is_not_a_slug(self):
-        paras = list(parse([
+        paras = parse([
             '',
             'THIS IS JUST ACTION',
-        ]))
+        ])
         self.assertEquals([Action], [type(p) for p in paras])
 
     def test_two_lines_creates_no_slug(self):
@@ -148,28 +148,47 @@ class DialogTests(TestCase):
         self.assertEquals(Dialog, type(dialog))
         self.assertEquals(plain('SOME GUY'), dialog.character)
 
-    # Fountain would not be able to support a character named "23". We
-    # might need a syntax to force a character element.
+    def test_alphanumeric_character(self):
+        paras = parse([
+            'R2D2',
+            'Bee-bop',
+        ])
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals(plain('R2D2'), paras[0].character)
+
+    # Spec http://fountain.io/syntax#section-character:
+    # Character names must include at least one alphabetical character.
+    # "R2D2" works, but "23" does not.
     def test_nonalpha_character(self):
-        paras = list(parse([
+        paras = parse([
             '23',
             'Hello',
-        ]))
+        ])
         self.assertEquals([Action], [type(p) for p in paras])
 
+    # Spec http://fountain.io/syntax#section-character:
+    # You can force a Character element by preceding it with the "at" symbol @.
+    def test_at_sign_forces_dialog(self):
+        paras = parse([
+            '@McCLANE',
+            'Yippee ki-yay',
+        ])
+        self.assertEquals([Dialog], [type(p) for p in paras])
+        self.assertEquals(plain('McCLANE'), paras[0].character)
+
     def test_twospaced_line_is_not_character(self):
-        paras = list(parse([
+        paras = parse([
             'SCANNING THE AISLES...  ',
             'Where is that pit boss?',
-        ]))
+        ])
         self.assertEquals([Action], [type(p) for p in paras])
 
     def test_simple_parenthetical(self):
-        paras = list(parse([
+        paras = parse([
             'STEEL',
             '(starting the engine)',
             'So much for retirement!',
-        ]))
+        ])
         self.assertEquals(1, len(paras))
         dialog = paras[0]
         self.assertEqual(2, len(dialog.blocks))
@@ -183,12 +202,12 @@ class DialogTests(TestCase):
         )
 
     def test_twospace_keeps_dialog_together(self):
-        paras = list(parse([
+        paras = parse([
             'SOMEONE',
             'One',
             '  ',
             'Two',
-        ]))
+        ])
         self.assertEquals([Dialog], [type(p) for p in paras])
         self.assertEquals([
             (False, plain('One')),
@@ -197,13 +216,13 @@ class DialogTests(TestCase):
         ], paras[0].blocks)
 
     def test_dual_dialog(self):
-        paras = list(parse([
+        paras = parse([
             'BRICK',
             'Fuck retirement.',
             '',
             'STEEL ^',
             'Fuck retirement!',
-        ]))
+        ])
         self.assertEquals([DualDialog], [type(p) for p in paras])
         dual = paras[0]
         self.assertEquals(plain('BRICK'), dual.left.character)
@@ -218,12 +237,12 @@ class DialogTests(TestCase):
         )
 
     def test_dual_dialog_without_previous_dialog_is_ignored(self):
-        paras = list(parse([
+        paras = parse([
             'Brick strolls down the street.',
             '',
             'BRICK ^',
             'Nice retirement.',
-        ]))
+        ])
         self.assertEquals([Action, Dialog], [type(p) for p in paras])
         dialog = paras[1]
         self.assertEqual(plain('BRICK ^'), dialog.character)
@@ -232,13 +251,13 @@ class DialogTests(TestCase):
         ], dialog.blocks)
 
     def test_leading_and_trailing_spaces_in_dialog(self):
-        paras = list(parse([
+        paras = parse([
             'JULIET',
             'O Romeo, Romeo! wherefore art thou Romeo?',
             '  Deny thy father and refuse thy name;  ',
             'Or, if thou wilt not, be but sworn my love,',
             " And I'll no longer be a Capulet.",
-        ]))
+        ])
         self.assertEquals([Dialog], [type(p) for p in paras])
         self.assertEquals([
             (False, plain(u'O Romeo, Romeo! wherefore art thou Romeo?')),
@@ -251,84 +270,84 @@ class DialogTests(TestCase):
 class TransitionTests(TestCase):
 
     def test_standard_transition(self):
-        paras = list(parse([
+        paras = parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'CUT TO:',
             '',
             "EXT. BRICK'S POOL - DAY",
-        ]))
+        ])
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
 
     def test_transition_must_end_with_to(self):
-        paras = list(parse([
+        paras = parse([
             'CUT TOO:',
             '',
             "EXT. BRICK'S POOL - DAY",
-        ]))
+        ])
         self.assertEquals([Action, Slug], [type(p) for p in paras])
 
     def test_transition_needs_to_be_upper_case(self):
-        paras = list(parse([
+        paras = parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'cut to:',
             '',
             "EXT. BRICK'S POOL - DAY",
-        ]))
+        ])
         self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
 
     def test_not_a_transition_on_trailing_whitespace(self):
-        paras = list(parse([
+        paras = parse([
             'Jack begins to argue vociferously in Vietnamese (?)',
             '',
             'CUT TO: ',
             '',
             "EXT. BRICK'S POOL - DAY",
-        ]))
+        ])
         self.assertEquals([Action, Action, Slug], [type(p) for p in paras])
 
     def test_transition_does_not_have_to_be_followed_by_slug(self):
         # The "followed by slug" requirement is gone from the Jan 2012 spec
-        paras = list(parse([
+        paras = parse([
             'Bill lights a cigarette.',
             '',
             'CUT TO:',
             '',
             'SOME GUY mowing the lawn.',
-        ]))
+        ])
         self.assertEquals(
             [Action, Transition, Action],
             [type(p) for p in paras]
         )
 
     def test_greater_than_sign_means_transition(self):
-        paras = list(parse([
+        paras = parse([
             'Bill blows out the match.',
             '',
             '> FADE OUT.',
             '',
             '.DARKNESS',
-        ]))
+        ])
         self.assertEquals([Action, Transition, Slug], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
 
     def test_centered_text_is_not_parsed_as_transition(self):
-        paras = list(parse([
+        paras = parse([
             'Bill blows out the match.',
             '',
             '> THE END. <',
             '',
             'bye!'
-        ]))
+        ])
         self.assertEquals([Action, Action, Action], [type(p) for p in paras])
 
     def test_transition_at_end(self):
-        paras = list(parse([
+        paras = parse([
             'They stroll hand in hand down the street.',
             '',
             '> FADE OUT.',
-        ]))
+        ])
         self.assertEquals([Action, Transition], [type(p) for p in paras])
         self.assertEquals(plain('FADE OUT.'), paras[1].line)
 
@@ -336,12 +355,12 @@ class TransitionTests(TestCase):
 class ActionTests(TestCase):
 
     def test_action_preserves_leading_whitespace(self):
-        paras = list(parse([
+        paras = parse([
             'hello',
             '',
             '  two spaces',
             '   three spaces ',
-        ]))
+        ])
         self.assertEquals([Action, Action], [type(p) for p in paras])
         self.assertEquals(
             [
@@ -351,7 +370,7 @@ class ActionTests(TestCase):
         )
 
     def test_single_centered_line(self):
-        paras = list(parse(['> center me! <']))
+        paras = parse(['> center me! <'])
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertTrue(paras[0].centered)
 
@@ -361,7 +380,7 @@ class ActionTests(TestCase):
             '  > second!   <',
             '> third!< ',
         ]
-        paras = list(parse(lines))
+        paras = parse(lines)
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertTrue(paras[0].centered)
         self.assertEquals([
@@ -371,11 +390,11 @@ class ActionTests(TestCase):
         ], paras[0].lines)
 
     def test_upper_case_centered_not_parsed_as_dialog(self):
-        paras = list(parse([
+        paras = parse([
             '> FIRST! <',
             '  > SECOND! <',
             '> THIRD! <',
-        ]))
+        ])
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertTrue(paras[0].centered)
 
@@ -385,7 +404,7 @@ class ActionTests(TestCase):
             '> second! <',
             'third!',
         ]
-        paras = list(parse(lines))
+        paras = parse(lines)
         self.assertEquals([Action], [type(p) for p in paras])
         self.assertFalse(paras[0].centered)
         self.assertEquals([plain(line) for line in lines], paras[0].lines)
@@ -393,12 +412,12 @@ class ActionTests(TestCase):
 
 class SynopsisTests(TestCase):
     def test_synopsis_after_slug_adds_synopsis_to_scene(self):
-        paras = list(parse([
+        paras = parse([
             "EXT. BRICK'S PATIO - DAY",
             '',
             "= Set up Brick & Steel's new life."
             '',
-        ]))
+        ])
         self.assertEquals([Slug], [type(p) for p in paras])
         self.assertEquals(
             "Set up Brick & Steel's new life.",
@@ -406,11 +425,11 @@ class SynopsisTests(TestCase):
         )
 
     def test_synopsis_in_section(self):
-        paras = list(parse([
+        paras = parse([
             '# section one',
             '',
             '= In which we get to know our characters'
-        ]))
+        ])
         self.assertEquals([Section], [type(p) for p in paras])
         self.assertEquals(
             'In which we get to know our characters',
@@ -418,11 +437,11 @@ class SynopsisTests(TestCase):
         )
 
     def test_synopsis_syntax_parsed_as_literal(self):
-        paras = list(parse([
+        paras = parse([
             'Some action',
             '',
             '= A line that just happens to look like a synopsis'
-        ]))
+        ])
         self.assertEquals([Action, Action], [type(p) for p in paras])
         self.assertEquals(
             [plain('= A line that just happens to look like a synopsis')],
@@ -485,9 +504,9 @@ class TitlePageTests(TestCase):
 
 class PageBreakTests(TestCase):
     def test_page_break_is_parsed(self):
-        paras = list(parse([
+        paras = parse([
             '====',
             '',
             'So here we go'
-        ]))
+        ])
         self.assertEquals([PageBreak, Action], [type(p) for p in paras])

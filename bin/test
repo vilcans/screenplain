@@ -1,2 +1,3 @@
 #!/bin/bash
-python test.py && pep8 screenplain tests
+nosetests --nocapture --with-doctest --doctest-tests -I ^test.py $* && \
+  pep8 --ignore=E402 screenplain tests

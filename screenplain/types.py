@@ -2,6 +2,50 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
+from screenplain.richstring import parse_emphasis
+
+
+class Screenplay(object):
+    def __init__(self, title_page=None, paragraphs=None):
+        """
+        Create a Screenplay object.
+
+        `title_page` is a dictionary mapping string keys to strings.
+        `paragraphs` is a sequence of paragraph objects.
+        """
+
+        # Key/value pairs for title page
+        if title_page is None:
+            self.title_page = {}
+        else:
+            self.title_page = title_page
+
+        # The paragraphs of the actual script
+        if paragraphs is None:
+            self.paragraphs = []
+        else:
+            self.paragraphs = paragraphs
+
+    def get_rich_attribute(self, name, default=[]):
+        """Get an attribute from the title page parsed into a RichString.
+        Returns a list of RichString objects.
+
+        E.g. `screenplay.get_rich_attribute('Title')`
+
+        """
+        if name in self.title_page:
+            return [parse_emphasis(line) for line in self.title_page[name]]
+        else:
+            return default
+
+    def append(self, paragraph):
+        """Append a paragraph to this screenplay."""
+        self.paragraphs.append(paragraph)
+
+    def __iter__(self):
+        """Get an iterator over the paragraphs of this screenplay."""
+        return iter(self.paragraphs)
+
 
 class Slug(object):
 
@@ -46,10 +90,11 @@ class Section(object):
 
 
 class Dialog(object):
-    def __init__(self, character, lines):
+    def __init__(self, character, lines=None):
         self.character = character
         self.blocks = []  # list of tuples of (is_parenthetical, text)
-        self._parse(lines)
+        if lines:
+            self._parse(lines)
 
     def _parse(self, lines):
         inside_parenthesis = False
@@ -59,6 +104,10 @@ class Dialog(object):
             self.blocks.append((inside_parenthesis, line))
             if line.endswith(')'):
                 inside_parenthesis = False
+
+    def add_line(self, line):
+        parenthetical = line.startswith('(')
+        self.blocks.append((parenthetical, line))
 
 
 class DualDialog(object):

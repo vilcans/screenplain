@@ -1,5 +1,6 @@
 language: python
 python:
+  - "2.7"
   - "3.3"
-install: pip install -r requirements-py3.txt
+install: pip install -r requirements.txt
 script: bin/test

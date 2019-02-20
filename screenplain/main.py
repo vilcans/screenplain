@@ -4,7 +4,6 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import fileinput
 import sys
 import codecs
 from optparse import OptionParser
@@ -12,7 +11,7 @@ from optparse import OptionParser
 from screenplain.parsers import fountain
 
 output_formats = (
-    'fdx', 'html'
+    'fdx', 'html', 'pdf'
 )
 
 usage = """Usage: %prog [options] [input-file [output-file]]
@@ -50,6 +49,23 @@ def main(args):
             'not a complete HTML document.'
         )
     )
+    parser.add_option(
+        '--css',
+        metavar='FILE',
+        help=(
+            'For HTML output, inline the given CSS file in the HTML document '
+            'instead of the default.'
+        )
+    )
+    parser.add_option(
+        '--strong',
+        action='store_true',
+        dest='strong',
+        help=(
+            'For PDF output, scene headings will appear '
+            'Bold and Underlined.'
+        )
+    )
     options, args = parser.parse_args(args)
     if len(args) >= 3:
         parser.error('Too many arguments')
@@ -62,6 +78,8 @@ def main(args):
             format = 'fdx'
         elif output_file.endswith('.html'):
             format = 'html'
+        elif output_file.endswith('.pdf'):
+            format = 'pdf'
         else:
             invalid_format(
                 parser,
@@ -74,35 +92,46 @@ def main(args):
         )
 
     if input_file:
-        input = codecs.open(input_file, 'r', 'utf-8')
+        input = codecs.open(input_file, 'r', 'utf-8-sig')
     else:
         input = codecs.getreader('utf-8')(sys.stdin)
     screenplay = fountain.parse(input)
 
     if format == 'pdf':
-        from screenplain.export.pdf import to_pdf
-        if not output_file:
-            sys.stderr.write("Can't write PDF to standard output")
-            sys.exit(2)
-        to_pdf(screenplay, output_file)
+        output_encoding = None
     else:
-        if output_file:
-            output = codecs.open(output_file, 'w', 'utf-8')
+        output_encoding = 'utf-8'
+
+    if output_file:
+        if output_encoding:
+            output = codecs.open(output_file, 'w', output_encoding)
         else:
-            output = codecs.getwriter('utf-8')(sys.stdout)
-        try:
-            if format == 'text':
-                from screenplain.export.text import to_text
-                to_text(screenplay, output)
-            elif format == 'fdx':
-                from screenplain.export.fdx import to_fdx
-                to_fdx(screenplay, output)
-            elif format == 'html':
-                from screenplain.export.html import convert
-                convert(screenplay, output, bare=options.bare)
-        finally:
-            if output_file:
-                output.close()
+            output = open(output_file, 'wb')
+    else:
+        if output_encoding:
+            output = codecs.getwriter(output_encoding)(sys.stdout)
+        else:
+            output = sys.stdout
+
+    try:
+        if format == 'text':
+            from screenplain.export.text import to_text
+            to_text(screenplay, output)
+        elif format == 'fdx':
+            from screenplain.export.fdx import to_fdx
+            to_fdx(screenplay, output)
+        elif format == 'html':
+            from screenplain.export.html import convert
+            convert(
+                screenplay, output,
+                css_file=options.css, bare=options.bare
+            )
+        elif format == 'pdf':
+            from screenplain.export.pdf import to_pdf
+            to_pdf(screenplay, output, is_strong=options.strong)
+    finally:
+        if output_file:
+            output.close()
 
 if __name__ == '__main__':
     main(sys.argv[1:])

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+
+  <Content>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. INDENTATION TEST</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>    Four spaces</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>   Three spaces</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>  Two spaces</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text> One space</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>No spaces</Text>
+    </Paragraph>
+  </Content>
+</FinalDraft>

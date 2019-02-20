@@ -3,9 +3,6 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from __future__ import with_statement
-import sys
-import re
-import cgi
 import os
 import os.path
 
@@ -63,7 +60,8 @@ def to_html(text):
     html = text.to_html()
     if html == '':
         return '&nbsp;'
-    return re.sub('  ', '&nbsp; ', html)
+    else:
+        return html
 
 
 class Formatter(object):
@@ -169,12 +167,11 @@ class Formatter(object):
 
 
 def _read_file(filename):
-    path = os.path.join(os.path.dirname(__file__), filename)
     with open(path) as stream:
         return stream.read()
 
 
-def convert(screenplay, out, bare=False):
+def convert(screenplay, out, css_file=None, bare=False):
     """Convert the screenplay into HTML, written to the file-like object `out`.
 
     The output will be a complete HTML document unless `bare` is true.
@@ -183,15 +180,19 @@ def convert(screenplay, out, bare=False):
     if bare:
         convert_bare(screenplay, out)
     else:
-        convert_full(screenplay, out)
+        convert_full(
+            screenplay, out,
+            css_file or os.path.join(os.path.dirname(__file__), 'default.css')
+        )
 
 
-def convert_full(screenplay, out):
+def convert_full(screenplay, out, css_file):
     """Convert the screenplay into a complete HTML document,
     written to the file-like object `out`.
 
     """
-    css = _read_file('default.css')
+    with open(css_file, 'r') as stream:
+        css = stream.read()
     out.write(
         '<!DOCTYPE html>\n'
         '<html>'

@@ -59,7 +59,11 @@ class RichString(object):
         return self.segments[-1].text.endswith(string)
 
     def to_html(self):
-        return ''.join(seg.to_html() for seg in self.segments)
+        html = ''.join(seg.to_html() for seg in self.segments)
+        if html.startswith(' '):
+            return '&nbsp;' + html[1:]
+        else:
+            return html
 
     def __eq__(self, other):
         return (
@@ -126,7 +130,11 @@ class Segment(object):
         ordered_styles = self.get_ordered_styles()
         return (
             ''.join(style.start_html for style in ordered_styles) +
-            _escape(self.text) +
+            re.sub(
+                '  +',  # at least two spaces
+                lambda m: '&nbsp;' * (len(m.group(0)) - 1) + ' ',
+                _escape(self.text),
+            ) +
             ''.join(style.end_html for style in reversed(ordered_styles))
         )
 
@@ -209,7 +217,7 @@ class _CreateStyledString(object):
     with a single segment with a specified style.
     """
     def __init__(self, styles):
-        self.styles = styles
+        self.styles = set(styles)
 
     def __call__(self, text):
         return RichString(Segment(text, self.styles))
@@ -217,9 +225,9 @@ class _CreateStyledString(object):
     def __add__(self, other):
         return _CreateStyledString(self.styles.union(other.styles))
 
-plain = _CreateStyledString(set())
-bold = _CreateStyledString(set((Bold,)))
-italic = _CreateStyledString(set((Italic,)))
+plain = _CreateStyledString(())
+bold = _CreateStyledString((Bold,))
+italic = _CreateStyledString((Italic,))
 underline = _CreateStyledString((Underline,))
 
 empty_string = RichString()

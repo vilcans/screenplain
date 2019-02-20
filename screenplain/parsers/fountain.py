@@ -8,7 +8,8 @@ import re
 from six import next
 
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
+    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak,
+    Screenplay
 )
 from screenplain.richstring import parse_emphasis, plain
 
@@ -128,7 +129,11 @@ class InputParagraph(object):
             return False
 
         character = self.lines[0]
-        if not character.isupper() or character.endswith(TWOSPACE):
+        if character.endswith(TWOSPACE):
+            return False
+        if character.startswith('@') and len(character) >= 2:
+            character = character[1:]
+        elif not character.isupper():
             return False
 
         if paragraphs and isinstance(paragraphs[-1], Dialog):
@@ -206,6 +211,11 @@ def _is_blank(line):
 
 
 def parse(stream):
+    """Parses Fountain source.
+
+    Returns a Screenplay object.
+
+    """
     content = stream.read()
     content = boneyard_re.sub('', content)
     lines = linebreak_re.split(content)
@@ -214,8 +224,11 @@ def parse(stream):
 
 
 def parse_lines(source):
-    """Reads raw text input and generates paragraph objects."""
+    """Reads raw text input and generates paragraph objects.
 
+    Returns a Screenplay object.
+
+    """
     source = (_preprocess_line(line) for line in source)
 
     title_page_lines = list(takewhile(lambda line: line != '', source))
@@ -224,12 +237,14 @@ def parse_lines(source):
     if title_page:
         # The first lines were a title page.
         # Parse the rest of the source as screenplay body.
-        # TODO: Create a title page from the data in title_page
-        return parse_body(source)
+        return Screenplay(title_page, parse_body(source))
     else:
         # The first lines were not a title page.
         # Parse them as part of the screenplay body.
-        return parse_body(itertools.chain(title_page_lines, [''], source))
+        return Screenplay(
+            {},
+            parse_body(itertools.chain(title_page_lines, [''], source))
+        )
 
 
 def parse_body(source):
@@ -245,7 +260,12 @@ def parse_body(source):
 
 
 def parse_title_page(lines):
+    """Parse the title page.
 
+    Spec: http://fountain.io/syntax#section-titlepage
+    Returns None if the document does not have a title page section,
+    otherwise a dictionary with the data.
+    """
     result = {}
 
     it = iter(lines)
