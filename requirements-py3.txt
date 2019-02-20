@@ -1,4 +1,0 @@
-#reportlab
-nose
-pep8
-six
