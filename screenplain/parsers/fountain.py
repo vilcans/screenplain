@@ -35,6 +35,7 @@ scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
 section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
 transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
 page_break_re = re.compile(r'^={3,}$')
+note_re = re.compile(r'\[\[.*?\]\]', re.DOTALL)
 
 
 def _sequence_to_rich(lines):
@@ -253,7 +254,8 @@ def parse_body(source):
     paragraphs = []
     for blank, input_lines in itertools.groupby(source, _is_blank):
         if not blank:
-            paragraph = InputParagraph(list(input_lines))
+            as_string = note_re.sub('', '\n'.join(input_lines))
+            paragraph = InputParagraph(as_string.split('\n'))
             paragraph.update_list(paragraphs)
 
     return paragraphs

@@ -1,0 +1,18 @@
+Before1 [[some notes]]After1
+
+Before2 [[multiline
+note
+here]]After2
+
+Before3 [[multiline
+note
+  
+with a blank line]]After3
+
+Multiple [[notes]]on one[[line]]
+
+This is not [[
+a proper note
+
+because it contains a blank line
+]]
