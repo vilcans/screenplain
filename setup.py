@@ -9,6 +9,11 @@ setup(
     author='Martin Vilcans',
     author_email='screenplain@librador.com',
     url='http://www.screenplain.com/',
+    project_urls={
+        'Web Page': 'http://www.screenplain.com/',
+        'Source': 'https://github.com/vilcans/screenplain',
+    },
+    license='MIT',
     install_requires=[
         'six',
     ],
@@ -25,5 +30,11 @@ setup(
     },
     scripts=[
         'bin/screenplain'
-    ]
+    ],
+    classifiers=[
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
 )
