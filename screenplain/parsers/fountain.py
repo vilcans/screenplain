@@ -208,7 +208,7 @@ def _preprocess_line(raw_line):
 
 
 def _is_blank(line):
-    return line == ''
+    return line == '' or line == ' '
 
 
 def parse(stream):
