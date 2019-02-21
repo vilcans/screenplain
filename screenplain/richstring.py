@@ -4,8 +4,19 @@
 
 import re
 import cgi
+import six
 
 _magic_re = re.compile(u'[\ue700-\ue705]')
+
+
+def _escape(s):
+    """Replaces special HTML characters like <
+    and non-ascii characters with ampersand escapes.
+
+    """
+    encoded = cgi.escape(s).encode('ascii', 'xmlcharrefreplace')
+    # In Py3, encoded is bytes type, so convert it to a string
+    return encoded.decode('ascii')
 
 
 class RichString(object):
@@ -20,7 +31,10 @@ class RichString(object):
         return ' + '.join(repr(s) for s in self.segments)
 
     def __unicode__(self):
-        return ''.join(unicode(s) for s in self.segments)
+        return ''.join(six.text_type(s) for s in self.segments)
+
+    def __str__(self):
+        return self.__unicode__()
 
     def startswith(self, string):
         """Checks if the first segment in this string starts with a
@@ -93,6 +107,9 @@ class Segment(object):
     def __unicode__(self):
         return self.text
 
+    def __str__(self):
+        return self.text
+
     def __eq__(self, other):
         return (
             isinstance(other, Segment) and
@@ -116,7 +133,7 @@ class Segment(object):
             re.sub(
                 '  +',  # at least two spaces
                 lambda m: '&nbsp;' * (len(m.group(0)) - 1) + ' ',
-                cgi.escape(self.text).encode('ascii', 'xmlcharrefreplace'),
+                _escape(self.text),
             ) +
             ''.join(style.end_html for style in reversed(ordered_styles))
         )

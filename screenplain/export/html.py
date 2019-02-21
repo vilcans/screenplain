@@ -18,19 +18,22 @@ class tag(object):
     >>> import sys
     >>> from __future__ import with_statement
     >>> with tag(sys.stdout, 'div'):
-    ...     sys.stdout.write('hello')
+    ...     print('hello')
     ...
-    <div>hello</div>
+    <div>hello
+    </div>
 
     Adding classes to the element is possible:
 
     >>> with tag(sys.stdout, 'div', classes=['action']):
-    ...     sys.stdout.write('hello')
-    <div class="action">hello</div>
+    ...     print('hello')
+    <div class="action">hello
+    </div>
 
     >>> with tag(sys.stdout, 'div', classes=['action', 'centered']):
-    ...     sys.stdout.write('hello')
-    <div class="action centered">hello</div>
+    ...     print('hello')
+    <div class="action centered">hello
+    </div>
 
     """
     def __init__(self, out, tag, classes=None):

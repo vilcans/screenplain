@@ -76,3 +76,7 @@ After this, the `screenplain` command will use the working copy of your code.
 To run unit tests and style checks, run:
 
     bin/test
+
+For developing for Python 3, instead use:
+
+    mkvirtualenv --no-site-packages --python=$(which python3) screenplain-py3
