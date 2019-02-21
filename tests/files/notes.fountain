@@ -16,3 +16,17 @@ a proper note
 
 because it contains a blank line
 ]]
+
+Before full paragraph note
+
+[[Note as its own paragraph does not generate an empty paragraph]]
+
+After full paragraph note
+
+Before multi-paragraph note
+
+[[Note as its own paragraph
+on several lines
+does not generate an empty paragraph]]
+
+After multi-paragraph note

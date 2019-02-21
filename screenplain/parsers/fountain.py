@@ -255,6 +255,8 @@ def parse_body(source):
     for blank, input_lines in itertools.groupby(source, _is_blank):
         if not blank:
             as_string = note_re.sub('', '\n'.join(input_lines))
+            if _is_blank(as_string):
+                continue
             paragraph = InputParagraph(as_string.split('\n'))
             paragraph.update_list(paragraphs)
 
