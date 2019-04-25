@@ -105,8 +105,6 @@ title_style = ParagraphStyle(
 )
 contact_style = ParagraphStyle(
     'contact', default_style,
-    leftIndent=3.9 * inch,
-    rightIndent=0,
 )
 
 
