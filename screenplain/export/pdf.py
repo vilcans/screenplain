@@ -17,6 +17,7 @@ from reportlab.platypus import (
     Paragraph,
     Frame,
     PageTemplate,
+    NextPageTemplate,
     Spacer,
 )
 from reportlab import platypus
@@ -43,6 +44,7 @@ right_margin = page_width - left_margin - frame_width
 top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
+title_frame_width = page_width - left_margin - left_margin
 
 default_style = ParagraphStyle(
     'default',
@@ -118,7 +120,13 @@ class DocTemplate(BaseDocTemplate):
             id='normal',
             leftPadding=0, topPadding=0, rightPadding=0, bottomPadding=0
         )
+        title_frame = Frame(
+            left_margin, bottom_margin, title_frame_width, frame_height,
+            id='title',
+            leftPadding=0, topPadding=0, rightPadding=0, bottomPadding=0
+        )
         pageTemplates = [
+            PageTemplate(id='title', frames=[title_frame]),
             PageTemplate(id='standard', frames=[frame])
         ]
         BaseDocTemplate.__init__(
@@ -236,6 +244,8 @@ def get_title_page_story(screenplay):
     if middle_space > 0:
         story.append(Spacer(frame_width, middle_space))
     story += lower_story
+
+    story.append(NextPageTemplate('standard'))
 
     story.append(platypus.PageBreak())
     return story
