@@ -3,8 +3,12 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import re
-import cgi
 import six
+
+try:
+    from html import escape as html_escape
+except ImportError:
+    from cgi import escape as html_escape
 
 _magic_re = re.compile(u'[\ue700-\ue705]')
 
@@ -14,7 +18,7 @@ def _escape(s):
     and non-ascii characters with ampersand escapes.
 
     """
-    encoded = cgi.escape(s).encode('ascii', 'xmlcharrefreplace')
+    encoded = html_escape(s, quote=False).encode('ascii', 'xmlcharrefreplace')
     # In Py3, encoded is bytes type, so convert it to a string
     return encoded.decode('ascii')
 
