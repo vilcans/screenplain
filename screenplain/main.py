@@ -109,9 +109,9 @@ def main(args):
             output = open(output_file, 'wb')
     else:
         if output_encoding:
-            output = codecs.getwriter(output_encoding)(sys.stdout)
+            output = codecs.getwriter(output_encoding)(sys.stdout.buffer)
         else:
-            output = sys.stdout
+            output = sys.stdout.buffer
 
     try:
         if format == 'text':
