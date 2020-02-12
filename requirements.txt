@@ -2,4 +2,3 @@ reportlab
 unittest2
 nose
 pycodestyle
-six

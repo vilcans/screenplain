@@ -3,7 +3,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from testcompat import TestCase
-from six import StringIO
+from io import StringIO
 
 from screenplain.export.fdx import write_text
 from screenplain.richstring import plain, bold, italic

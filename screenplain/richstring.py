@@ -3,7 +3,6 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import re
-import six
 
 try:
     from html import escape as html_escape
@@ -35,7 +34,7 @@ class RichString(object):
         return ' + '.join(repr(s) for s in self.segments)
 
     def __unicode__(self):
-        return ''.join(six.text_type(s) for s in self.segments)
+        return ''.join(str(s) for s in self.segments)
 
     def __str__(self):
         return self.__unicode__()

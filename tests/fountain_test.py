@@ -9,7 +9,7 @@ from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
 )
 from screenplain.richstring import plain, italic, empty_string
-from six import StringIO
+from io import StringIO
 
 
 def parse(lines):
