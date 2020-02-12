@@ -3,14 +3,13 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import re
-import six
 
 try:
     from html import escape as html_escape
 except ImportError:
     from cgi import escape as html_escape
 
-_magic_re = re.compile(u'[\ue700-\ue705]')
+_magic_re = re.compile('[\ue700-\ue705]')
 
 
 def _escape(s):
@@ -35,7 +34,7 @@ class RichString(object):
         return ' + '.join(repr(s) for s in self.segments)
 
     def __unicode__(self):
-        return ''.join(six.text_type(s) for s in self.segments)
+        return ''.join(str(s) for s in self.segments)
 
     def __str__(self):
         return self.__unicode__()
@@ -169,8 +168,8 @@ class Italic(Style):
         r'(?!\*)'
     )
 
-    start_magic = u'\ue700'
-    end_magic = u'\ue701'
+    start_magic = '\ue700'
+    end_magic = '\ue701'
 
     start_html = '<em>'
     end_html = '</em>'
@@ -189,8 +188,8 @@ class Bold(Style):
         r'(?<=\S)\*\*'
     )
 
-    start_magic = u'\ue702'
-    end_magic = u'\ue703'
+    start_magic = '\ue702'
+    end_magic = '\ue703'
 
     start_html = '<strong>'
     end_html = '</strong>'
@@ -209,8 +208,8 @@ class Underline(Style):
         r'(?<=\S)_'
     )
 
-    start_magic = u'\ue704'
-    end_magic = u'\ue705'
+    start_magic = '\ue704'
+    end_magic = '\ue705'
 
     start_html = '<u>'  # TODO: use an actual html5 tag
     end_html = '</u>'
@@ -238,7 +237,7 @@ underline = _CreateStyledString((Underline,))
 empty_string = RichString()
 
 # A special unicode character to use for a literal '*'
-literal_star = u'\ue706'
+literal_star = '\ue706'
 
 # All styles. Note: order matters! This is the order they are parsed.
 all_styles = (Bold, Italic, Underline)
@@ -249,7 +248,7 @@ def _unescape(source):
     "literal star" character.
 
     >>> _unescape(r'\*hello\*')
-    u'\ue706hello\ue706'
+    '\ue706hello\ue706'
 
     """
     return source.replace('\\*', literal_star)
@@ -258,8 +257,8 @@ def _unescape(source):
 def _demagic_literals(text):
     r"""Converts "literal star" characters to actual stars: "*"
 
-    >>> _demagic_literals(u'\ue706hello\ue706')
-    u'*hello*'
+    >>> _demagic_literals('\ue706hello\ue706')
+    '*hello*'
     """
     return text.replace(literal_star, '*')
 
@@ -268,12 +267,12 @@ def parse_emphasis(source):
     """Parses emphasis markers like * and ** in a string
     and returns a RichString object.
 
-    >>> parse_emphasis(u'**hello**')
-    (bold)(u'hello')
-    >>> parse_emphasis(u'plain')
-    (plain)(u'plain')
-    >>> parse_emphasis(u'**hello** there')
-    (bold)(u'hello') + (plain)(u' there')
+    >>> parse_emphasis('**hello**')
+    (bold)('hello')
+    >>> parse_emphasis('plain')
+    (plain)('plain')
+    >>> parse_emphasis('**hello** there')
+    (bold)('hello') + (plain)(' there')
     """
 
     # Convert escaped characters to magic characters so they aren't parsed

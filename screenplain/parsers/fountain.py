@@ -5,7 +5,6 @@
 import itertools
 from itertools import takewhile
 import re
-from six import next
 
 from screenplain.types import (
     Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak,

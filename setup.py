@@ -15,7 +15,6 @@ setup(
     },
     license='MIT',
     install_requires=[
-        'six',
     ],
     extras_require={
         'PDF': 'reportlab'
