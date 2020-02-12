@@ -2,7 +2,7 @@
 if [[ $(python -V 2>&1) =~ "Python 2" ]]
 then
     nosetests --nocapture --with-doctest --doctest-tests -I ^test.py $* && \
-      pep8 --ignore=E402 screenplain tests
+      pycodestyle --ignore=E402,W504 screenplain tests
 else
-    python test.py && pep8 --ignore=E402 screenplain tests
+    python test.py && pycodestyle --ignore=E402,W504 screenplain tests
 fi

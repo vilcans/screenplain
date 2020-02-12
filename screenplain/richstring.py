@@ -225,6 +225,7 @@ class _CreateStyledString(object):
     def __add__(self, other):
         return _CreateStyledString(self.styles.union(other.styles))
 
+
 plain = _CreateStyledString(())
 bold = _CreateStyledString((Bold,))
 italic = _CreateStyledString((Italic,))

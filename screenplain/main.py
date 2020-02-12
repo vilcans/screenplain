@@ -133,5 +133,6 @@ def main(args):
         if output_file:
             output.close()
 
+
 if __name__ == '__main__':
     main(sys.argv[1:])

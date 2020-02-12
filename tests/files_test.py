@@ -15,7 +15,7 @@ from screenplain.main import main
 
 source_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'files'))
 
-line_break_re = re.compile('\s*\n\s*')
+line_break_re = re.compile('\\s*\n\\s*')
 spaces_re = re.compile('[ \t]+')
 
 
@@ -114,5 +114,6 @@ def _create_tests():
             f for f in expect_files if f.startswith(source + '.')
         ):
             FileTests.add_file_case(source, expected)
+
 
 _create_tests()
