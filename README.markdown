@@ -65,9 +65,10 @@ Screenplain is released under the [MIT license](http://www.opensource.org/licens
 Developing
 ==========
 
-Set up environment using virtualenvwrapper:
+Set up virtual environment:
 
-    mkvirtualenv --no-site-packages screenplain
+    python3 -m venv .venv
+    . .venv/bin/activate
     pip install -r requirements.txt
     pip install -e .
 
@@ -76,7 +77,3 @@ After this, the `screenplain` command will use the working copy of your code.
 To run unit tests and style checks, run:
 
     bin/test
-
-For developing for Python 3, instead use:
-
-    mkvirtualenv --no-site-packages --python=$(which python3) screenplain-py3
