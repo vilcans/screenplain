@@ -4,11 +4,13 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
+import os
 import sys
 import codecs
 from optparse import OptionParser
 
 from screenplain.parsers import fountain
+from screenplain.config import ConfigurationFile, ConfigurationFileError
 
 output_formats = (
     'fdx', 'html', 'pdf'
@@ -33,6 +35,14 @@ def invalid_format(parser, message):
 def main(args):
     parser = OptionParser(usage=usage)
     parser.add_option(
+        '-c', '--config',
+        metavar='CONFIG',
+        help=(
+            'Path to the configuration file to load (superseeded by command '
+            'line options)'
+        )
+    )
+    parser.add_option(
         '-f', '--format', dest='output_format',
         metavar='FORMAT',
         help=(
@@ -43,6 +53,7 @@ def main(args):
     parser.add_option(
         '--bare',
         action='store_true',
+        default=False,
         dest='bare',
         help=(
             'For HTML output, only output the actual screenplay, '
@@ -60,6 +71,7 @@ def main(args):
     parser.add_option(
         '--strong',
         action='store_true',
+        default=False,
         dest='strong',
         help=(
             'For PDF output, scene headings will appear '
@@ -72,8 +84,27 @@ def main(args):
     input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
     output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
 
-    format = options.output_format
-    if format is None and output_file:
+    try:
+        if options.config:
+            if not os.path.isfile(options.config):
+                sys.stderr.write('no such file: %s' % options.config)
+                return
+            config = ConfigurationFile(options.config)
+        else:
+            config = ConfigurationFile()
+    except ConfigurationFileError as e:
+        sys.stderr.write('error: %s' % e)
+        return
+
+    if options.output_format:
+        config['export']['format'] = options.output_format
+    if options.css:
+        config['[html]']['css'] = options.css
+    config['[html]']['bare'] = str(options.bare)
+    config['[pdf]']['strong'] = str(options.strong)
+
+    format = config['export']['format']
+    if not format and output_file:
         if output_file.endswith('.fdx'):
             format = 'fdx'
         elif output_file.endswith('.html'):
@@ -121,14 +152,18 @@ def main(args):
             from screenplain.export.fdx import to_fdx
             to_fdx(screenplay, output)
         elif format == 'html':
+            html_options = config['[html]']
             from screenplain.export.html import convert
             convert(
                 screenplay, output,
-                css_file=options.css, bare=options.bare
+                css_file=html_options['css'],
+                bare=html_options.getboolean('bare')
             )
         elif format == 'pdf':
+            pdf_options = config['[pdf]']
             from screenplain.export.pdf import to_pdf
-            to_pdf(screenplay, output, is_strong=options.strong)
+            to_pdf(config, screenplay, output,
+                   is_strong=pdf_options.getboolean('strong'))
     finally:
         if output_file:
             output.close()
