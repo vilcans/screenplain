@@ -7,7 +7,7 @@ from itertools import takewhile
 import re
 
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak,
+    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak, Synopse,
     Screenplay
 )
 from screenplain.richstring import parse_emphasis, plain
@@ -35,6 +35,7 @@ section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
 transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
 page_break_re = re.compile(r'^={3,}$')
 note_re = re.compile(r'\[\[.*?\]\]', re.DOTALL)
+synopse_re = re.compile(r'^=([^=].*)?')
 
 
 def _sequence_to_rich(lines):
@@ -58,6 +59,7 @@ class InputParagraph(object):
         """
         (
             self.append_page_break(previous_paragraphs) or
+            self.append_synopse(previous_paragraphs) or
             self.append_synopsis(previous_paragraphs) or
             self.append_sections_and_synopsises(previous_paragraphs) or
             self.append_slug(previous_paragraphs) or
@@ -194,6 +196,16 @@ class InputParagraph(object):
             return True
         else:
             return False
+
+    def append_synopse(self, paragraphs):
+        found_synopse = False
+        for line in self.lines:
+            synopse = synopse_re.match(line)
+            if synopse:
+                paragraphs.append(Synopse((synopse.group(1) or "").strip()))
+                found_synopse = True
+
+        return found_synopse
 
 
 def _preprocess_line(raw_line):

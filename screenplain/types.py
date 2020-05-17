@@ -133,3 +133,8 @@ class Transition(object):
 
 class PageBreak(object):
     pass
+
+
+class Synopse(object):
+    def __init__(self, synopse):
+        self.synopse = synopse

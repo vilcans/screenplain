@@ -84,6 +84,7 @@ class Formatter(object):
             Transition: self.format_transition,
             Section: self.format_section,
             PageBreak: self.format_page_break,
+            Synopse: self.format_synopse,
         }
 
     def convert(self, screenplay):
@@ -158,6 +159,9 @@ class Formatter(object):
 
     def format_page_break(self, para):
         self.page_break_before_next = True
+
+    def format_synopse(self, para):
+        pass
 
     def _tag(self, tag_name, classes=[]):
         if self.page_break_before_next:
