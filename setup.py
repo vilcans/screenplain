@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='screenplain',
-    version='0.8.0',
+    version='0.9.0',
     description='Convert text file to viewable screenplay.',
     author='Martin Vilcans',
     author_email='screenplain@librador.com',
