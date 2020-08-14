@@ -2,7 +2,7 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from testcompat import TestCase
+from .testcompat import TestCase
 from io import StringIO
 
 from screenplain.export.fdx import write_text

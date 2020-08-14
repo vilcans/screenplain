@@ -4,7 +4,7 @@
 
 from __future__ import with_statement
 
-from testcompat import TestCase
+from .testcompat import TestCase
 import tempfile
 import os
 import os.path
