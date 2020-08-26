@@ -35,9 +35,11 @@ setup(
     package_data={
         'screenplain.export': ['default.css']
     },
-    scripts=[
-        'bin/screenplain'
-    ],
+    entry_points={
+        'console_scripts': [
+            'screenplain = screenplain.main:cli'
+        ]
+    },
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
