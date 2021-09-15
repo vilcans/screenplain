@@ -94,7 +94,7 @@ def main(args):
     if input_file:
         input = codecs.open(input_file, 'r', 'utf-8-sig')
     else:
-        input = codecs.getreader('utf-8')(sys.stdin)
+        input = codecs.getreader('utf-8')(sys.stdin.buffer)
     screenplay = fountain.parse(input)
 
     if format == 'pdf':
