@@ -23,6 +23,8 @@ from reportlab import platypus
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_RIGHT
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 from screenplain.types import (
     Action, Dialog, DualDialog, Transition, Slug
@@ -44,74 +46,80 @@ top_margin = 1 * inch
 bottom_margin = page_height - top_margin - frame_height
 
 
-default_style = ParagraphStyle(
-    'default',
-    fontName='Courier',
-    fontSize=font_size,
-    leading=line_height,
-    spaceBefore=0,
-    spaceAfter=0,
-    leftIndent=0,
-    rightIndent=0,
-)
-centered_style = ParagraphStyle(
-    'default-centered', default_style,
-    alignment=TA_CENTER,
-)
+class ParagraphStyles:
+    def __init__(self, font_name):
+        self.default_style = ParagraphStyle(
+            'default',
+            fontName=font_name,
+            fontSize=font_size,
+            leading=line_height,
+            spaceBefore=0,
+            spaceAfter=0,
+            leftIndent=0,
+            rightIndent=0,
+        )
+        self.centered_style = ParagraphStyle(
+            'default-centered', self.default_style,
+            alignment=TA_CENTER,
+        )
 
-# Screenplay styles
-character_style = ParagraphStyle(
-    'character', default_style,
-    spaceBefore=line_height,
-    leftIndent=19 * character_width,
-    keepWithNext=1,
-)
-dialog_style = ParagraphStyle(
-    'dialog', default_style,
-    leftIndent=9 * character_width,
-    rightIndent=frame_width - (45 * character_width),
-)
-parenthentical_style = ParagraphStyle(
-    'parenthentical', default_style,
-    leftIndent=13 * character_width,
-    keepWithNext=1,
-)
-action_style = ParagraphStyle(
-    'action', default_style,
-    spaceBefore=line_height,
-)
-centered_action_style = ParagraphStyle(
-    'centered-action', action_style,
-    alignment=TA_CENTER,
-)
-slug_style = ParagraphStyle(
-    'slug', default_style,
-    spaceBefore=line_height,
-    spaceAfter=line_height,
-    keepWithNext=1,
-)
-transition_style = ParagraphStyle(
-    'transition', default_style,
-    spaceBefore=line_height,
-    spaceAfter=line_height,
-    alignment=TA_RIGHT,
-)
+        # Screenplay styles
+        self.character_style = ParagraphStyle(
+            'character', self.default_style,
+            spaceBefore=line_height,
+            leftIndent=19 * character_width,
+            keepWithNext=1,
+        )
+        self.dialog_style = ParagraphStyle(
+            'dialog', self.default_style,
+            leftIndent=9 * character_width,
+            rightIndent=frame_width - (45 * character_width),
+        )
+        self.parenthentical_style = ParagraphStyle(
+            'parenthentical', self.default_style,
+            leftIndent=13 * character_width,
+            keepWithNext=1,
+        )
+        self.action_style = ParagraphStyle(
+            'action', self.default_style,
+            spaceBefore=line_height,
+        )
+        self.centered_action_style = ParagraphStyle(
+            'centered-action', self.action_style,
+            alignment=TA_CENTER,
+        )
+        self.slug_style = ParagraphStyle(
+            'slug', self.default_style,
+            spaceBefore=line_height,
+            spaceAfter=line_height,
+            keepWithNext=1,
+        )
+        self.transition_style = ParagraphStyle(
+            'transition', self.default_style,
+            spaceBefore=line_height,
+            spaceAfter=line_height,
+            alignment=TA_RIGHT,
+        )
 
-# Title page styles
-title_style = ParagraphStyle(
-    'title', default_style,
-    fontSize=24, leading=36,
-    alignment=TA_CENTER,
-)
-contact_style = ParagraphStyle(
-    'contact', default_style,
-    leftIndent=3.9 * inch,
-    rightIndent=0,
-)
+        # Title page styles
+        self.title_style = ParagraphStyle(
+            'title', self.default_style,
+            fontSize=24, leading=36,
+            alignment=TA_CENTER,
+        )
+        self.contact_style = ParagraphStyle(
+            'contact', self.default_style,
+            leftIndent=3.9 * inch,
+            rightIndent=0,
+        )
+
+
+styles = ParagraphStyles('Courier')
 
 
 class DocTemplate(BaseDocTemplate):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, font_name, *args, **kwargs):
+        self.font_name = font_name
         self.has_title_page = kwargs.pop('has_title_page', False)
         frame = Frame(
             left_margin, bottom_margin, frame_width, frame_height,
@@ -126,7 +134,7 @@ class DocTemplate(BaseDocTemplate):
         )
 
     def handle_pageBegin(self):
-        self.canv.setFont('Courier', font_size, leading=line_height)
+        self.canv.setFont(self.font_name, font_size, leading=line_height)
         if self.has_title_page:
             page = self.page  # self.page is 0 on first page
         else:
@@ -157,12 +165,15 @@ def add_slug(story, para, style, is_strong):
 
 
 def add_dialog(story, dialog):
-    story.append(Paragraph(dialog.character.to_html(), character_style))
+    global styles
+    story.append(Paragraph(dialog.character.to_html(), styles.character_style))
     for parenthetical, line in dialog.blocks:
         if parenthetical:
-            story.append(Paragraph(line.to_html(), parenthentical_style))
+            story.append(Paragraph(line.to_html(),
+                                   styles.parenthentical_style))
         else:
-            story.append(Paragraph(line.to_html(), dialog_style))
+            story.append(Paragraph(line.to_html(),
+                                   styles.dialog_style))
 
 
 def add_dual_dialog(story, dual):
@@ -198,25 +209,29 @@ def get_title_page_story(screenplay):
             total_height += height
         return space_before + total_height
 
+    global styles
     title_story = []
     title_height = sum((
-        add_lines(title_story, 'Title', title_style),
+        add_lines(title_story, 'Title', styles.title_style),
         add_lines(
-            title_story, 'Credit', centered_style, space_before=line_height
+            title_story, 'Credit', styles.centered_style,
+            space_before=line_height
         ),
-        add_lines(title_story, 'Author', centered_style),
-        add_lines(title_story, 'Authors', centered_style),
-        add_lines(title_story, 'Source', centered_style),
+        add_lines(title_story, 'Author', styles.centered_style),
+        add_lines(title_story, 'Authors', styles.centered_style),
+        add_lines(title_story, 'Source', styles.centered_style),
     ))
 
     lower_story = []
     lower_height = sum((
-        add_lines(lower_story, 'Draft date', default_style),
+        add_lines(lower_story, 'Draft date', styles.default_style),
         add_lines(
-            lower_story, 'Contact', contact_style, space_before=line_height
+            lower_story, 'Contact', styles.contact_style,
+            space_before=line_height
         ),
         add_lines(
-            lower_story, 'Copyright', centered_style, space_before=line_height
+            lower_story, 'Copyright', styles.centered_style,
+            space_before=line_height
         ),
     ))
 
@@ -242,10 +257,29 @@ def get_title_page_story(screenplay):
 
 
 def to_pdf(
-    screenplay, output_filename,
+    config, screenplay, output_filename,
     template_constructor=DocTemplate,
     is_strong=False,
 ):
+    font_name = 'Courier'
+
+    if config.has_option('[pdf]', 'font') and config['[pdf]']['font']:
+        section_name = '[%s]' % config['[pdf]']['font']
+        if config.has_section(section_name):
+            font_name = config.get(section_name, 'name', fallback=section_name)
+
+            for font_type in ['regular', 'bold', 'italic', 'bold_italic']:
+                font_attr = config.getlist(section_name, font_type)
+                if len(font_attr) != 2:
+                    raise ValueError(('Invalid font attribute: %s is %s, '
+                                      'which must be a two-elements list') %
+                                     (font_type, font_attr))
+
+                pdfmetrics.registerFont(TTFont(*font_attr))
+
+            global styles
+            styles = ParagraphStyles(font_name)
+
     story = get_title_page_story(screenplay)
     has_title_page = bool(story)
 
@@ -257,12 +291,13 @@ def to_pdf(
         elif isinstance(para, Action):
             add_paragraph(
                 story, para,
-                centered_action_style if para.centered else action_style
+                styles.centered_action_style if para.centered
+                else styles.action_style
             )
         elif isinstance(para, Slug):
-            add_slug(story, para, slug_style, is_strong)
+            add_slug(story, para, styles.slug_style, is_strong)
         elif isinstance(para, Transition):
-            add_paragraph(story, para, transition_style)
+            add_paragraph(story, para, styles.transition_style)
         elif isinstance(para, types.PageBreak):
             story.append(platypus.PageBreak())
         else:
@@ -270,6 +305,7 @@ def to_pdf(
             pass
 
     doc = template_constructor(
+        font_name,
         output_filename,
         pagesize=(page_width, page_height),
         has_title_page=has_title_page
