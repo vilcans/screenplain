@@ -292,7 +292,7 @@ def parse_emphasis(source):
     pos = 0
 
     def append(pos, end):
-        if(pos == end):
+        if pos == end:
             return
         text = source[pos:end]
         segments.append(Segment(text, styles))
