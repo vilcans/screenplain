@@ -114,10 +114,7 @@ def main(args):
             output = sys.stdout.buffer
 
     try:
-        if format == 'text':
-            from screenplain.export.text import to_text
-            to_text(screenplay, output)
-        elif format == 'fdx':
+        if format == 'fdx':
             from screenplain.export.fdx import to_fdx
             to_fdx(screenplay, output)
         elif format == 'html':
