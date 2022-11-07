@@ -2,7 +2,7 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from testcompat import TestCase
+from unittest import TestCase
 
 from screenplain.parsers import fountain
 from screenplain.types import (
