@@ -1,3 +1,3 @@
 reportlab
-nose
+pytest
 pycodestyle
