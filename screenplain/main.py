@@ -124,8 +124,10 @@ def main(args):
                 css_file=options.css, bare=options.bare
             )
         elif format == 'pdf':
-            from screenplain.export.pdf import to_pdf
-            to_pdf(screenplay, output, is_strong=options.strong)
+            from screenplain.export import pdf
+            settings = pdf.create_default_settings()
+            settings.strong_slugs = options.strong
+            pdf.to_pdf(screenplay, output, settings=settings)
     finally:
         if output_file:
             output.close()
