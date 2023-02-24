@@ -57,6 +57,7 @@ class InputParagraph(object):
         Modifies the `previous_paragraphs` list.
         """
         (
+            self.append_forced_action(previous_paragraphs) or
             self.append_page_break(previous_paragraphs) or
             self.append_synopsis(previous_paragraphs) or
             self.append_sections_and_synopsises(previous_paragraphs) or
@@ -170,9 +171,18 @@ class InputParagraph(object):
 
         return False
 
+    def append_forced_action(self, paragraphs):
+        if self.lines[0].startswith('!'):
+            return self.append_action(paragraphs)
+        else:
+            return False
+
     def append_action(self, paragraphs):
         paragraphs.append(
-            Action(_sequence_to_rich(line.rstrip() for line in self.lines))
+            Action(_sequence_to_rich(
+                line[1:].rstrip() if line.startswith('!') else line.rstrip()
+                for line in self.lines
+            ))
         )
         return True
 
