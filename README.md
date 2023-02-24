@@ -41,6 +41,19 @@ Installing
 To enable PDF output, install with the PDF extra (installs ReportLab):
 
     pip install 'screenplain[PDF]'
+    
+
+Using
+=====
+
+Screenplain defaults to using US Letter paper for PDF output. To set a different 
+paper size, you can adjust the value of `page_size` in `screenplain/export/pdf.py`
+
+ReportLab supports many common paper sizes in its [pagesizes module](https://pyng.tech/docs/reportlab/lib/pagesizes.m.html).
+For example, to use A4 paper set the value of `page_size` like this:
+
+    page_size=pagesizes.A4,
+
 
 Credits
 =======
