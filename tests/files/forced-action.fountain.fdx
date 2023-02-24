@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+<Content>
+<Paragraph Type="Action">
+<Text>THIS IS FORCED ACTION
+</Text>
+<Text>This is another line of action!</Text>
+</Paragraph>
+</Content>
+</FinalDraft>
