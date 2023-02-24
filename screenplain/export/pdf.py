@@ -241,10 +241,10 @@ def add_dialog(story, dialog, settings: Settings):
             )
 
 
-def add_dual_dialog(story, dual):
+def add_dual_dialog(story, dual, settings: Settings):
     # TODO: format dual dialog
-    add_dialog(story, dual.left)
-    add_dialog(story, dual.right)
+    add_dialog(story, dual.left, settings)
+    add_dialog(story, dual.right, settings)
 
 
 def get_title_page_story(screenplay, settings):
