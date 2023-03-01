@@ -33,6 +33,11 @@ def create_default_settings():
     return Settings()
 
 
+def get_page_size(name: str):
+    """Get the page size with the given name, e.g. 'a4' or 'legal'"""
+    return getattr(pagesizes, name.upper())
+
+
 class Settings:
     # General styles
     default_style: ParagraphStyle
@@ -62,8 +67,7 @@ class Settings:
 
     frame_height: float
     frame_width: float
-    page_width: float
-    page_height: float
+    page_size: (float, float)
 
     def __init__(
         self,
@@ -84,16 +88,16 @@ class Settings:
         self.characters_per_line = characters_per_line
         self.frame_height = self.line_height * self.lines_per_page
         self.frame_width = self.characters_per_line * self.character_width
-        [self.page_width, self.page_height] = page_size
+        self.page_size = page_size
         self.left_margin = 1.5 * inch
-        self.right_margin = self.page_width - (
+        self.right_margin = self.page_size[0] - (
             self.left_margin + self.frame_width
         )
         self.top_margin = 1 * inch
-        self.bottom_margin = self.page_height - (
+        self.bottom_margin = self.page_size[1] - (
             self.top_margin + self.frame_height
         )
-        self.title_frame_width = self.page_width - (
+        self.title_frame_width = self.page_size[0] - (
             self.left_margin + self.left_margin
         )
         self.strong_slugs = strong_slugs
@@ -204,7 +208,7 @@ class DocTemplate(BaseDocTemplate):
         if page >= 2:
             self.canv.drawRightString(
                 self.settings.left_margin + self.settings.frame_width,
-                self.settings.page_height - 42,
+                self.settings.page_size[1] - 42,
                 '%s.' % page
             )
         self._handle_pageBegin()
@@ -365,7 +369,7 @@ def to_pdf(
 
     doc = template_constructor(
         output_filename,
-        pagesize=(settings.page_width, settings.page_height),
+        pagesize=settings.page_size,
         settings=settings,
         has_title_page=has_title_page
     )

@@ -41,6 +41,10 @@ def main(args):
         )
     )
     parser.add_option(
+        '--page-size', choices=('letter', 'a4'), default='letter',
+        help='Page size for PDF output: letter or a4'
+    )
+    parser.add_option(
         '--bare',
         action='store_true',
         dest='bare',
@@ -127,6 +131,7 @@ def main(args):
             from screenplain.export import pdf
             settings = pdf.create_default_settings()
             settings.strong_slugs = options.strong
+            settings.page_size = pdf.get_page_size(options.page_size)
             pdf.to_pdf(screenplay, output, settings=settings)
     finally:
         if output_file:
