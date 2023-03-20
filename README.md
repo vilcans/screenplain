@@ -21,8 +21,7 @@ software.
 The magic that Screenplain performs is to take your plain text file and
 convert it to a good looking screenplay in an industry standard format.
 Send that file off to your producer, agent, director or screenwriting
-competition. Currently, the supported output formats are FDX and HTML.
-PDF will hopefully be supported in a not too distant future.
+competition. The supported output formats are FDX  HTML, and PDF.
 
 Screenplain can be used as a command-line application or a library.
 An [Online version of Screenplain](http://www.screenplain.com) is also
