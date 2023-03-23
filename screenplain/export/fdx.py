@@ -91,6 +91,9 @@ def to_fdx(screenplay, out):
             write_paragraph(out, 'Scene Heading', para.lines)
         elif isinstance(para, Transition):
             write_paragraph(out, 'Transition', para.lines)
+        elif isinstance(para, Synopse):
+            # Ignore synopses
+            pass
         else:
             # Ignore unknown types
             pass

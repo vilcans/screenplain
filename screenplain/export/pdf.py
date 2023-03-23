@@ -359,6 +359,9 @@ def to_pdf(
             add_paragraph(story, para, settings.transition_style)
         elif isinstance(para, types.PageBreak):
             story.append(platypus.PageBreak())
+        elif isinstance(para, types.Synopse):
+            # Ignore synopses
+            pass
         else:
             # Ignore unknown types
             pass
