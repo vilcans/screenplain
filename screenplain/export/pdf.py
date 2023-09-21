@@ -17,6 +17,7 @@ from reportlab.platypus import (
     PageTemplate,
     NextPageTemplate,
     Spacer,
+    Table,
 )
 from reportlab.lib import pagesizes
 import sys
@@ -226,26 +227,35 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def add_dialog(story, dialog, settings: Settings):
-    story.append(
+def dialog_cont(dialog, settings: Settings):
+    cont = []
+    cont.append(
         Paragraph(dialog.character.to_html(), settings.character_style)
     )
     for parenthetical, line in dialog.blocks:
         if parenthetical:
-            story.append(
+            cont.append(
                 Paragraph(line.to_html(), settings.parenthentical_style)
             )
         else:
-            story.append(
+            cont.append(
                 Paragraph(line.to_html(), settings.dialog_style)
             )
+    return cont
 
+def add_dialog(story, dialog, settings: Settings):
+    story.extend(dialog_cont(dialog, settings))
 
 def add_dual_dialog(story, dual, settings: Settings):
-    # TODO: format dual dialog
-    add_dialog(story, dual.left, settings)
-    add_dialog(story, dual.right, settings)
+    column_width = settings.page_width * 0.48 - 10 # I don't know why to put 10 here, just think it fine
+    paragraph_left = dialog_cont(dual.left, settings)
+    paragraph_right = dialog_cont(dual.right, settings)
 
+    table_data = []
+    table_data.append([paragraph_left, paragraph_right])
+
+    table = Table(table_data, colWidths=[column_width, column_width])
+    story.append(table)
 
 def get_title_page_story(screenplay, settings):
     """Get Platypus flowables for the title page
