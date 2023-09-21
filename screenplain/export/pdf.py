@@ -129,9 +129,14 @@ class Settings:
             leftIndent=9 * self.character_width,
             rightIndent=self.frame_width - (45 * self.character_width),
         )
-        self.dual_dialog_style = ParagraphStyle(
-            'dual_dialog', default_style,
+        self.dual_left_dialog_style = ParagraphStyle(
+            'dual_left_dialog', default_style,
             leftIndent=4 * self.character_width,
+            rightIndent=self.frame_width - (56 * self.character_width),
+        )
+        self.dual_right_dialog_style = ParagraphStyle(
+            'dual_right_dialog', default_style,
+            leftIndent=0 * self.character_width,
             rightIndent=self.frame_width - (52 * self.character_width),
         )
         self.parenthentical_style = ParagraphStyle(
@@ -234,7 +239,7 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def dialog_cont(dialog, settings: Settings, dual = False):
+def dual_dialog_cont(dialog, settings: Settings, left: True):
     cont = []
     cont.append(
         Paragraph(dialog.character.to_html(), settings.character_style)
@@ -244,23 +249,35 @@ def dialog_cont(dialog, settings: Settings, dual = False):
             cont.append(
                 Paragraph(line.to_html(), settings.parenthentical_style)
             )
-        elif dual:
+        elif left:
             cont.append(
-                Paragraph(line.to_html(), settings.dual_dialog_style)
+                Paragraph(line.to_html(), settings.dual_left_dialog_style)
             )
         else:
             cont.append(
-                Paragraph(line.to_html(), settings.dialog_style)
+                Paragraph(line.to_html(), settings.dual_right_dialog_style)
             )
     return cont
 
 def add_dialog(story, dialog, settings: Settings):
-    story.extend(dialog_cont(dialog, settings))
+    story.append(
+        Paragraph(dialog.character.to_html(), settings.character_style)
+    )
+    for parenthetical, line in dialog.blocks:
+        if parenthetical:
+            story.append(
+                Paragraph(line.to_html(), settings.parenthentical_style)
+            )
+        else:
+            story.append(
+                Paragraph(line.to_html(), settings.dialog_style)
+            )
+    return story
 
 def add_dual_dialog(story, dual, settings: Settings):
     column_width = settings.page_width * 0.48 # I don't know why to put 10 here, just think it fine
-    paragraph_left = dialog_cont(dual.left, settings, True)
-    paragraph_right = dialog_cont(dual.right, settings, True)
+    paragraph_left = dual_dialog_cont(dual.left, settings, True)
+    paragraph_right = dual_dialog_cont(dual.right, settings, False)
 
     table_data = []
     table_data.append([paragraph_left, paragraph_right])
