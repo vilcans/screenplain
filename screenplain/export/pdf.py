@@ -18,6 +18,7 @@ from reportlab.platypus import (
     NextPageTemplate,
     Spacer,
     Table,
+    TableStyle,
 )
 from reportlab.lib import pagesizes
 import sys
@@ -42,6 +43,7 @@ class Settings:
     # Screenplay styles
     character_style: ParagraphStyle
     dialog_style: ParagraphStyle
+    dual_dialog_style: ParagraphStyle
     parenthentical_style: ParagraphStyle
     action_style: ParagraphStyle
     centered_action_style: ParagraphStyle
@@ -126,6 +128,11 @@ class Settings:
             'dialog', default_style,
             leftIndent=9 * self.character_width,
             rightIndent=self.frame_width - (45 * self.character_width),
+        )
+        self.dual_dialog_style = ParagraphStyle(
+            'dual_dialog', default_style,
+            leftIndent=4 * self.character_width,
+            rightIndent=self.frame_width - (52 * self.character_width),
         )
         self.parenthentical_style = ParagraphStyle(
             'parenthentical', default_style,
@@ -227,7 +234,7 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def dialog_cont(dialog, settings: Settings):
+def dialog_cont(dialog, settings: Settings, dual = False):
     cont = []
     cont.append(
         Paragraph(dialog.character.to_html(), settings.character_style)
@@ -236,6 +243,10 @@ def dialog_cont(dialog, settings: Settings):
         if parenthetical:
             cont.append(
                 Paragraph(line.to_html(), settings.parenthentical_style)
+            )
+        elif dual:
+            cont.append(
+                Paragraph(line.to_html(), settings.dual_dialog_style)
             )
         else:
             cont.append(
@@ -247,14 +258,17 @@ def add_dialog(story, dialog, settings: Settings):
     story.extend(dialog_cont(dialog, settings))
 
 def add_dual_dialog(story, dual, settings: Settings):
-    column_width = settings.page_width * 0.48 - 10 # I don't know why to put 10 here, just think it fine
-    paragraph_left = dialog_cont(dual.left, settings)
-    paragraph_right = dialog_cont(dual.right, settings)
+    column_width = settings.page_width * 0.48 # I don't know why to put 10 here, just think it fine
+    paragraph_left = dialog_cont(dual.left, settings, True)
+    paragraph_right = dialog_cont(dual.right, settings, True)
 
     table_data = []
     table_data.append([paragraph_left, paragraph_right])
+    table_style = TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ])
 
-    table = Table(table_data, colWidths=[column_width, column_width])
+    table = Table(table_data, colWidths=[column_width, column_width], style=table_style)
     story.append(table)
 
 def get_title_page_story(screenplay, settings):
