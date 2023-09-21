@@ -272,7 +272,6 @@ def add_dialog(story, dialog, settings: Settings):
             story.append(
                 Paragraph(line.to_html(), settings.dialog_style)
             )
-    return story
 
 def add_dual_dialog(story, dual, settings: Settings):
     column_width = settings.page_width * 0.48 # I don't know why to put 10 here, just think it fine
