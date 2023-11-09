@@ -70,13 +70,13 @@ class RichString(object):
 
     def __eq__(self, other):
         return (
-            type(self) == type(other) and
+            isinstance(other, RichString) and
             self.segments == other.segments
         )
 
     def __ne__(self, other):
         return (
-            type(self) != type(other) or
+            isinstance(other, RichString) and
             self.segments != other.segments
         )
 
