@@ -131,6 +131,8 @@ def main(args):
     finally:
         if output_file:
             output.close()
+        if input_file:
+            input.close()
 
 
 def cli():
