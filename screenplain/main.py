@@ -66,11 +66,29 @@ def main(args):
             'Bold and Underlined.'
         )
     )
+    parser.add_option(
+        '--encoding',
+        default='utf-8-sig',
+        help="Text encoding of the input file. " +
+        "Should be one of Python's built-in encodings."
+    )
+    parser.add_option(
+        '--encoding-errors',
+        default='strict',
+        choices=['strict', 'ignore', 'replace',
+                 'backslashreplace', 'surrogateescape'],
+        help='How to handle invalid character codes in the input file'
+    )
     options, args = parser.parse_args(args)
     if len(args) >= 3:
         parser.error('Too many arguments')
     input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
     output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
+
+    try:
+        codecs.lookup(options.encoding)
+    except LookupError:
+        parser.error('Unknown encoding: %s' % options.encoding)
 
     format = options.output_format
     if format is None and output_file:
@@ -92,9 +110,13 @@ def main(args):
         )
 
     if input_file:
-        input = codecs.open(input_file, 'r', 'utf-8-sig')
+        input = codecs.open(
+            input_file, 'r',
+            encoding=options.encoding,
+            errors=options.encoding_errors)
     else:
-        input = codecs.getreader('utf-8')(sys.stdin.buffer)
+        input = codecs.getreader(options.envoding)(sys.stdin.buffer)
+        input.errors = options.encoding_errors
     screenplay = fountain.parse(input)
 
     if format == 'pdf':
