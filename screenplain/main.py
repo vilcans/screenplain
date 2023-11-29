@@ -115,7 +115,7 @@ def main(args):
             encoding=options.encoding,
             errors=options.encoding_errors)
     else:
-        input = codecs.getreader(options.envoding)(sys.stdin.buffer)
+        input = codecs.getreader(options.encoding)(sys.stdin.buffer)
         input.errors = options.encoding_errors
     screenplay = fountain.parse(input)
 
