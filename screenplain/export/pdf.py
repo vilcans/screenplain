@@ -17,6 +17,8 @@ from reportlab.platypus import (
     PageTemplate,
     NextPageTemplate,
     Spacer,
+    Table,
+    TableStyle,
 )
 from reportlab.lib import pagesizes
 import sys
@@ -41,6 +43,7 @@ class Settings:
     # Screenplay styles
     character_style: ParagraphStyle
     dialog_style: ParagraphStyle
+    dual_dialog_style: ParagraphStyle
     parenthentical_style: ParagraphStyle
     action_style: ParagraphStyle
     centered_action_style: ParagraphStyle
@@ -125,6 +128,16 @@ class Settings:
             'dialog', default_style,
             leftIndent=9 * self.character_width,
             rightIndent=self.frame_width - (45 * self.character_width),
+        )
+        self.dual_left_dialog_style = ParagraphStyle(
+            'dual_left_dialog', default_style,
+            leftIndent=4 * self.character_width,
+            rightIndent=self.frame_width - (56 * self.character_width),
+        )
+        self.dual_right_dialog_style = ParagraphStyle(
+            'dual_right_dialog', default_style,
+            leftIndent=0 * self.character_width,
+            rightIndent=self.frame_width - (52 * self.character_width),
         )
         self.parenthentical_style = ParagraphStyle(
             'parenthentical', default_style,
@@ -226,6 +239,26 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
+def dual_dialog_cont(dialog, settings: Settings, left: True):
+    cont = []
+    cont.append(
+        Paragraph(dialog.character.to_html(), settings.character_style)
+    )
+    for parenthetical, line in dialog.blocks:
+        if parenthetical:
+            cont.append(
+                Paragraph(line.to_html(), settings.parenthentical_style)
+            )
+        elif left:
+            cont.append(
+                Paragraph(line.to_html(), settings.dual_left_dialog_style)
+            )
+        else:
+            cont.append(
+                Paragraph(line.to_html(), settings.dual_right_dialog_style)
+            )
+    return cont
+
 def add_dialog(story, dialog, settings: Settings):
     story.append(
         Paragraph(dialog.character.to_html(), settings.character_style)
@@ -240,12 +273,19 @@ def add_dialog(story, dialog, settings: Settings):
                 Paragraph(line.to_html(), settings.dialog_style)
             )
 
-
 def add_dual_dialog(story, dual, settings: Settings):
-    # TODO: format dual dialog
-    add_dialog(story, dual.left, settings)
-    add_dialog(story, dual.right, settings)
+    column_width = settings.page_width * 0.48 # I don't know why to put 10 here, just think it fine
+    paragraph_left = dual_dialog_cont(dual.left, settings, True)
+    paragraph_right = dual_dialog_cont(dual.right, settings, False)
 
+    table_data = []
+    table_data.append([paragraph_left, paragraph_right])
+    table_style = TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ])
+
+    table = Table(table_data, colWidths=[column_width, column_width], style=table_style)
+    story.append(table)
 
 def get_title_page_story(screenplay, settings):
     """Get Platypus flowables for the title page
