@@ -20,7 +20,7 @@ spaces_re = re.compile('[ \t]+')
 
 
 def read_file(path):
-    with open(path) as stream:
+    with open(path, encoding="utf-8") as stream:
         return stream.read()
 
 
