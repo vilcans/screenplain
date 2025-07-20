@@ -166,11 +166,6 @@ class Formatter(object):
         return tag(self.out, tag_name, classes)
 
 
-def _read_file(filename):
-    with open(path) as stream:
-        return stream.read()
-
-
 def convert(screenplay, out, css_file=None, bare=False):
     """Convert the screenplay into HTML, written to the file-like object `out`.
 
@@ -191,7 +186,7 @@ def convert_full(screenplay, out, css_file):
     written to the file-like object `out`.
 
     """
-    with open(css_file, 'r') as stream:
+    with open(css_file, 'r', encoding='utf-8') as stream:
         css = stream.read()
     out.write(
         '<!DOCTYPE html>\n'
