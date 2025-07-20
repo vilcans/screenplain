@@ -28,7 +28,7 @@ title_page_key_re = re.compile(r'([^:]+):\s*(.*)')
 title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
 
 character_re = re.compile(
-    r"^\s*([A-Z*_]+[0-9A-Z ._\-']*?)(?: \(([0-9a-zA-Z. ]*)\))?( *\^)?$"
+    r"^[^a-z]*[A-Z][^a-z]*([ \t]*\(.*\))?$"
 )
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 slug_re = re.compile(r'(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$')
