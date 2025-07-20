@@ -27,7 +27,9 @@ linebreak_re = re.compile('\r\n|\n|\r')
 title_page_key_re = re.compile(r'([^:]+):\s*(.*)')
 title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
 
-character_re = re.compile(r"^\s*([A-Z*_]+[0-9A-Z ._\-']*?)(?: \(([0-9a-zA-Z. ]*)\))?\^?$")
+character_re = re.compile(
+    r"^\s*([A-Z*_]+[0-9A-Z ._\-']*?)(?: \(([0-9a-zA-Z. ]*)\))?\^?$"
+)
 centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
 slug_re = re.compile(r'(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$')
 scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
@@ -137,11 +139,10 @@ class InputParagraph(object):
         elif not character_re.match(character):
             return False
 
-
         if paragraphs and isinstance(paragraphs[-1], Dialog):
             dual_match = character.rstrip().endswith('^')
             if dual_match:
-                character = character.rstrip()[:-1] # remove the caret
+                character = character.rstrip()[:-1]  # remove the caret
                 previous = paragraphs.pop()
                 dialog = self._create_dialog(character)
                 paragraphs.append(DualDialog(previous, dialog))
