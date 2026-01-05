@@ -134,8 +134,10 @@ class InputParagraph(object):
             return False
         if character.startswith('@') and len(character) >= 2:
             character = character[1:]
-        elif not character.isupper():
-            return False
+        else:
+            before_paren, *_ = character.split('(', 1)
+            if not before_paren.isupper():
+                return False
 
         if paragraphs and isinstance(paragraphs[-1], Dialog):
             dual_match = dual_dialog_re.match(character)
