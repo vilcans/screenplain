@@ -2,8 +2,6 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from __future__ import with_statement
-
 from unittest import TestCase
 import tempfile
 import os

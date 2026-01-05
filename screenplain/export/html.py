@@ -2,7 +2,6 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from __future__ import with_statement
 import os
 import os.path
 
@@ -16,7 +15,6 @@ class tag(object):
     E.g.
 
     >>> import sys
-    >>> from __future__ import with_statement
     >>> with tag(sys.stdout, 'div'):
     ...     print('hello')
     ...
