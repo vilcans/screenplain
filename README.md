@@ -21,16 +21,11 @@ software.
 The magic that Screenplain performs is to take your plain text file and
 convert it to a good looking screenplay in an industry standard format.
 Send that file off to your producer, agent, director or screenwriting
-competition. The supported output formats are FDX  HTML, and PDF.
+competition. The supported output formats are FDX, HTML, and PDF.
 
 Screenplain can be used as a command-line application or a library.
 An [Online version of Screenplain](http://www.screenplain.com) is also
 available.
-
-Note that Screenplain is under development and is missing features and
-the master branch may not always work. I'm currently working on supporting
-the whole [Fountain](http://fountain.io) specification. (Fountain
-was previously known as "Screenplay Markdown" or "SPMD.")
 
 Installing
 ==========
