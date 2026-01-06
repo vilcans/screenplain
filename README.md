@@ -36,6 +36,27 @@ To enable PDF output, install with the PDF extra (installs ReportLab):
 
     pip install 'screenplain[PDF]'
 
+Usage
+=====
+
+Convert a Fountain screenplay to PDF:
+
+    screenplain screenplay.fountain screenplay.pdf
+
+Convert to HTML:
+
+    screenplain screenplay.fountain screenplay.html
+
+Convert to Final Draft (FDX):
+
+    screenplain screenplay.fountain screenplay.fdx
+
+The output format is automatically determined from the output filename extension.
+If the output filename is omitted, Screenplain will write to standard output.
+As there is no output filename, you have to specify which format to output, e.g.:
+
+    screenplain --format=fdx screenplay.fountain
+
 Credits
 =======
 
