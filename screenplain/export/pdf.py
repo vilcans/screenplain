@@ -292,8 +292,11 @@ def add_dual_dialog(story, dual, settings: Settings):
     table_data = [
         [left_flowables, right_flowables]
     ]
+    # Create a table with one row and two columns.
+    # Set splitInRow=1 to allow splitting the table across pages.
     table = platypus.Table(
         table_data,
+        splitInRow=1,
         colWidths=[col_width, col_width],
         style=settings.dual_dialog_table_style,
     )
