@@ -18,7 +18,7 @@ from reportlab.platypus import (
     NextPageTemplate,
     Spacer,
 )
-from reportlab.lib import pagesizes
+from reportlab.lib import colors, pagesizes
 import sys
 
 try:
@@ -46,6 +46,9 @@ class Settings:
     centered_action_style: ParagraphStyle
     slug_style: ParagraphStyle
     transition_style: ParagraphStyle
+
+    # Dual dialog table style
+    dual_dialog_table_style: platypus.TableStyle
 
     # Title page styles
     title_style: ParagraphStyle
@@ -161,6 +164,15 @@ class Settings:
             'contact', default_style,
         )
 
+        self.dual_dialog_table_style = platypus.TableStyle([
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('LEFTPADDING', (0, 0), (-1, -1), 0),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+            ('TOPPADDING', (0, 0), (-1, -1), 0),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+            ('LINEBEFORE', (1, 0), (1, 0), 0, colors.white),
+        ])
+
 
 class DocTemplate(BaseDocTemplate):
     def __init__(self, *args, **kwargs):
@@ -226,25 +238,68 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def add_dialog(story, dialog, settings: Settings):
-    story.append(
-        Paragraph(dialog.character.to_html(), settings.character_style)
-    )
-    for parenthetical, line in dialog.blocks:
-        if parenthetical:
-            story.append(
-                Paragraph(line.to_html(), settings.parenthentical_style)
-            )
+def _dialog_to_flowables(dialog, settings: Settings, column_width=None):
+    # If column_width is set, adjust indents proportionally
+    if column_width is not None:
+        proportion = column_width / settings.frame_width
+        character_left = settings.character_style.leftIndent * proportion
+        dialog_left = settings.dialog_style.leftIndent * proportion
+        parenthentical_left = (settings.parenthentical_style.leftIndent *
+                               proportion)
+        dialog_right = settings.dialog_style.rightIndent * proportion
+        character_style = ParagraphStyle(
+            'character-dual', settings.character_style,
+            leftIndent=character_left
+        )
+        dialog_style = ParagraphStyle(
+            'dialog-dual', settings.dialog_style,
+            leftIndent=dialog_left,
+            rightIndent=dialog_right
+        )
+        parenthentical_style = ParagraphStyle(
+            'parenth-dual', settings.parenthentical_style,
+            leftIndent=parenthentical_left
+        )
+    else:
+        character_style = settings.character_style
+        dialog_style = settings.dialog_style
+        parenthentical_style = settings.parenthentical_style
+    flowables = [Paragraph(dialog.character.to_html(), character_style)]
+    for is_parenthetical, line in dialog.blocks:
+        if is_parenthetical:
+            style = parenthentical_style
         else:
-            story.append(
-                Paragraph(line.to_html(), settings.dialog_style)
-            )
+            style = dialog_style
+        flowables.append(Paragraph(line.to_html(), style))
+    return flowables
+
+
+def add_dialog(story, dialog, settings: Settings):
+    flowables = _dialog_to_flowables(dialog, settings)
+    for flowable in flowables:
+        story.append(flowable)
 
 
 def add_dual_dialog(story, dual, settings: Settings):
-    # TODO: format dual dialog
-    add_dialog(story, dual.left, settings)
-    add_dialog(story, dual.right, settings)
+    # Format dual dialog side-by-side using a Table
+    col_width = settings.frame_width / 2
+    left_flowables = _dialog_to_flowables(dual.left,
+                                          settings, column_width=col_width)
+    right_flowables = _dialog_to_flowables(dual.right,
+                                           settings, column_width=col_width)
+    table_data = [
+        [left_flowables, right_flowables]
+    ]
+    # Create a table with one row and two columns.
+    # Set splitInRow=1 to allow splitting the table across pages.
+    table = platypus.Table(
+        table_data,
+        splitInRow=1,
+        spaceBefore=settings.line_height,
+        colWidths=[col_width, col_width],
+        style=settings.dual_dialog_table_style,
+    )
+    story.append(table)
 
 
 def get_title_page_story(screenplay, settings):
