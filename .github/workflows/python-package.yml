@@ -27,3 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Test
       run: bin/test
+    - name: Command-line smoke test
+      run: |
+        pip install -e .
+        screenplain tests/files/simple.fountain /tmp/simple.pdf
