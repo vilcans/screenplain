@@ -242,11 +242,11 @@ def _dialog_to_flowables(dialog, settings: Settings, column_width=None):
     # If column_width is set, adjust indents proportionally
     if column_width is not None:
         proportion = column_width / settings.frame_width
-        character_left = int(settings.character_style.leftIndent * proportion)
-        dialog_left = int(settings.dialog_style.leftIndent * proportion)
-        parenthentical_left = int(settings.parenthentical_style.leftIndent *
-                                  proportion)
-        dialog_right = int(settings.dialog_style.rightIndent * proportion)
+        character_left = settings.character_style.leftIndent * proportion
+        dialog_left = settings.dialog_style.leftIndent * proportion
+        parenthentical_left = (settings.parenthentical_style.leftIndent *
+                               proportion)
+        dialog_right = settings.dialog_style.rightIndent * proportion
         character_style = ParagraphStyle(
             'character-dual', settings.character_style,
             leftIndent=character_left
