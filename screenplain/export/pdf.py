@@ -281,8 +281,6 @@ def add_dialog(story, dialog, settings: Settings):
 
 
 def add_dual_dialog(story, dual, settings: Settings):
-    # Add spacing before dual dialog
-    story.append(Spacer(settings.frame_width, settings.line_height))
     # Format dual dialog side-by-side using a Table
     col_width = settings.frame_width / 2
     left_flowables = _dialog_to_flowables(dual.left,
@@ -297,6 +295,7 @@ def add_dual_dialog(story, dual, settings: Settings):
     table = platypus.Table(
         table_data,
         splitInRow=1,
+        spaceBefore=settings.line_height,
         colWidths=[col_width, col_width],
         style=settings.dual_dialog_table_style,
     )
