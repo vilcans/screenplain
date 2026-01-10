@@ -48,7 +48,7 @@ def _string_to_rich(line):
     return parse_emphasis(line)
 
 
-class InputParagraph(object):
+class InputParagraph:
     def __init__(self, lines):
         self.lines = lines
 

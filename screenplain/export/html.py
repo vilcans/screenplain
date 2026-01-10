@@ -9,7 +9,7 @@ from screenplain.types import *
 from screenplain.richstring import plain
 
 
-class tag(object):
+class tag:
     """Handler for automatically opening and closing a tag.
 
     E.g.
@@ -62,7 +62,7 @@ def to_html(text):
         return html
 
 
-class Formatter(object):
+class Formatter:
     """Class for converting paragraphs into HTML."""
 
     def __init__(self, out):

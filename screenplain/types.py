@@ -5,7 +5,7 @@
 from screenplain.richstring import parse_emphasis
 
 
-class Screenplay(object):
+class Screenplay:
     def __init__(self, title_page=None, paragraphs=None):
         """
         Create a Screenplay object.
@@ -47,7 +47,7 @@ class Screenplay(object):
         return iter(self.paragraphs)
 
 
-class Slug(object):
+class Slug:
 
     def __init__(self, line, scene_number=None):
         """Creates a scene heading (slug).
@@ -67,7 +67,7 @@ class Slug(object):
         self.synopsis = text
 
 
-class Section(object):
+class Section:
     """A section heading."""
 
     def __init__(self, text, level, synopsis=None):
@@ -89,7 +89,7 @@ class Section(object):
         )
 
 
-class Dialog(object):
+class Dialog:
     def __init__(self, character, lines=None):
         self.character = character
         self.blocks = []  # list of tuples of (is_parenthetical, text)
@@ -110,19 +110,19 @@ class Dialog(object):
         self.blocks.append((parenthetical, line))
 
 
-class DualDialog(object):
+class DualDialog:
     def __init__(self, left_dialog, right_dialog):
         self.left = left_dialog
         self.right = right_dialog
 
 
-class Action(object):
+class Action:
     def __init__(self, lines, centered=False):
         self.lines = lines
         self.centered = centered
 
 
-class Transition(object):
+class Transition:
     def __init__(self, line):
         self.line = line
 
@@ -131,5 +131,5 @@ class Transition(object):
         return [self.line]
 
 
-class PageBreak(object):
+class PageBreak:
     pass

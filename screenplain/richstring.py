@@ -22,7 +22,7 @@ def _escape(s):
     return encoded.decode('ascii')
 
 
-class RichString(object):
+class RichString:
     """A sequence of segments where each segment can have its own style."""
 
     def __init__(self, *segments):
@@ -87,7 +87,7 @@ class RichString(object):
             raise ValueError('Concatenating requires RichString')
 
 
-class Segment(object):
+class Segment:
     """A piece of a rich string. Has a set of styles."""
 
     def __init__(self, text, styles):
@@ -142,7 +142,7 @@ class Segment(object):
         )
 
 
-class Style(object):
+class Style:
     """Abstract base class for styles"""
 
     start_magic = ''
@@ -215,7 +215,7 @@ class Underline(Style):
     end_html = '</u>'
 
 
-class _CreateStyledString(object):
+class _CreateStyledString:
     """Function object that creates a RichString object
     with a single segment with a specified style.
     """
