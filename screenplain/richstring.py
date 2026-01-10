@@ -3,11 +3,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import re
-
-try:
-    from html import escape as html_escape
-except ImportError:
-    from cgi import escape as html_escape
+from html import escape as html_escape
 
 _magic_re = re.compile('[\ue700-\ue705]')
 
