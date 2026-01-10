@@ -37,7 +37,7 @@ class RichStringOperatorTests(TestCase):
     def test_unicode(self):
         s = bold('Hello') + plain(' there ') + bold('folks')
         self.assertEqual(
-            u'Hello there folks',
+            'Hello there folks',
             str(s)
         )
 

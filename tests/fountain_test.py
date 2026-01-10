@@ -88,7 +88,7 @@ class SlugTests(TestCase):
         paras = parse(['.SOMEWHERE #*HELLO*#'])
         self.assertIsNone(paras[0].scene_number)
         self.assertEqual(
-            (plain)(u'SOMEWHERE #') + (italic)(u'HELLO') + (plain)(u'#'),
+            (plain)('SOMEWHERE #') + (italic)('HELLO') + (plain)('#'),
             paras[0].line
         )
 
@@ -130,8 +130,8 @@ class SectionTests(TestCase):
             '## second level',
         ])
         self.assertEqual([
-            Section(plain(u'first level'), 1, 'level one synopsis'),
-            Section(plain(u'second level'), 2, None),
+            Section(plain('first level'), 1, 'level one synopsis'),
+            Section(plain('second level'), 2, None),
         ], paras)
 
 
@@ -260,10 +260,10 @@ class DialogTests(TestCase):
         ])
         self.assertEqual([Dialog], [type(p) for p in paras])
         self.assertEqual([
-            (False, plain(u'O Romeo, Romeo! wherefore art thou Romeo?')),
-            (False, plain(u'Deny thy father and refuse thy name;')),
-            (False, plain(u'Or, if thou wilt not, be but sworn my love,')),
-            (False, plain(u"And I'll no longer be a Capulet.")),
+            (False, plain('O Romeo, Romeo! wherefore art thou Romeo?')),
+            (False, plain('Deny thy father and refuse thy name;')),
+            (False, plain('Or, if thou wilt not, be but sworn my love,')),
+            (False, plain("And I'll no longer be a Capulet.")),
         ], paras[0].blocks)
 
 
@@ -364,8 +364,8 @@ class ActionTests(TestCase):
         self.assertEqual([Action, Action], [type(p) for p in paras])
         self.assertEqual(
             [
-                plain(u'  two spaces'),
-                plain(u'   three spaces'),
+                plain('  two spaces'),
+                plain('   three spaces'),
             ], paras[1].lines
         )
 
