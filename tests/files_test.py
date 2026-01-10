@@ -2,12 +2,12 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from unittest import TestCase
-import tempfile
 import os
 import os.path
-import shutil
 import re
+import shutil
+import tempfile
+from unittest import TestCase
 
 from screenplain.main import main
 

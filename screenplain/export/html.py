@@ -5,8 +5,16 @@
 import os
 import os.path
 
-from screenplain.types import *
 from screenplain.richstring import plain
+from screenplain.types import (
+    Action,
+    Dialog,
+    DualDialog,
+    PageBreak,
+    Section,
+    Slug,
+    Transition,
+)
 
 
 class tag:

@@ -4,9 +4,9 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-import sys
-import codecs
 import argparse
+import codecs
+import sys
 
 from screenplain.parsers import fountain
 

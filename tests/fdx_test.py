@@ -2,11 +2,11 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from unittest import TestCase
 from io import StringIO
+from unittest import TestCase
 
 from screenplain.export.fdx import write_text
-from screenplain.richstring import plain, bold, italic
+from screenplain.richstring import bold, italic, plain
 
 
 class OutputTests(TestCase):

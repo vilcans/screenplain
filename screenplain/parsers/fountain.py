@@ -3,14 +3,20 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import itertools
-from itertools import takewhile
 import re
+from itertools import takewhile
 
-from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak,
-    Screenplay
-)
 from screenplain.richstring import parse_emphasis, plain
+from screenplain.types import (
+    Action,
+    Dialog,
+    DualDialog,
+    PageBreak,
+    Screenplay,
+    Section,
+    Slug,
+    Transition,
+)
 
 slug_regexes = (
     re.compile(r'^(INT|EXT|EST)[ .]'),

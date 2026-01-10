@@ -3,14 +3,19 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 from unittest import TestCase
+
 from screenplain.richstring import (
-    RichString, Segment,
-    Bold, Italic,
-    plain, bold, italic, underline,
-    empty_string
+    Bold,
+    Italic,
+    RichString,
+    Segment,
+    bold,
+    empty_string,
+    italic,
+    parse_emphasis,
+    plain,
+    underline,
 )
-from screenplain.richstring import parse_emphasis
-from screenplain.types import Slug, Action, Dialog, DualDialog, Transition
 
 
 class LowLevelRichStringTests(TestCase):

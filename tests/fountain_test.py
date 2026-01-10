@@ -2,14 +2,20 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
+from io import StringIO
 from unittest import TestCase
 
 from screenplain.parsers import fountain
+from screenplain.richstring import empty_string, italic, plain
 from screenplain.types import (
-    Slug, Action, Dialog, DualDialog, Transition, Section, PageBreak
+    Action,
+    Dialog,
+    DualDialog,
+    PageBreak,
+    Section,
+    Slug,
+    Transition,
 )
-from screenplain.richstring import plain, italic, empty_string
-from io import StringIO
 
 
 def parse(lines):
