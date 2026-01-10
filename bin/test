@@ -1,3 +1,3 @@
 #!/bin/bash -e
-pytest --doctest-modules -W error
-pycodestyle --ignore=E402,W504 screenplain tests
+uv run pytest --doctest-modules -W error
+uv run pycodestyle --ignore=E402,W504 screenplain tests

@@ -80,14 +80,35 @@ Screenplain is released under the [MIT license](http://www.opensource.org/licens
 Developing
 ==========
 
-Set up virtual environment:
+Install [uv](https://docs.astral.sh/uv), e.g. using `pip`:
 
-    python3 -m venv .venv
-    . .venv/bin/activate
-    pip install -r requirements.txt
-    pip install -e .
+    python -m pip install uv
 
-After this, the `screenplain` command will use the working copy of your code.
+Running using `uv`
+------------------
+
+After this, run the working copy of the code with:
+
+    uv run screenplain
+
+For example:
+
+    uv run screenplain screenplay.fountain screenplay.html
+
+Activating virtual environment
+------------------------------
+
+As an alternative, you may activate the virtual environment, which makes `screenplain` available on your PATH:
+
+    uv venv  # create .venv unless it already exists
+    source .venv/bin/activate
+
+After this, you can simply run the command `screenplain` to run the working copy of the code, e.g.:
+
+    uv run screenplain screenplay.fountain screenplay.html
+
+Testing
+-------
 
 To run unit tests and style checks, run:
 

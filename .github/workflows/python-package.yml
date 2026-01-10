@@ -21,13 +21,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         cache: "pip"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+    - name: Install uv
+      run: python -m pip install uv
     - name: Test
       run: bin/test
     - name: Command-line smoke test
       run: |
-        pip install -e .
-        screenplain tests/files/simple.fountain /tmp/simple.pdf
+        uv run screenplain tests/files/simple.fountain /tmp/simple.pdf

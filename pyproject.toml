@@ -22,6 +22,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "reportlab>=4.4.7",
+]
 
 [project.urls]
 "Homepage" = "http://www.screenplain.com/"
