@@ -285,7 +285,7 @@ def parse_body(source):
     return paragraphs
 
 
-def parse_title_page(lines):  # -> dict[str, list[str]] | None: # python 3.10+
+def parse_title_page(lines) -> dict[str, list[str]] | None:
     """Parse the title page.
 
     Spec: http://fountain.io/syntax#section-titlepage
