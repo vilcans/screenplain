@@ -181,7 +181,7 @@ def convert_full(screenplay, out, css_file):
     written to the file-like object `out`.
 
     """
-    with open(css_file, 'r', encoding='utf-8') as stream:
+    with open(css_file, encoding='utf-8') as stream:
         css = stream.read()
     out.write(
         '<!DOCTYPE html>\n'
