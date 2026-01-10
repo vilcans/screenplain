@@ -70,12 +70,13 @@ class FileTests(TestCase):
         of a generated file with the expected results.
 
         """
+        base, _ = os.path.splitext(source_file)
         extension = os.path.splitext(expected_results_file)[1][1:]
 
         def test_function(self):
             actual, expected = self.convert(
-                source_file, source_file + '.' + extension,
-                source_file + '.' + extension,
+                source_file, base + '.' + extension,
+                expected_results_file,
                 '--bare'
             )
             self.assertMultiLineEqual(expected, actual)
@@ -93,23 +94,26 @@ def _create_tests():
     """Creates a test case for every source/expect file pair.
 
     Finds all the source files in the test files directory.
-    (A source file is one with just one extension, e.g. 'foo.fountain'.)
+    (A source file is one with the .fountain extension,
+    e.g. 'foo.fountain'.)
     For each of them, finds the corresponding expect files.
-    (An expect file has two extensions, e.g. 'foo.fountain.html'
+    (An expect file has another extension, e.g. 'foo.html'
     which contains the expected output when converting foo.fountain
     to HTML.)
-
+    Skips expect files that are for PDF output (i.e. end with .pdf),
+    as they are handled by visual/pdf_test.py.
     """
-    source_file_re = re.compile(r'^[^.]+\.[^.]+$')
-    expect_file_re = re.compile(r'^[^.]+\.[^.]+\.[^.]+$')
-
     test_files = os.listdir(source_dir)
-    source_files = [f for f in test_files if source_file_re.match(f)]
-    expect_files = [f for f in test_files if expect_file_re.match(f)]
+    source_files = [f for f in test_files if f.endswith('.fountain')]
+    expect_files = [
+        f for f in test_files
+        if not f.endswith('.fountain') and not f.endswith('.pdf')
+    ]
 
     for source in source_files:
+        base = os.path.splitext(source)[0] + '.'
         for expected in (
-            f for f in expect_files if f.startswith(source + '.')
+            f for f in expect_files if f.startswith(base)
         ):
             FileTests.add_file_case(source, expected)
 
