@@ -250,6 +250,11 @@ def parse_lines(source):
     source = (_preprocess_line(line) for line in source)
 
     title_page_lines = list(takewhile(lambda line: line != '', source))
+
+    # parse_title_page converts the keys to consistent casing.
+    # As of now, the only use of the dictionary is generating the title page,
+    # but if an export module displays the keys, this may not
+    # look like the author intended.
     title_page = parse_title_page(title_page_lines)
 
     if title_page:
@@ -280,12 +285,17 @@ def parse_body(source):
     return paragraphs
 
 
-def parse_title_page(lines):
+def parse_title_page(lines) -> dict[str, list[str]] | None:
     """Parse the title page.
 
     Spec: http://fountain.io/syntax#section-titlepage
     Returns None if the document does not have a title page section,
     otherwise a dictionary with the data.
+
+    Converts the keys using str.capitalize,
+    (all lowercase except for the first letter, which is uppercase).
+    So writing the key as "Author:" and "author:" both
+    will add to the same "Author" key in the resulting dictionary.
     """
     result = {}
 
@@ -297,6 +307,7 @@ def parse_title_page(lines):
             if not key_match:
                 return None
             key, value = key_match.groups()
+            key = key.capitalize()
             if value:
                 # Single line key/value
                 result.setdefault(key, []).append(value)
