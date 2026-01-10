@@ -1,0 +1,1482 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+
+  <Content>
+    <Paragraph Type="Transition">
+      <Text>HERE WE GO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SAN FRANCISCO APARTMENT, DAY</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>SCOTT is painting.  Badly.  Let's not mince words.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>His apartment is littered with art supplies and canvasses, and a nice southern-exposure's worth of light is pouring in through the windows onto the hardwood floor and let me tell you, it just isn't helping -- the work in progress that the paint-covered Scott is pondering is just not that good.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Never one to give up, he's about to dab one more stroke of burnt umber onto the wretched thing when a SOUND in the hall snaps him out of it.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. HALLWAY, SCOTT'S APARTMENT BUILDING, A MOMENT LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The MAILMAN is just leaving, and Scott rushes over to his box.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>BACK IN THE APARTMENT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott sorts through the mail.  There are bills, of course, and "You've won a million dollars" type things, and some announcements of shows at galleries South of Market.  And a BIRTHDAY CARD.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>It's that last one that gives him pause (not that you're surprised -- it </Text>
+      <Text Style="Underline">is</Text>
+      <Text> the damn title of the film).</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>He opens the card.  A simple little number inside of which is hand written:</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>          Scott --</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>          Jacob Billups
+</Text>
+      <Text>          Palace Hotel, RM 412
+</Text>
+      <Text>          1:00 pm tomorrow</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott exasperatedly throws down the card on the table and picks up the phone, hitting speed dial #1...</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. BAXTER'S SAN FRANCISCO APARTMENT, SAME</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>BAXTER's place is devoted to his music career.  Well, it could be a career, any minute now, but for the time being Baxter is that rarest of commodities -- the unemployed musician.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Baxter is having a Yani moment at the keyboard, headphones on, and doesn't hear the phone for a bit.  When he does, he's not happy to be interrupted:</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(picking up phone)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What?</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>INTERCUT WITH:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SCOTT'S APARTMENT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott gestures with the card, as if that helps.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I got another birthday card today.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That's great!</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It is?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Haven't you been complaining about money lately?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What else is new.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>So I don't see the problem.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's just been a while.  I guess I was getting lulled into thinking I had a normal life.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Unemployed artist in debt.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I was going to go down to the gallery tomorrow.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Oh, poor Scott.  Instead you've got to make ten grand for an afternoon's work.  I wish I had your talent, buddy.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Thanks for the support.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Did that girl ever call back?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What do you think.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Girls don't like to call.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Complete the sentence -- girls don't like to call Scott.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I'm going back under the headphones, killer.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Your neighbors thank you.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott hangs up.  Looks at the birthday card.  Stuffs it in his pocket.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>On his desk, a pile of art supplies and such.  He shoves it all aside and uncovers a briefcase.  Pops it open.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>It contains a Galco leather shoulder holster and two Beretta 92F pistols, one black, one nickel plated.  He picks up the black one and begins to check and clean it.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SAUSALITO HOME, THE NEXT MORNING</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A clock reads 6:24 am.  This house is stunning, and the morning fog has begun to burn off of a view of the bay that would make anyone contemplate taking up hang-gliding.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A SAMURAI SWORD slices into view.  Follow it back and there stands NAK, a fellow whose Japanese ancestry is accentuated by the fact that he's dressed in a Judo Gi and Hakama pants.  He slices the air again with the sword and then expertly sheaths it.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>TIME CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>NAK'S BEDROOM</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak, now dressed in a suit, folds the Hakama and carefully puts them away.  He picks up a shiny metal briefcase and exits.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. NAK'S HOUSE, CONTINUED</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak exits, arming the alarm system.  He turns and is faced with</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>A LAND ROVER DEFENDER 90 AND A VOLKSWAGON GTI.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Both the exact same </Text>
+      <Text Style="Underline">bright</Text>
+      <Text> yellow.  Nak looks back and forth.  It's a tough choice, one he makes every morning.  Today he'll go with the VW.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. GOLDEN GATE BRIDGE</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The yellow GTI cruises southbound.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. SAN FRANCISCO BUSINESS DISTRICT, LATER THAT MORNING</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>No surprises here.  San Francisco's generic employed make their way to work juggling attaches and lattes.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak glides among them and enters a building marked HOFF AND SPIRNHOLD ARCHITECTURAL.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. HOFF AND SPIRNHOLD LOBBY, CONTINUED</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak moves through the impressive lobby to the front desk.  The woman behind it smiles at him.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I'm here to see Mr. Hoff.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Mr. Hoff is busy right now showing a client around...</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(she looks to her right)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...in fact, there he is now.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She points to an elevated walkway on the other side of the expansive lobby.  Mr. Hoff is at the railing, talking to three men in suits.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Would you like to...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Thank you.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak pulls out a gun and aims it at the walkway.  Fires twice.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Mr. Hoff takes both rounds in the torso and topples over the railing, landing on the hard floor below.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>By the time the woman looks back in horror at Nak, he's already at the door.  Everyone's shouting and screaming, and Nak calmly pushes the door open.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The SECURITY GUARD is right on his heels and barrels through the door.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. HOFF AND SPIRNHOLD BUILDING, CONTINUED</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The guard bursts out into the street.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>But Nak is nowhere to be seen.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. VW GTI, NORTHBOUND ON THE GOLDEN GATE BRIDGE, MINUTES LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak turns on the radio.  Loud music fills the car, and Nak smiles to himself.  The clock on the radio reads 11:44 am.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT SCOTT'S APARTMENT, SAME TIME</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Exactly the same time, as the clock by the bed shows.  When it ticks over to 11:45, the alarm kicks in, playing the same station Nak was listening to.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott rises from the bed looking less than chipper.  He rubs his hand down his face and stumbles out of bed.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. SCOTT'S APARTMENT, A BIT LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott, now only very slightly more awake than before, is sitting behind the wheel of his '77 Toyota Landcruiser.  He stares out the windshield for a while before turning the key.  Horrible sounds emanate from the engine.  A few more tries and the engine finally springs to life.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott looks disappointed.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. PALACE HOTEL LOBBY, A BIT LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott makes his way to the elevator.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. PALACE HOTEL RM 412, SAME</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A man in a grey suit who looks like he's fifty but is probably only forty sits on the made bed and talks on his StarTAC.  Those of us in the audience who can do math will figure that this must be JACOB BILLUPS.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BILLUPS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...I understand.  I'll be able to make the meeting at 3.</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(pause)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yes, I'm just taking a longish lunch today.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>He hangs up.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BILLUPS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Did you hear that?  We've only got two hours.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. BATHROOM</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The person he's talking to -- a woman, not young but certainly younger than Billups.  She's fixing herself up in the mirror.  Her name is NANCY.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NANCY</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(to herself)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Like it ever takes that long.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She pulls out some garish red lipstick and begins to apply it, looking at herself as if asking, "Why do I bother?"</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. 4TH FLOOR HALLWAY, SAME</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott strolls down the hall, still not quite feeling 100%.  A housekeeping cart blocks his path and he pauses -- hanging from the handle is a ring of keys.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. RM 412, SAME</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Billups is on the bed, reading through some documents.  His back is to the door.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>That door opens and in walks Scott, gun raised in a surgical-gloved hand.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Don't turn around.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The sound of the gun cocking convinces Billups to comply.  Nancy calls in from the bathroom.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NANCY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Did you say something?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Stay in the bathroom Nancy, or I'll shoot you through the door.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NANCY</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Jake?  How did he...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BILLUPS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Do what he says woman!</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(to Scott)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What are you waiting for.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>What indeed -- Scott is looking at the cut-rate painting on the wall in front of Billups.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BILLUPS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Don't make this mistake.  I've got friends in powerful places.</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>This breaks Scott's mini-trance.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Enemies too.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott pulls the trigger and BLOOD SPLATTERS onto the painting.  Nancy screams.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. LANDCRUISER, DRIVING -- A BIT LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott looks at his watch.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Shit!</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SOUTHERN EXPOSURE GALLERY, SOUTH OF MARKET</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Just the right combination of upscale and downtown.  Which is to say, it's a big white room.  There's some questionable stuff on the walls, and the only person in the place is a attractive young ART GIRL who seems to be, well, questioning it.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Actually, she's distracted by the muffled sounds of raised voices coming from the glass-walled office.  Sure enough, it's Scott, in full angst mode, pleading with a resolute and snobby-looking GALLERY DIRECTOR.  Art Girl can't make out specific words, but it's clear that Scott is being handed his hat.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The skirmish ends.  A dejected Scott exits the office and looks up, making eye contact with the young woman.  He sneers at her -- this is all he needs, more mockery.  He turns to go.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>She feels bad.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(calling after him)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Hey!  I'm sorry.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I didn't mean to spy on you.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott walks over to her.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's all right.  What good is humiliation if it's not public?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(indicating the piece in front of them)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Speaking of which...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You don't like this?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Do you?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott gives it a careful appraisal.  He regards it up and down.  He looks thoughtful...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's not yours, it is?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Hell no.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It's heinous.  How does shit like this get in here?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>The artists's mother made a huge donation to the gallery.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Really?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yep.  Despicable, isn't it?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>But Scott is deep in thought now.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Despicable...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>ART GIRL</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>So are you a painter?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott snaps out of the trance -- looks at her.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I'm sorry, I've got to run.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott takes, off, leaving Art Girl to wonder why he didn't ask her out.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SCOTT'S APARTMENT, TWO DAYS LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is paying bills, doing the math on a calculator.  He decisively bangs in a few numbers and leans back to examine his work.  The familiar noise in the hall...</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>TIME CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SCOTT REENTERING HIS APARTMENT,</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>fresh batch of mail in hand.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The usual assortment, and, of course, another card.  Scott opens it.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>          Scott --</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>          Very happy with last party.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>          Spalding Jeager
+</Text>
+      <Text>          Hwy 1 overlook, 4 m. north of Muir Beach
+</Text>
+      <Text>          Tomorrow, 2:00pm</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott stares at the card with a look somewhere between excitement and exasperation.  He paces back and forth, the dilemma raging in his head.  Nothing to do but to call Baxter -- he reaches for the phone.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>His hand is an inch from the receiver when the phone RINGS.  Scott pauses for a moment, suspicious for some reason.  He looks around.  Phone ringing.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Finally he picks it up.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Hello?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The voice on the line is the official Phone Threat™ voice.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VOICE</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Do you remember the last thing Jacob Billups said to you?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(getting the picture)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That he had powerful friends?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>VOICE</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Right.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The line goes dead.  Scott looks up at the bay windows of his apartment in time to see a MILITARY HELICOPTER drop into view, hovering a few feet from his window!</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott has one and a half seconds to react before the chopper's </Text>
+      <Text Style="Underline">side-mounted gatling guns erupt with a torrent of machine gun fire</Text>
+      <Text>!</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>FROM OUTSIDE THE APARTMENT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>the scene is ludicrous -- the chopper just hangs there and pumps everything it's got into the 2nd floor apartment.  Windows shatter, walls splinter, and</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INSIDE</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>it's pure hell.  Broken bits of everything fly everywhere.  Scott dives for the floor and keeps moving towards the hallway, pausing only to </Text>
+      <Text Style="Underline">grab several of his paintings</Text>
+      <Text> before bailing out the back window.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>OUTSIDE,</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>the chopper exits, leaving the building ablaze and crumbling.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. BAXTER'S APARTMENT, LATER THAT EVENING</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Baxter, under the headphones.  Rocking out.  The doorbell rings.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>AT THE DOOR</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>it's Scott, looking battered and bruised.  Stack of canvasses under his arm.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Do you have all of the beer?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You want a beer?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I want </Text>
+      <Text Style="Underline">all</Text>
+      <Text> of the beer.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>THE PAIR, DRINKING BEER IN THE LIVING ROOM.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A few empties on the table.  They are staring through a haze of beerness at the small TV...</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>ON THE TV</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The EVENING NEWS.  It's Scott's ex-apartment, smoldering and surrounded by FIRE ENGINES.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NEWSCASTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...Police have not yet stated whether the occupant of the apartment was home at the time of the attack...</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Baxter lazily zaps the set with the remote.  Chucks the remote onto the coffee table where it nearly knocks a beer bottle onto SCOTT'S PAINTINGS.  Scott jumps up to grab the bottle:</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Carefull!</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Baxter casually examines the painting.  He's feeling honest.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Dude. you know your paintings suck, right?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Coming from you, I'll take that as a compliment.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Like this one -- maybe you could incorporate a new motif -- like a big black square.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott looks at him, confused.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...the size of the whole canvas.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Fuck you man.  You know, when my place was getting shot up, these were all I cared about saving.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You're sure art critics don't fly helicopters?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Look at you.  How's your band doing, Baxter?  Is your drummer out of rehab yet?  Sold any records yet?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Easy, pal.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>It doesn't matter if you're any good.  You do what you love.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>There's the rub.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Word.  We suck.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Not me man.  My shit's getting in a show.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Oh yeah?  How?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That last hit broke me even.  I'm taking this next job, and I'm donating the money to that gallery.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>A tax-deductible bribe.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Whatever.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You do what you love.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Right.  That's why this is the last job I'm taking.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Are you sure you're taking it?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What do you mean?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(indicates TV)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Your boss probably thinks you're dead.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Shit.  Can I use your phone?</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. THE BOSS'S OFFICE, A SECOND LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Half a ring and a finger hits the speakerphone button.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS (O.S.)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yes?</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>INTERCUT WITH:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SCOTT, IN BAXTER'S KITCHEN</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Boss, it's me.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Scotty?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yeah.  I'm alive.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Glad to hear it.  I'll update my file.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Did you reassign tomorrow's job?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Of course.  Don't worry Scott, there will be more jobs...  in a month or two.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I want that one.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Same rules as always sport.  You can still collect on it if you're the one who makes the hit.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Great.  Who's my competition?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(a pause)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nak.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(oh shit)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nak?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Something wrong?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Uhm, no.  I'll call you after I make the hit.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>THE BOSS</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Don't bother.  I'll know.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>THE FINGER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>clicks off the speakerphone.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>hangs up.  He looks dazed.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Baxter has been listening.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Dude.  Nak.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yep.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You're not going to do it.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott looks at him.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Just this one last job, and then I'm out for good.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I'm sure Nak will be happy to oblige.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I can handle him.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>BAXTER</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Whatever you say pal.  Just will me your car, not your paintings, OK?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. MARIN HILLSIDE, THE NEXT DAY</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is nestled in the tall grass by a tree.  Sprawled out on a dropcloth, he aims a GIGANTIC STEYR-AUG SNIPER RIFLE out towards</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>A SCENIC OVERLOOK</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>with a lovely view of the ocean.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Behind Scott the Landcruiser is parked in a place few other vehicles could reach.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>From his vantage Scott watches a champagne-colored Lexus pull up to the overlook.  Through the rifle scope he can make out the DRIVER, a man in his forties whose expensive suit stands in stark contrast to his lunch -- a Taco Bell combo meal.  The man calmly enjoys his solitary high-fat feast as would seem to be his custom.  This is SPALDING JEAGER.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott's finger is poised over the trigger.  Then, the sound of a car's engine is heard.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott looks over his shoulder.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Behind him is Nak, easing to a stop in the bright yellow Defender 90, right next to the Landcruiser.  Not to get all Dr. Seuss on you, but Nak has a GLOCK, and it's pointed at Scott.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nak.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What's up, dead man?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott sighs, apparently bested.  Takes his hand away from the trigger.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I knew you were a good hit man, but I had no idea about the quick wit.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Easy there, part...</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak steps out of the truck, taking his gaze off Scott for only an instant, but when he looks up the dropcloth is bare.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...ner?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott has hopped up onto the hood of the D90 and KICKS the Glock from Nak's hand.  He hops straight down in front of Nak, the open door between them.  Scott produces a BLACK BERETTA from his belt and aims it at Nak, through the window.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak smiles smugly and in a blink sidesteps to his left, reaching out with his right hand and slamming the sliding window on Scott's arm.  Nak then casually slams the door, which takes Scott's arm with it and slams Scott awkwardly into the side of the truck.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak stoops to retrieve his GLOCK as Scott fumbles with his left hand, producing his SILVER BERETTA and training it on Nak just as Nak twirls around and aims the Glock at Scott.  Scott frees his right hand and aims both guns at Nak.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Both catch their breath.  Stand off.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Nice.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Thanks.  I took a course.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>All the while, Spalding Jeager munches his Big Beef Burrito Supreme obliviously.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You picked a good spot.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You're very complimentary.  I like that -- shows you have good taste.  Hey, nice truck by the way.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Thanks.  Same to you...</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak checks out the Landcruiser, then pauses.  Something in the backseat catches his eye.
+</Text>
+      <Text>It's the paintings.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You collect art?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Well, it's a nice vehicle, but I wouldn't...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>No, I mean the paintings.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Oh.  No, those are mine.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Really.  Are they for sale?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is dumbfounded.  He looks back over his shoulder at Spalding, still eating away.  He looks at the guns in his hands and at Nak, and he says...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yes.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>...and lowers his guns.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Great!</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(pause)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Oh, do you mind...</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak gestures towards the target.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Oh, no -- you go ahead.  Use my rifle.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak's smile glimmers.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Actually, watch this.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak reaches into the back of the D90 and pulls out a remote control -- the kind you use for model airplanes.  He extends the antenna.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is intrigued.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak points to a beat-up old Mazda pickup parked on the dirt hill behind the overlook.
+</Text>
+      <Text>And then he presses a button on the remote.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>UNDER THE CHASSIS OF THE MAZDA,</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>a tiny shaped charge on the emergency brake cable detonates, snapping it like a guitar string.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>THE MAZDA</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>begins to roll down the hill.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>grins with boyish glee.  Scott watches as</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>THE TRUCK</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>begins to pick up speed and heads STRAIGHT FOR THE LEXUS!</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SPALDING JEAGER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>keeps eating, while in his rear-view mirror the truck barrels towards him.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Finally he notices.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>sees this and shoots a look at Nak, but Nak keeps smiling because</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>SPALDING</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>cannot activate the electronic door lock!  He checks the mirror -- the truck is right on top of him.  He slams his foot down on the brake and yanks up on the parking brake, but the handle just snaps off in his hand and</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>THE TRUCK SLAMS INTO THE BACK OF THE LEXUS DOING FORTY</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>and the pair of cars break through the tiny retaining wall and GO OVER THE EDGE.
+</Text>
+      <Text>Spalding screaming the whole way down.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>BACK ON NAK AND SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is agape.  Nak beams proudly.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Truly a pleasure.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>That's why I make the big bucks.  Not that it matters...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>...you do what you love.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak regards him.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>NAK</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Exactly.  Speaking of the big bucks, how much for the paintings?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Nak pulls out a roll of cash that you could cork a bazooka with.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. SCOTT'S NEW APARTMENT, A FEW DAYS LATER</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is painting with brand new paints, a stack of blank canvasses behind him.  He's smiling.  He's doing what he loves.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The phone rings.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Hello?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The voice is that of a sophisticated-sounding woman.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SOPHISTICATED WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Is this Scott?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Yes.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SOPHISTICATED WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I saw your work last night at a party at Nak's, and I was wondering when your next show might be?  Phenomenal stuff young man.  I hope I get a chance to buy some from you.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Uhm...  Thank you.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SOPHISTICATED WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Shall I just check with Nak then?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Uhm...</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SOPHISTICATED WOMAN</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>About your next show?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>SCOTT</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Uh, yes.  That would be fine.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott hangs up, bewildered.  He turns to his work-in-progress, is about to start painting again, when THE PHONE RINGS AGAIN?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Scott is incredulous.  He can't help but smile as he answers.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>MALE VOICE</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Is this Scott?  Listen I saw your work at Nak's, and...</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>FADE OUT.</Text>
+    </Paragraph>
+    <Paragraph Alignment="Center" Type="Action">
+      <Text>THE END</Text>
+    </Paragraph>
+  </Content>
+</FinalDraft>
