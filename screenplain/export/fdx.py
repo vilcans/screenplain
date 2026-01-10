@@ -4,10 +4,14 @@
 
 from xml.sax.saxutils import escape
 
-from screenplain.types import *
-from screenplain.richstring import RichString
 from screenplain.richstring import Bold, Italic, Underline
-
+from screenplain.types import (
+    Action,
+    Dialog,
+    DualDialog,
+    Slug,
+    Transition,
+)
 
 style_names = {
     Bold: 'Bold',

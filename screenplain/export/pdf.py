@@ -2,24 +2,24 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
-from screenplain import types
-from screenplain.types import (
-    Action, Dialog, DualDialog, Transition, Slug
-)
+import sys
+
+from reportlab import platypus
+from reportlab.lib import colors, pagesizes
 from reportlab.lib.enums import TA_CENTER, TA_RIGHT
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
-from reportlab import platypus
 from reportlab.platypus import (
     BaseDocTemplate,
-    Paragraph,
     Frame,
-    PageTemplate,
     NextPageTemplate,
+    PageTemplate,
+    Paragraph,
     Spacer,
 )
-from reportlab.lib import colors, pagesizes
-import sys
+
+from screenplain import types
+from screenplain.types import Action, Dialog, DualDialog, Slug, Transition
 
 try:
     import reportlab
