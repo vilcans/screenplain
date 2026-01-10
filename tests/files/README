@@ -2,17 +2,18 @@ This directory contains test cases.
 
 There are two kinds of files in this directory:
 
-A "source file" has just one extension, e.g. 'foo.fountain'.
-An "expect file" has two extensions, e.g. 'foo.fountain.html'.
+A "source file" has the .fountain extension, e.g. 'foo.fountain'.
+An "expect file" has the same base name but a different extension,
+e.g. 'foo.html'.
 
 For each source file, Screenplain is run to see if it produces
 the content of the corresponding expect file(s).
 
 E.g. for the following files:
 
-foo.fountain, foo.fountain.html, foo.fountain.fdx
+foo.fountain, foo.html, foo.fdx
 
 Screenplain will be run with foo.fountain as input and HTML output.
-The result is compared to foo.fountain.html.
+The result is compared to foo.html.
 Then the same thing is done with FDX output, which is compared
-to foo.fountain.fdx.
+to foo.fdx.

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html><head><title>Screenplay</title><style type="text/css">/* Reset */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+display: block;
+}
+
+/* Styles for Screenplain */
+body {
+text-align: center;
+}
+#wrapper {
+font-family: 'Courier Final Draft','Courier Screenplay',Courier;
+font-size: 12pt;
+text-align: left;
+width: 480pt;
+padding-left: 90pt;
+padding-top: 24pt;
+position: relative;
+margin: 0 auto;
+}
+header {
+margin-bottom: 1em;
+border-bottom: 1px solid black;
+}
+footer {
+margin-top: 1em;
+}
+em {
+font-style: italic;
+}
+strong {
+font-weight: bold;
+}
+br {
+clear: both;
+}
+
+/* Slug */
+
+div {
+width: 460pt;
+}
+h1:before,h2:before,h3:before,h4:before,h5:before {
+content: "\25e6\00a0";
+margin-left:-9pt;
+}
+h1,h2,h3,h4,h5{
+font-family:'Gill Sans','Helvetiva Neue',Helvetica,sans-serif;
+margin-top:24pt;
+font-weight:400;
+color: rgb(110, 110, 110);
+border-top:dotted 1px rgb(199, 199, 199);
+background-image: -webkit-linear-gradient(top, rgb(255, 255, 245), rgb(255, 255, 255));
+font-size: 11pt;
+}
+h1,.h1-synopsis {
+margin-left:-71pt;
+}
+h2,.h2-synopsis {
+margin-left:-61pt;
+}
+h3,.h3-synopsis {
+margin-left:-41pt;
+}
+h4,.h4-synopsis {
+margin-left:-21pt;
+}
+h5,.h5-synopsis {
+margin-left:-1pt;
+}
+.h1-synopsis,.h2-synopsis,.h3-synopsis,.h4-synopsis,.h5-synopsis,.h6-synopsis{
+font-family:'Gill Sans','Helvetiva Neue',Helvetica,sans-serif;
+font-size: 10pt;
+font-style: italic;
+color:rgb(145, 145, 145);
+display:block;
+margin-bottom:5pt;
+}
+h6 {
+margin-top: 2em;
+text-transform: uppercase;
+font-weight: bold;
+}
+div.block {
+position: relative;
+background: #fff;
+}
+div.action p {
+margin-top: 1em;
+}
+.centered {
+text-align: center;
+}
+div.dialog,div.dual {
+margin-top: 1em;
+}
+div.transition {
+margin-top: 1em;
+margin-bottom: 12pt;
+text-align: right;
+}
+.dialog p.character {
+padding-left: 153.33pt;
+}
+.dialog p.parenthetical {
+padding-left: 115pt;
+}
+.dialog p {
+padding-left: 76.67pt;
+width: 306.67pt;
+}
+.dual > div {
+float: left;
+width: 48%!important;
+}
+.dual p.character {
+padding-left: 6em;
+}
+.dual p.parenthetical {
+padding-left: 3em;
+}
+.dual p {
+padding-left: 0;
+width: 19em;
+}
+.dual .right {
+margin-left: 1em;
+}
+.dual .right p.character {
+padding-left: 6em;
+}
+span.scnuml {
+display: block;
+float: left;
+margin-left: -4.52em;
+font-weight: inherit;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+span.scnumr {
+display: block;
+float: right;
+margin-right: 0.72em;
+font-weight: inherit;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+.page-break {
+page-break-before: always;
+}
+</style></head><body><div id="wrapper" class="screenplay">
+<h1>ACT I</h1><span class="h1-synopsis">Meet the players and set up the world. Two hit men with very different lives.</span>
+<div class="transition">HERE WE GO:</div>
+<h2>Meet Scott</h2><span class="h2-synopsis">And his friend Baxter.</span>
+<h3>Scott's SF Apartment</h3>
+<h6>INT. SAN FRANCISCO APARTMENT, DAY</h6>
+<div class="action"><p>SCOTT is painting.&nbsp; Badly.&nbsp; Let's not mince words.</p></div>
+<div class="action"><p>His apartment is littered with art supplies and canvasses, and a nice southern-exposure's worth of light is pouring in through the windows onto the hardwood floor and let me tell you, it just isn't helping -- the work in progress that the paint-covered Scott is pondering is just not that good.</p></div>
+<div class="action"><p>Never one to give up, he's about to dab one more stroke of burnt umber onto the wretched thing when a SOUND in the hall snaps him out of it.</p></div>
+<h6>INT. HALLWAY, SCOTT'S APARTMENT BUILDING, A MOMENT LATER</h6>
+<div class="action"><p>The MAILMAN is just leaving, and Scott rushes over to his box.</p></div>
+<h6>BACK IN THE APARTMENT</h6>
+<div class="action"><p>Scott sorts through the mail.&nbsp; There are bills, of course, and "You've won a million dollars" type things, and some announcements of shows at galleries South of Market.&nbsp; And a BIRTHDAY CARD.</p></div>
+<div class="action"><p>It's that last one that gives him pause (not that you're surprised -- it <u>is</u> the damn title of the film).</p></div>
+<div class="action"><p>He opens the card.&nbsp; A simple little number inside of which is hand written:</p></div>
+<div class="action"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Scott --</p></div>
+<div class="action"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jacob Billups<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Palace Hotel, RM 412<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:00 pm tomorrow</p></div>
+<div class="action"><p>Scott exasperatedly throws down the card on the table and picks up the phone, hitting speed dial #1...</p></div>
+<div class="transition">CUT TO:</div>
+<h3>Baxter's Music Studio</h3>
+<h6>INT. BAXTER'S SAN FRANCISCO APARTMENT, SAME</h6>
+<div class="action"><p>BAXTER's place is devoted to his music career.&nbsp; Well, it could be a career, any minute now, but for the time being Baxter is that rarest of commodities -- the unemployed musician.</p></div>
+<div class="action"><p>Baxter is having a Yani moment at the keyboard, headphones on, and doesn't hear the phone for a bit.&nbsp; When he does, he's not happy to be interrupted:</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p class="parenthetical">(picking up phone)</p><p>What?</p></div>
+<div class="transition">INTERCUT WITH:</div>
+<h6>INT. SCOTT'S APARTMENT</h6>
+<div class="action"><p>Scott gestures with the card, as if that helps.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I got another birthday card today.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>That's great!</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It is?</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Haven't you been complaining about money lately?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>What else is new.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>So I don't see the problem.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It's just been a while.&nbsp; I guess I was getting lulled into thinking I had a normal life.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Unemployed artist in debt.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I was going to go down to the gallery tomorrow.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Oh, poor Scott.&nbsp; Instead you've got to make ten grand for an afternoon's work.&nbsp; I wish I had your talent, buddy.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Thanks for the support.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Did that girl ever call back?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>What do you think.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Girls don't like to call.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Complete the sentence -- girls don't like to call Scott.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>I'm going back under the headphones, killer.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Your neighbors thank you.</p></div>
+<div class="action"><p>Scott hangs up.&nbsp; Looks at the birthday card.&nbsp; Stuffs it in his pocket.</p></div>
+<div class="action"><p>On his desk, a pile of art supplies and such.&nbsp; He shoves it all aside and uncovers a briefcase.&nbsp; Pops it open.</p></div>
+<div class="action"><p>It contains a Galco leather shoulder holster and two Beretta 92F pistols, one black, one nickel plated.&nbsp; He picks up the black one and begins to check and clean it.</p></div>
+<div class="action"><p>FADE OUT.</p></div>
+<h2>Meet Nak</h2><span class="h2-synopsis">Nak is the polar opposite of Scott. Razor sharp, disciplined, loves his job.</span>
+<h3>Nak's Home</h3>
+<h6>INT. SAUSALITO HOME, THE NEXT MORNING</h6>
+<div class="action"><p>A clock reads 6:24 am.&nbsp; This house is stunning, and the morning fog has begun to burn off of a view of the bay that would make anyone contemplate taking up hang-gliding.</p></div>
+<div class="action"><p>A SAMURAI SWORD slices into view.&nbsp; Follow it back and there stands NAK, a fellow whose Japanese ancestry is accentuated by the fact that he's dressed in a Judo Gi and Hakama pants.&nbsp; He slices the air again with the sword and then expertly sheaths it.</p></div>
+<div class="transition">TIME CUT TO:</div>
+<h6>NAK'S BEDROOM</h6>
+<div class="action"><p>Nak, now dressed in a suit, folds the Hakama and carefully puts them away.&nbsp; He picks up a shiny metal briefcase and exits.</p></div>
+<h6>EXT. NAK'S HOUSE, CONTINUED</h6>
+<div class="action"><p>Nak exits, arming the alarm system.&nbsp; He turns and is faced with</p></div>
+<h6>A LAND ROVER DEFENDER 90 AND A VOLKSWAGON GTI.</h6>
+<div class="action"><p>Both the exact same <u>bright</u> yellow.&nbsp; Nak looks back and forth.&nbsp; It's a tough choice, one he makes every morning.&nbsp; Today he'll go with the VW.</p></div>
+<div class="transition">CUT TO:</div>
+<h3>Nak's Commute</h3>
+<h6>EXT. GOLDEN GATE BRIDGE</h6>
+<div class="action"><p>The yellow GTI cruises southbound.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>EXT. SAN FRANCISCO BUSINESS DISTRICT, LATER THAT MORNING</h6>
+<div class="action"><p>No surprises here.&nbsp; San Francisco's generic employed make their way to work juggling attaches and lattes.</p></div>
+<div class="action"><p>Nak glides among them and enters a building marked HOFF AND SPIRNHOLD ARCHITECTURAL.</p></div>
+<h3>Nak's Hit</h3>
+<h6>INT. HOFF AND SPIRNHOLD LOBBY, CONTINUED</h6>
+<div class="action"><p>Nak moves through the impressive lobby to the front desk.&nbsp; The woman behind it smiles at him.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>I'm here to see Mr. Hoff.</p></div>
+<div class="dialog"><p class="character">WOMAN</p><p>Mr. Hoff is busy right now showing a client around...</p><p class="parenthetical">(she looks to her right)</p><p>...in fact, there he is now.</p></div>
+<div class="action"><p>She points to an elevated walkway on the other side of the expansive lobby.&nbsp; Mr. Hoff is at the railing, talking to three men in suits.</p></div>
+<div class="dialog"><p class="character">WOMAN</p><p>Would you like to...</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Thank you.</p></div>
+<div class="action"><p>Nak pulls out a gun and aims it at the walkway.&nbsp; Fires twice.</p></div>
+<div class="action"><p>Mr. Hoff takes both rounds in the torso and topples over the railing, landing on the hard floor below.</p></div>
+<div class="action"><p>By the time the woman looks back in horror at Nak, he's already at the door.&nbsp; Everyone's shouting and screaming, and Nak calmly pushes the door open.</p></div>
+<div class="action"><p>The SECURITY GUARD is right on his heels and barrels through the door.</p></div>
+<h6>EXT. HOFF AND SPIRNHOLD BUILDING, CONTINUED</h6>
+<div class="action"><p>The guard bursts out into the street.</p></div>
+<div class="action"><p>But Nak is nowhere to be seen.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>INT. VW GTI, NORTHBOUND ON THE GOLDEN GATE BRIDGE, MINUTES LATER</h6>
+<div class="action"><p>Nak turns on the radio.&nbsp; Loud music fills the car, and Nak smiles to himself.&nbsp; The clock on the radio reads 11:44 am.</p></div>
+<div class="transition">CUT TO:</div>
+<h2>Scott's Hit</h2>
+<h3>Scott's Morning</h3>
+<h6>INT SCOTT'S APARTMENT, SAME TIME</h6>
+<div class="action"><p>Exactly the same time, as the clock by the bed shows.&nbsp; When it ticks over to 11:45, the alarm kicks in, playing the same station Nak was listening to.</p></div>
+<div class="action"><p>Scott rises from the bed looking less than chipper.&nbsp; He rubs his hand down his face and stumbles out of bed.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>EXT. SCOTT'S APARTMENT, A BIT LATER</h6>
+<div class="action"><p>Scott, now only very slightly more awake than before, is sitting behind the wheel of his '77 Toyota Landcruiser.&nbsp; He stares out the windshield for a while before turning the key.&nbsp; Horrible sounds emanate from the engine.&nbsp; A few more tries and the engine finally springs to life.</p></div>
+<div class="action"><p>Scott looks disappointed.</p></div>
+<div class="transition">CUT TO:</div>
+<h3>Palace Hotel</h3>
+<h6>INT. PALACE HOTEL LOBBY, A BIT LATER</h6>
+<div class="action"><p>Scott makes his way to the elevator.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>INT. PALACE HOTEL RM 412, SAME</h6>
+<div class="action"><p>A man in a grey suit who looks like he's fifty but is probably only forty sits on the made bed and talks on his StarTAC.&nbsp; Those of us in the audience who can do math will figure that this must be JACOB BILLUPS.</p></div>
+<div class="dialog"><p class="character">BILLUPS</p><p>...I understand.&nbsp; I'll be able to make the meeting at 3.</p><p class="parenthetical">(pause)</p><p>Yes, I'm just taking a longish lunch today.</p></div>
+<div class="action"><p>He hangs up.</p></div>
+<div class="dialog"><p class="character">BILLUPS</p><p>Did you hear that?&nbsp; We've only got two hours.</p></div>
+<h6>INT. BATHROOM</h6>
+<div class="action"><p>The person he's talking to -- a woman, not young but certainly younger than Billups.&nbsp; She's fixing herself up in the mirror.&nbsp; Her name is NANCY.</p></div>
+<div class="dialog"><p class="character">NANCY</p><p class="parenthetical">(to herself)</p><p>Like it ever takes that long.</p></div>
+<div class="action"><p>She pulls out some garish red lipstick and begins to apply it, looking at herself as if asking, "Why do I bother?"</p></div>
+<div class="transition">CUT TO:</div>
+<h6>INT. 4TH FLOOR HALLWAY, SAME</h6>
+<div class="action"><p>Scott strolls down the hall, still not quite feeling 100%.&nbsp; A housekeeping cart blocks his path and he pauses -- hanging from the handle is a ring of keys.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>INT. RM 412, SAME</h6>
+<div class="action"><p>Billups is on the bed, reading through some documents.&nbsp; His back is to the door.</p></div>
+<div class="action"><p>That door opens and in walks Scott, gun raised in a surgical-gloved hand.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Don't turn around.</p></div>
+<div class="action"><p>The sound of the gun cocking convinces Billups to comply.&nbsp; Nancy calls in from the bathroom.</p></div>
+<div class="dialog"><p class="character">NANCY</p><p>Did you say something?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Stay in the bathroom Nancy, or I'll shoot you through the door.</p></div>
+<div class="dialog"><p class="character">NANCY</p><p>Jake?&nbsp; How did he...</p></div>
+<div class="dialog"><p class="character">BILLUPS</p><p>Do what he says woman!</p><p class="parenthetical">(to Scott)</p><p>What are you waiting for.</p></div>
+<div class="action"><p>What indeed -- Scott is looking at the cut-rate painting on the wall in front of Billups.</p></div>
+<div class="dialog"><p class="character">BILLUPS</p><p>Don't make this mistake.&nbsp; I've got friends in powerful places.</p><p>This breaks Scott's mini-trance.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Enemies too.</p></div>
+<div class="action"><p>Scott pulls the trigger and BLOOD SPLATTERS onto the painting.&nbsp; Nancy screams.</p></div>
+<div class="transition">CUT TO:</div>
+<h2>Scott Visits the Gallery</h2>
+<h6>INT. LANDCRUISER, DRIVING -- A BIT LATER</h6>
+<div class="action"><p>Scott looks at his watch.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Shit!</p></div>
+<div class="transition">CUT TO:</div>
+<h3>Scott is Rejected</h3>
+<h6>INT. SOUTHERN EXPOSURE GALLERY, SOUTH OF MARKET</h6>
+<div class="action"><p>Just the right combination of upscale and downtown.&nbsp; Which is to say, it's a big white room.&nbsp; There's some questionable stuff on the walls, and the only person in the place is a attractive young ART GIRL who seems to be, well, questioning it.</p></div>
+<div class="action"><p>Actually, she's distracted by the muffled sounds of raised voices coming from the glass-walled office.&nbsp; Sure enough, it's Scott, in full angst mode, pleading with a resolute and snobby-looking GALLERY DIRECTOR.&nbsp; Art Girl can't make out specific words, but it's clear that Scott is being handed his hat.</p></div>
+<div class="action"><p>The skirmish ends.&nbsp; A dejected Scott exits the office and looks up, making eye contact with the young woman.&nbsp; He sneers at her -- this is all he needs, more mockery.&nbsp; He turns to go.</p></div>
+<div class="action"><p>She feels bad.</p></div>
+<h3>Meet Art Girl</h3>
+<div class="dialog"><p class="character">ART GIRL</p><p class="parenthetical">(calling after him)</p><p>Hey!&nbsp; I'm sorry.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>What?</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p>I didn't mean to spy on you.</p></div>
+<div class="action"><p>Scott walks over to her.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It's all right.&nbsp; What good is humiliation if it's not public?</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p class="parenthetical">(indicating the piece in front of them)</p><p>Speaking of which...</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>You don't like this?</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p>Do you?</p></div>
+<div class="action"><p>Scott gives it a careful appraisal.&nbsp; He regards it up and down.&nbsp; He looks thoughtful...</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It's not yours, it is?</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p>Hell no.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It's heinous.&nbsp; How does shit like this get in here?</p></div>
+<h3>The Seed is Planted</h3><span class="h3-synopsis">Art Girl gives Scott the idea that he can bribe his way into the gallery and get the exposure he feels is holding back his career as an artist.</span>
+<div class="dialog"><p class="character">ART GIRL</p><p>The artists's mother made a huge donation to the gallery.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Really?</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p>Yep.&nbsp; Despicable, isn't it?</p></div>
+<div class="action"><p>But Scott is deep in thought now.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Despicable...</p></div>
+<div class="dialog"><p class="character">ART GIRL</p><p>So are you a painter?</p></div>
+<div class="action"><p>Scott snaps out of the trance -- looks at her.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I'm sorry, I've got to run.</p></div>
+<div class="action"><p>Scott takes, off, leaving Art Girl to wonder why he didn't ask her out.</p></div>
+<div class="action"><p>FADE OUT.</p></div>
+<h1>ACT II: A New Day</h1>
+<h2>The Helo Attack</h2>
+<h6>INT. SCOTT'S APARTMENT, TWO DAYS LATER</h6>
+<div class="action"><p>Scott is paying bills, doing the math on a calculator.&nbsp; He decisively bangs in a few numbers and leans back to examine his work.&nbsp; The familiar noise in the hall...</p></div>
+<div class="transition">TIME CUT TO:</div>
+<h6>SCOTT REENTERING HIS APARTMENT,</h6>
+<div class="action"><p>fresh batch of mail in hand.</p></div>
+<div class="action"><p>The usual assortment, and, of course, another card.&nbsp; Scott opens it.</p></div>
+<div class="action"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Scott --</p></div>
+<div class="action"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Very happy with last party.</p></div>
+<div class="action"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Spalding Jeager<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hwy 1 overlook, 4 m. north of Muir Beach<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tomorrow, 2:00pm</p></div>
+<div class="action"><p>Scott stares at the card with a look somewhere between excitement and exasperation.&nbsp; He paces back and forth, the dilemma raging in his head.&nbsp; Nothing to do but to call Baxter -- he reaches for the phone.</p></div>
+<div class="action"><p>His hand is an inch from the receiver when the phone RINGS.&nbsp; Scott pauses for a moment, suspicious for some reason.&nbsp; He looks around.&nbsp; Phone ringing.</p></div>
+<div class="action"><p>Finally he picks it up.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Hello?</p></div>
+<div class="action"><p>The voice on the line is the official Phone Threat&#8482; voice.</p></div>
+<div class="dialog"><p class="character">VOICE</p><p>Do you remember the last thing Jacob Billups said to you?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p class="parenthetical">(getting the picture)</p><p>That he had powerful friends?</p></div>
+<div class="dialog"><p class="character">VOICE</p><p>Right.</p></div>
+<div class="action"><p>The line goes dead.&nbsp; Scott looks up at the bay windows of his apartment in time to see a MILITARY HELICOPTER drop into view, hovering a few feet from his window!</p></div>
+<div class="action"><p>Scott has one and a half seconds to react before the chopper's <u>side-mounted gatling guns erupt with a torrent of machine gun fire</u>!</p></div>
+<h6>FROM OUTSIDE THE APARTMENT</h6>
+<div class="action"><p>the scene is ludicrous -- the chopper just hangs there and pumps everything it's got into the 2nd floor apartment.&nbsp; Windows shatter, walls splinter, and</p></div>
+<h6>INSIDE</h6>
+<div class="action"><p>it's pure hell.&nbsp; Broken bits of everything fly everywhere.&nbsp; Scott dives for the floor and keeps moving towards the hallway, pausing only to <u>grab several of his paintings</u> before bailing out the back window.</p></div>
+<h6>OUTSIDE,</h6>
+<div class="action"><p>the chopper exits, leaving the building ablaze and crumbling.</p></div>
+<div class="transition">CUT TO:</div>
+<h2>Escape to Baxter's</h2>
+<h6>INT. BAXTER'S APARTMENT, LATER THAT EVENING</h6>
+<div class="action"><p>Baxter, under the headphones.&nbsp; Rocking out.&nbsp; The doorbell rings.</p></div>
+<h6>AT THE DOOR</h6>
+<div class="action"><p>it's Scott, looking battered and bruised.&nbsp; Stack of canvasses under his arm.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Do you have all of the beer?</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>You want a beer?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I want <u>all</u> of the beer.</p></div>
+<div class="transition">CUT TO:</div>
+<h6>THE PAIR, DRINKING BEER IN THE LIVING ROOM.</h6>
+<div class="action"><p>A few empties on the table.&nbsp; They are staring through a haze of beerness at the small TV...</p></div>
+<h6>ON THE TV</h6>
+<div class="action"><p>The EVENING NEWS.&nbsp; It's Scott's ex-apartment, smoldering and surrounded by FIRE ENGINES.</p></div>
+<div class="dialog"><p class="character">NEWSCASTER</p><p>...Police have not yet stated whether the occupant of the apartment was home at the time of the attack...</p></div>
+<div class="action"><p>Baxter lazily zaps the set with the remote.&nbsp; Chucks the remote onto the coffee table where it nearly knocks a beer bottle onto SCOTT'S PAINTINGS.&nbsp; Scott jumps up to grab the bottle:</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Carefull!</p></div>
+<div class="action"><p>Baxter casually examines the painting.&nbsp; He's feeling honest.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Dude. you know your paintings suck, right?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Coming from you, I'll take that as a compliment.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Like this one -- maybe you could incorporate a new motif -- like a big black square.</p></div>
+<div class="action"><p>Scott looks at him, confused.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>...the size of the whole canvas.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Fuck you man.&nbsp; You know, when my place was getting shot up, these were all I cared about saving.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>You're sure art critics don't fly helicopters?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Look at you.&nbsp; How's your band doing, Baxter?&nbsp; Is your drummer out of rehab yet?&nbsp; Sold any records yet?</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Easy, pal.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>It doesn't matter if you're any good.&nbsp; You do what you love.</p></div>
+<div class="action"><p>There's the rub.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Word.&nbsp; We suck.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Not me man.&nbsp; My shit's getting in a show.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Oh yeah?&nbsp; How?</p></div>
+<h3>Scott Explains His Plan</h3><span class="h3-synopsis">...to Baxter and to us.</span>
+<div class="dialog"><p class="character">SCOTT</p><p>That last hit broke me even.&nbsp; I'm taking this next job, and I'm donating the money to that gallery.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>A tax-deductible bribe.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Whatever.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>You do what you love.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Right.&nbsp; That's why this is the last job I'm taking.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Are you sure you're taking it?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>What do you mean?</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p class="parenthetical">(indicates TV)</p><p>Your boss probably thinks you're dead.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Shit.&nbsp; Can I use your phone?</p></div>
+<h3>Scott Talks to the Boss</h3>
+<div class="transition">CUT TO:</div>
+<h6>INT. THE BOSS'S OFFICE, A SECOND LATER</h6>
+<div class="action"><p>Half a ring and a finger hits the speakerphone button.</p></div>
+<div class="dialog"><p class="character">THE BOSS (O.S.)</p><p>Yes?</p></div>
+<div class="transition">INTERCUT WITH:</div>
+<h6>SCOTT, IN BAXTER'S KITCHEN</h6>
+<div class="dialog"><p class="character">SCOTT</p><p>Boss, it's me.</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Scotty?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Yeah.&nbsp; I'm alive.</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Glad to hear it.&nbsp; I'll update my file.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Did you reassign tomorrow's job?</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Of course.&nbsp; Don't worry Scott, there will be more jobs...&nbsp; in a month or two.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I want that one.</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Same rules as always sport.&nbsp; You can still collect on it if you're the one who makes the hit.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Great.&nbsp; Who's my competition?</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p class="parenthetical">(a pause)</p><p>Nak.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p class="parenthetical">(oh shit)</p><p>Nak?</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Something wrong?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Uhm, no.&nbsp; I'll call you after I make the hit.</p></div>
+<div class="dialog"><p class="character">THE BOSS</p><p>Don't bother.&nbsp; I'll know.</p></div>
+<h6>THE FINGER</h6>
+<div class="action"><p>clicks off the speakerphone.</p></div>
+<h6>SCOTT</h6>
+<div class="action"><p>hangs up.&nbsp; He looks dazed.</p></div>
+<div class="action"><p>Baxter has been listening.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Dude.&nbsp; Nak.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Yep.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>You're not going to do it.</p></div>
+<div class="action"><p>Scott looks at him.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Just this one last job, and then I'm out for good.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>I'm sure Nak will be happy to oblige.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I can handle him.</p></div>
+<div class="dialog"><p class="character">BAXTER</p><p>Whatever you say pal.&nbsp; Just will me your car, not your paintings, OK?</p></div>
+<div class="action"><p>FADE OUT.</p></div>
+<h1>ACT III: The Showdown</h1>
+<h2>Scott and Nak Meet on the Job ##</h2>
+<h3>Scott's Sniper Plan</h3>
+<h6>EXT. MARIN HILLSIDE, THE NEXT DAY</h6>
+<div class="action"><p>Scott is nestled in the tall grass by a tree.&nbsp; Sprawled out on a dropcloth, he aims a GIGANTIC STEYR-AUG SNIPER RIFLE out towards</p></div>
+<h6>A SCENIC OVERLOOK</h6>
+<div class="action"><p>with a lovely view of the ocean.</p></div>
+<div class="action"><p>Behind Scott the Landcruiser is parked in a place few other vehicles could reach.</p></div>
+<div class="action"><p>From his vantage Scott watches a champagne-colored Lexus pull up to the overlook.&nbsp; Through the rifle scope he can make out the DRIVER, a man in his forties whose expensive suit stands in stark contrast to his lunch -- a Taco Bell combo meal.&nbsp; The man calmly enjoys his solitary high-fat feast as would seem to be his custom.&nbsp; This is SPALDING JEAGER.</p></div>
+<div class="action"><p>Scott's finger is poised over the trigger.&nbsp; Then, the sound of a car's engine is heard.</p></div>
+<div class="action"><p>Scott looks over his shoulder.</p></div>
+<h3>Nak Arrives</h3>
+<div class="action"><p>Behind him is Nak, easing to a stop in the bright yellow Defender 90, right next to the Landcruiser.&nbsp; Not to get all Dr. Seuss on you, but Nak has a GLOCK, and it's pointed at Scott.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Nak.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>What's up, dead man?</p></div>
+<div class="action"><p>Scott sighs, apparently bested.&nbsp; Takes his hand away from the trigger.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>I knew you were a good hit man, but I had no idea about the quick wit.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Easy there, part...</p></div>
+<div class="action"><p>Nak steps out of the truck, taking his gaze off Scott for only an instant, but when he looks up the dropcloth is bare.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>...ner?</p></div>
+<div class="action"><p>Scott has hopped up onto the hood of the D90 and KICKS the Glock from Nak's hand.&nbsp; He hops straight down in front of Nak, the open door between them.&nbsp; Scott produces a BLACK BERETTA from his belt and aims it at Nak, through the window.</p></div>
+<div class="action"><p>Nak smiles smugly and in a blink sidesteps to his left, reaching out with his right hand and slamming the sliding window on Scott's arm.&nbsp; Nak then casually slams the door, which takes Scott's arm with it and slams Scott awkwardly into the side of the truck.</p></div>
+<div class="action"><p>Nak stoops to retrieve his GLOCK as Scott fumbles with his left hand, producing his SILVER BERETTA and training it on Nak just as Nak twirls around and aims the Glock at Scott.&nbsp; Scott frees his right hand and aims both guns at Nak.</p></div>
+<div class="action"><p>Both catch their breath.&nbsp; Stand off.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Nice.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Thanks.&nbsp; I took a course.</p></div>
+<div class="action"><p>All the while, Spalding Jeager munches his Big Beef Burrito Supreme obliviously.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>You picked a good spot.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>You're very complimentary.&nbsp; I like that -- shows you have good taste.&nbsp; Hey, nice truck by the way.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Thanks.&nbsp; Same to you...</p></div>
+<div class="action"><p>Nak checks out the Landcruiser, then pauses.&nbsp; Something in the backseat catches his eye.<br/>It's the paintings.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>You collect art?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Well, it's a nice vehicle, but I wouldn't...</p></div>
+<div class="dialog"><p class="character">NAK</p><p>No, I mean the paintings.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Oh.&nbsp; No, those are mine.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Really.&nbsp; Are they for sale?</p></div>
+<div class="action"><p>Scott is dumbfounded.&nbsp; He looks back over his shoulder at Spalding, still eating away.&nbsp; He looks at the guns in his hands and at Nak, and he says...</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Yes.</p></div>
+<div class="action"><p>...and lowers his guns.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Great!</p><p class="parenthetical">(pause)</p><p>Oh, do you mind...</p></div>
+<div class="action"><p>Nak gestures towards the target.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Oh, no -- you go ahead.&nbsp; Use my rifle.</p></div>
+<div class="action"><p>Nak's smile glimmers.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Actually, watch this.</p></div>
+<h3>Nak In Action</h3>
+<div class="action"><p>Nak reaches into the back of the D90 and pulls out a remote control -- the kind you use for model airplanes.&nbsp; He extends the antenna.</p></div>
+<div class="action"><p>Scott is intrigued.</p></div>
+<div class="action"><p>Nak points to a beat-up old Mazda pickup parked on the dirt hill behind the overlook.<br/>And then he presses a button on the remote.</p></div>
+<h6>UNDER THE CHASSIS OF THE MAZDA,</h6>
+<div class="action"><p>a tiny shaped charge on the emergency brake cable detonates, snapping it like a guitar string.</p></div>
+<h6>THE MAZDA</h6>
+<div class="action"><p>begins to roll down the hill.</p></div>
+<h6>NAK</h6>
+<div class="action"><p>grins with boyish glee.&nbsp; Scott watches as</p></div>
+<h6>THE TRUCK</h6>
+<div class="action"><p>begins to pick up speed and heads STRAIGHT FOR THE LEXUS!</p></div>
+<h6>SPALDING JEAGER</h6>
+<div class="action"><p>keeps eating, while in his rear-view mirror the truck barrels towards him.</p></div>
+<div class="action"><p>Finally he notices.</p></div>
+<h6>SCOTT</h6>
+<div class="action"><p>sees this and shoots a look at Nak, but Nak keeps smiling because</p></div>
+<h6>SPALDING</h6>
+<div class="action"><p>cannot activate the electronic door lock!&nbsp; He checks the mirror -- the truck is right on top of him.&nbsp; He slams his foot down on the brake and yanks up on the parking brake, but the handle just snaps off in his hand and</p></div>
+<h6>THE TRUCK SLAMS INTO THE BACK OF THE LEXUS DOING FORTY</h6>
+<div class="action"><p>and the pair of cars break through the tiny retaining wall and GO OVER THE EDGE.<br/>Spalding screaming the whole way down.</p></div>
+<h6>BACK ON NAK AND SCOTT</h6>
+<div class="action"><p>Scott is agape.&nbsp; Nak beams proudly.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Truly a pleasure.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>That's why I make the big bucks.&nbsp; Not that it matters...</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>...you do what you love.</p></div>
+<div class="action"><p>Nak regards him.</p></div>
+<div class="dialog"><p class="character">NAK</p><p>Exactly.&nbsp; Speaking of the big bucks, how much for the paintings?</p></div>
+<div class="action"><p>Nak pulls out a roll of cash that you could cork a bazooka with.</p></div>
+<div class="transition">FADE OUT.</div>
+<h2>Denouement</h2>
+<h3>Scott's New Life</h3><span class="h3-synopsis">Scott is happy in his new life as a painter with a wealthy patron -- who was once his bitter rival.</span>
+<h6>INT. SCOTT'S NEW APARTMENT, A FEW DAYS LATER</h6>
+<div class="action"><p>Scott is painting with brand new paints, a stack of blank canvasses behind him.&nbsp; He's smiling.&nbsp; He's doing what he loves.</p></div>
+<div class="action"><p>The phone rings.</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Hello?</p></div>
+<div class="action"><p>The voice is that of a sophisticated-sounding woman.</p></div>
+<div class="dialog"><p class="character">SOPHISTICATED WOMAN</p><p>Is this Scott?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Yes.</p></div>
+<div class="dialog"><p class="character">SOPHISTICATED WOMAN</p><p>I saw your work last night at a party at Nak's, and I was wondering when your next show might be?&nbsp; Phenomenal stuff young man.&nbsp; I hope I get a chance to buy some from you.</p></div>
+<h3>Scott's Life From Now On</h3><span class="h3-synopsis">He got the exposure he wanted -- but not at all how he thought he would.</span>
+<div class="dialog"><p class="character">SCOTT</p><p>Uhm...&nbsp; Thank you.</p></div>
+<div class="dialog"><p class="character">SOPHISTICATED WOMAN</p><p>Shall I just check with Nak then?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Uhm...</p></div>
+<div class="dialog"><p class="character">SOPHISTICATED WOMAN</p><p>About your next show?</p></div>
+<div class="dialog"><p class="character">SCOTT</p><p>Uh, yes.&nbsp; That would be fine.</p></div>
+<div class="action"><p>Scott hangs up, bewildered.&nbsp; He turns to his work-in-progress, is about to start painting again, when THE PHONE RINGS AGAIN?</p></div>
+<div class="action"><p>Scott is incredulous.&nbsp; He can't help but smile as he answers.</p></div>
+<div class="dialog"><p class="character">MALE VOICE</p><p>Is this Scott?&nbsp; Listen I saw your work at Nak's, and...</p></div>
+<div class="transition">FADE OUT.</div>
+<div class="action centered"><p>THE END</p></div>
+</div></body></html>

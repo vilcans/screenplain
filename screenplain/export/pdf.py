@@ -3,6 +3,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 import sys
+import os
 
 from reportlab import platypus
 from reportlab.lib import colors, pagesizes
@@ -20,6 +21,9 @@ from reportlab.platypus import (
 
 from screenplain import types
 from screenplain.types import Action, Dialog, DualDialog, Slug, Transition
+from reportlab.lib import pagesizes
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 try:
     import reportlab
@@ -27,6 +31,57 @@ except ImportError:
     sys.stderr.write('ERROR: ReportLab is required for PDF output\n')
     raise
 del reportlab
+
+
+class FontSettings:
+    family_name: str
+    file_normal: str | None
+    file_bold: str | None
+    file_italic: str | None
+    file_bold_italic: str | None
+
+    def __init__(self, family_name):
+        self.family_name = family_name
+        self.file_normal = None
+        self.file_bold = None
+        self.file_italic = None
+        self.file_bold_italic = None
+
+    def register(self):
+        if not self.file_normal:
+            raise RuntimeError('No font file set for normal typeface')
+
+        kwargs = {}
+        for (suffix, file, arg) in [
+            ('', self.file_normal, 'normal'),
+            (' Bold', self.file_bold, 'bold'),
+            (' Italic', self.file_italic, 'italic'),
+            (' Bold Italic', self.file_bold_italic, 'boldItalic')
+        ]:
+            if file:
+                n = self.family_name + suffix
+                pdfmetrics.registerFont(TTFont(n, file))
+                kwargs[arg] = n
+
+        pdfmetrics.registerFontFamily(self.family_name, **kwargs)
+
+
+def get_standard_font_settings() -> FontSettings:
+    """Get font settings for the Courier font that's built into PDF."""
+    return FontSettings("Courier")
+
+
+def get_courier_prime_settings() -> FontSettings:
+    """Get font settings for Courier Prime, which is bundled with Screenplain
+    """
+    path = os.path.join(os.path.dirname(__file__), 'courier_prime')
+    s = FontSettings('Courier Prime')
+    s.file_normal = os.path.join(path, 'Courier Prime.ttf')
+    s.file_bold = os.path.join(path, 'Courier Prime Bold.ttf')
+    s.file_italic = os.path.join(path, 'Courier Prime Italic.ttf')
+    s.file_bold_italic = os.path.join(path, 'Courier Prime Bold Italic.ttf')
+    s.register()
+    return s
 
 
 def create_default_settings():
@@ -68,6 +123,8 @@ class Settings:
     page_width: float
     page_height: float
 
+    font_settings: FontSettings
+
     def __init__(
         self,
         font_size=12,
@@ -76,7 +133,10 @@ class Settings:
         characters_per_line=61,
         page_size=pagesizes.letter,
         strong_slugs=False,
+        font_settings=None
     ):
+        self.font_settings = font_settings or get_courier_prime_settings()
+
         line_height = line_height or font_size
 
         self.font_size = font_size
@@ -103,7 +163,7 @@ class Settings:
 
         default_style = ParagraphStyle(
             'default',
-            fontName='Courier',
+            fontName=self.font_settings.family_name,
             fontSize=font_size,
             leading=line_height,
             spaceBefore=0,
@@ -206,7 +266,8 @@ class DocTemplate(BaseDocTemplate):
 
     def handle_pageBegin(self):
         self.canv.setFont(
-            'Courier', self.settings.font_size,
+            self.settings.font_settings.family_name,
+            self.settings.font_size,
             leading=self.settings.line_height
         )
         if self.has_title_page:

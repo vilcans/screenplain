@@ -80,6 +80,14 @@ def main(argv):
         )
     )
     parser.add_argument(
+        '--standard-font',
+        action='store_true',
+        help=(
+            "For PDF output, "
+            "use the standard Courier font instead of Courier Prime."
+        )
+    )
+    parser.add_argument(
         '--encoding',
         default='utf-8-sig',
         help="Text encoding of the input file. "
@@ -167,8 +175,12 @@ def main(argv):
             )
         elif format == 'pdf':
             from screenplain.export import pdf
-            settings = pdf.create_default_settings()
-            settings.strong_slugs = args.strong
+            font_settings = None
+            if args.standard_font:
+                font_settings = pdf.get_standard_font_settings()
+            settings = pdf.Settings(
+                font_settings=font_settings, strong_slugs=args.strong
+            )
             pdf.to_pdf(screenplay, output, settings=settings)
     finally:
         if output_file:

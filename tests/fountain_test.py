@@ -490,6 +490,35 @@ class TitlePageTests(TestCase):
             fountain.parse_title_page(lines)
         )
 
+    def test_key_casing(self):
+        # Keys are converted using str.capitalize
+        lines = [
+            "Author: bruce",
+            "draft DATE: 1/10/2026",
+        ]
+        self.assertDictEqual(
+            {
+                "Author": ["bruce"],
+                "Draft date": ["1/10/2026"],
+            },
+            fountain.parse_title_page(lines)
+        )
+
+    def test_multiple_values_with_different_case(self):
+        lines = [
+            'Title: Death',
+            'title: - a love story',
+        ]
+        self.assertDictEqual(
+            {
+                'Title': [
+                    'Death',
+                    '- a love story',
+                ]
+            },
+            fountain.parse_title_page(lines)
+        )
+
     def test_empty_value_ignored(self):
         lines = [
             'Title:',
