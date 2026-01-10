@@ -24,9 +24,10 @@ an output-file is given. Otherwise use the --format option."""
 
 
 def invalid_format(parser, message):
+    formats = " ".join(output_formats)
     parser.error(
-        '%s\nUse --format with one of the following formats: %s' %
-        (message, ' '.join(output_formats))
+        f'{message}\nUse --format with one of the following formats: '
+        f'{formats}'
     )
 
 
@@ -36,8 +37,8 @@ def main(args):
         '-f', '--format', dest='output_format',
         metavar='FORMAT',
         help=(
-            'Set what kind of file to create. FORMAT can be one of ' +
-            ', '.join(output_formats)
+            'Set what kind of file to create. FORMAT can be one of '
+            f'{", ".join(output_formats)}'
         )
     )
     parser.add_option(
@@ -69,7 +70,7 @@ def main(args):
     parser.add_option(
         '--encoding',
         default='utf-8-sig',
-        help="Text encoding of the input file. " +
+        help="Text encoding of the input file. "
         "Should be one of Python's built-in encodings."
     )
     parser.add_option(
@@ -88,7 +89,7 @@ def main(args):
     try:
         codecs.lookup(options.encoding)
     except LookupError:
-        parser.error('Unknown encoding: %s' % options.encoding)
+        parser.error(f'Unknown encoding: {options.encoding}')
 
     format = options.output_format
     if format is None and output_file:
@@ -101,12 +102,12 @@ def main(args):
         else:
             invalid_format(
                 parser,
-                'Could not detect output format from file name ' + output_file
+                f'Could not detect output format from file name {output_file}'
             )
 
     if format not in output_formats:
         invalid_format(
-            parser, 'Unsupported output format: "%s".' % format
+            parser, f'Unsupported output format: "{format}".'
         )
 
     if input_file:

@@ -93,12 +93,10 @@ class Segment:
         self.text = text
 
     def __repr__(self):
-        return '(%s)(%r)' % (
-            '+'.join(
-                style.name() for style in self.get_ordered_styles()
-            ) or 'plain',
-            self.text
-        )
+        styles = '+'.join(
+            style.name() for style in self.get_ordered_styles()
+        ) or 'plain'
+        return f'({styles})({self.text!r})'
 
     def __str__(self):
         return self.text

@@ -79,7 +79,7 @@ class Section:
         self.synopsis = text
 
     def __repr__(self):
-        return 'Section(%r, %r, %r)' % (self.text, self.level, self.synopsis)
+        return f'Section({self.text!r}, {self.level!r}, {self.synopsis!r})'
 
     def __eq__(self, other):
         return (

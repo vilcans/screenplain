@@ -217,7 +217,7 @@ class DocTemplate(BaseDocTemplate):
             self.canv.drawRightString(
                 self.settings.left_margin + self.settings.frame_width,
                 self.settings.page_height - 42,
-                '%s.' % page
+                f'{page}.'
             )
         self._handle_pageBegin()
 

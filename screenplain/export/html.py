@@ -41,16 +41,13 @@ class tag:
 
     def __enter__(self):
         if self.classes:
-            self.out.write('<%s class="%s">' % (
-                self.tag,
-                ' '.join(self.classes)
-            ))
+            self.out.write(f'<{self.tag} class="{" ".join(self.classes)}">')
         else:
-            self.out.write('<%s>' % self.tag)
+            self.out.write(f'<{self.tag}>')
 
     def __exit__(self, exception_type, value, traceback):
         if not exception_type:
-            self.out.write('</%s>' % self.tag)
+            self.out.write(f'</{self.tag}>')
         return False
 
 
@@ -133,10 +130,10 @@ class Formatter:
                 self.out.write(to_html(plain(slug.synopsis)))
 
     def format_section(self, section):
-        with self._tag('h%d' % section.level):
+        with self._tag(f'h{section.level}'):
             self.out.write(to_html(section.text))
         if section.synopsis:
-            with self._tag('span', classes=['h%d-synopsis' % section.level]):
+            with self._tag('span', classes=[f'h{section.level}-synopsis']):
                 self.out.write(to_html(plain(section.synopsis)))
 
     def format_action(self, para):

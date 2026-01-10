@@ -19,12 +19,9 @@ style_names = {
 def _write_text_element(out, styles, text):
     style_value = '+'.join(str(s) for s in styles)
     if style_value == '':
-        out.write('      <Text>%s</Text>\n' % (escape(text)))
+        out.write(f'      <Text>{escape(text)}</Text>\n')
     else:
-        out.write(
-            '      <Text Style="%s">%s</Text>\n' %
-            (style_value, escape(text))
-        )
+        out.write(f'      <Text Style="{style_value}">{escape(text)}</Text>\n')
 
 
 def write_text(out, rich, trailing_linebreak):
@@ -39,9 +36,9 @@ def write_text(out, rich, trailing_linebreak):
 
 def write_paragraph(out, para_type, lines, centered=False):
     if centered:
-        out.write('    <Paragraph Alignment="Center" Type="%s">\n' % para_type)
+        out.write(f'    <Paragraph Alignment="Center" Type="{para_type}">\n')
     else:
-        out.write('    <Paragraph Type="%s">\n' % para_type)
+        out.write(f'    <Paragraph Type="{para_type}">\n')
 
     last_line_no = len(lines) - 1
     for line_no, line in enumerate(lines):
