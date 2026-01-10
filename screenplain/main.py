@@ -6,7 +6,7 @@
 
 import sys
 import codecs
-from optparse import OptionParser
+import argparse
 
 from screenplain.parsers import fountain
 
@@ -14,7 +14,7 @@ output_formats = (
     'fdx', 'html', 'pdf'
 )
 
-usage = """Usage: %prog [options] [input-file [output-file]]
+description = """Convert text file to viewable screenplay.
 
 If a file name parameter is missing or a dash (-), input will be read
 from standard input and output will be written to standard output.
@@ -31,26 +31,39 @@ def invalid_format(parser, message):
     )
 
 
-def main(args):
-    parser = OptionParser(usage=usage)
-    parser.add_option(
-        '-f', '--format', dest='output_format',
+def main(argv):
+    parser = argparse.ArgumentParser(
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        'input_file',
+        nargs='?',
+        help='Input screenplay file (default: stdin)'
+    )
+    parser.add_argument(
+        'output_file',
+        nargs='?',
+        help='Output file (default: stdout)'
+    )
+    parser.add_argument(
+        '-f', '--format',
+        dest='output_format',
         metavar='FORMAT',
         help=(
             'Set what kind of file to create. FORMAT can be one of '
             f'{", ".join(output_formats)}'
         )
     )
-    parser.add_option(
+    parser.add_argument(
         '--bare',
         action='store_true',
-        dest='bare',
         help=(
             'For HTML output, only output the actual screenplay, '
             'not a complete HTML document.'
         )
     )
-    parser.add_option(
+    parser.add_argument(
         '--css',
         metavar='FILE',
         help=(
@@ -58,40 +71,46 @@ def main(args):
             'instead of the default.'
         )
     )
-    parser.add_option(
+    parser.add_argument(
         '--strong',
         action='store_true',
-        dest='strong',
         help=(
             'For PDF output, scene headings will appear '
             'Bold and Underlined.'
         )
     )
-    parser.add_option(
+    parser.add_argument(
         '--encoding',
         default='utf-8-sig',
         help="Text encoding of the input file. "
         "Should be one of Python's built-in encodings."
     )
-    parser.add_option(
+    parser.add_argument(
         '--encoding-errors',
         default='strict',
         choices=['strict', 'ignore', 'replace',
                  'backslashreplace', 'surrogateescape'],
         help='How to handle invalid character codes in the input file'
     )
-    options, args = parser.parse_args(args)
-    if len(args) >= 3:
-        parser.error('Too many arguments')
-    input_file = (len(args) > 0 and args[0] != '-') and args[0] or None
-    output_file = (len(args) > 1 and args[1] != '-') and args[1] or None
+    args = parser.parse_args(argv)
+
+    # Handle dash as stdin/stdout
+    if not args.input_file or args.input_file == '-':
+        input_file = None
+    else:
+        input_file = args.input_file
+
+    if not args.output_file or args.output_file == '-':
+        output_file = None
+    else:
+        output_file = args.output_file
 
     try:
-        codecs.lookup(options.encoding)
+        codecs.lookup(args.encoding)
     except LookupError:
-        parser.error(f'Unknown encoding: {options.encoding}')
+        parser.error(f'Unknown encoding: {args.encoding}')
 
-    format = options.output_format
+    format = args.output_format
     if format is None and output_file:
         if output_file.endswith('.fdx'):
             format = 'fdx'
@@ -113,11 +132,11 @@ def main(args):
     if input_file:
         input = codecs.open(
             input_file, 'r',
-            encoding=options.encoding,
-            errors=options.encoding_errors)
+            encoding=args.encoding,
+            errors=args.encoding_errors)
     else:
-        input = codecs.getreader(options.encoding)(sys.stdin.buffer)
-        input.errors = options.encoding_errors
+        input = codecs.getreader(args.encoding)(sys.stdin.buffer)
+        input.errors = args.encoding_errors
     screenplay = fountain.parse(input)
 
     if format == 'pdf':
@@ -144,12 +163,12 @@ def main(args):
             from screenplain.export.html import convert
             convert(
                 screenplay, output,
-                css_file=options.css, bare=options.bare
+                css_file=args.css, bare=args.bare
             )
         elif format == 'pdf':
             from screenplain.export import pdf
             settings = pdf.create_default_settings()
-            settings.strong_slugs = options.strong
+            settings.strong_slugs = args.strong
             pdf.to_pdf(screenplay, output, settings=settings)
     finally:
         if output_file:
