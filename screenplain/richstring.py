@@ -33,11 +33,8 @@ class RichString:
             return "empty_string"
         return ' + '.join(repr(s) for s in self.segments)
 
-    def __unicode__(self):
-        return ''.join(str(s) for s in self.segments)
-
     def __str__(self):
-        return self.__unicode__()
+        return ''.join(str(s) for s in self.segments)
 
     def startswith(self, string):
         """Checks if the first segment in this string starts with a
@@ -106,9 +103,6 @@ class Segment:
             ) or 'plain',
             self.text
         )
-
-    def __unicode__(self):
-        return self.text
 
     def __str__(self):
         return self.text
