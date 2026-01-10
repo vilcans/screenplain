@@ -32,3 +32,9 @@ dependencies = [
 
 [project.scripts]
 screenplain = "screenplain.main:cli"
+
+[dependency-groups]
+dev = [
+    "pycodestyle>=2.14.0",
+    "pytest>=8.4.2",
+]
