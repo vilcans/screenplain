@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+<Content>
+<Paragraph Type="Character">
+<Text>DEALER</Text>
+</Paragraph>
+<Paragraph Type="Dialogue">
+<Text>Dealer gets a seven.</Text>
+</Paragraph>
+<Paragraph Type="Dialogue">
+</Paragraph>
+<Paragraph Type="Dialogue">
+<Text>Hit or stand sir?</Text>
+</Paragraph>
+</Content>
+</FinalDraft>

@@ -12,6 +12,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import (
     BaseDocTemplate,
+    Flowable,
     Frame,
     NextPageTemplate,
     PageTemplate,
@@ -299,7 +300,9 @@ def add_slug(story, para, style, is_strong):
         story.append(Paragraph(html, style))
 
 
-def _dialog_to_flowables(dialog, settings: Settings, column_width=None):
+def _dialog_to_flowables(
+    dialog, settings: Settings, column_width=None
+) -> list[Flowable]:
     # If column_width is set, adjust indents proportionally
     if column_width is not None:
         proportion = column_width / settings.frame_width
@@ -325,13 +328,20 @@ def _dialog_to_flowables(dialog, settings: Settings, column_width=None):
         character_style = settings.character_style
         dialog_style = settings.dialog_style
         parenthentical_style = settings.parenthentical_style
-    flowables = [Paragraph(dialog.character.to_html(), character_style)]
+    flowables: list[Flowable] = [
+        Paragraph(dialog.character.to_html(), character_style)
+    ]
     for is_parenthetical, line in dialog.blocks:
         if is_parenthetical:
             style = parenthentical_style
         else:
             style = dialog_style
-        flowables.append(Paragraph(line.to_html(), style))
+        line_html = line.to_html()
+        if not line_html:
+            # Force an empty line to use vertical space
+            flowables.append(Spacer(1, settings.line_height))
+        else:
+            flowables.append(Paragraph(line_html, style))
     return flowables
 
 
