@@ -235,6 +235,47 @@ class Settings:
         ])
 
 
+class SlugWithSceneNumbers(Flowable):
+    """Custom flowable that renders a slug with scene numbers in margins."""
+
+    def __init__(self, slug_paragraph, scene_number, settings: Settings):
+        Flowable.__init__(self)
+        self.slug_paragraph = slug_paragraph
+        self.scene_number = scene_number.to_html()
+        self.settings = settings
+        # Copy spacing attributes from the paragraph's style
+        self.spaceBefore = slug_paragraph.style.spaceBefore
+        self.spaceAfter = slug_paragraph.style.spaceAfter
+        self.keepWithNext = slug_paragraph.style.keepWithNext
+
+    def wrap(self, availWidth, availHeight):
+        # Delegate to the wrapped paragraph
+        return self.slug_paragraph.wrap(availWidth, availHeight)
+
+    def draw(self):
+        # Draw the main slug paragraph
+        self.slug_paragraph.drawOn(self.canv, 0, 0)
+
+        canvas = self.canv
+        canvas.saveState()
+
+        # Use same font as slug, but always plain (not bold/underline)
+        canvas.setFont(
+            self.settings.font_settings.family_name,
+            self.settings.font_size
+        )
+
+        # Left margin: Position to the left of frame
+        left_x = -0.75 * inch
+        canvas.drawString(left_x, 0, self.scene_number)
+
+        # Right margin: Right-aligned inside right margin area
+        right_x = self.settings.frame_width
+        canvas.drawRightString(right_x, 0, self.scene_number)
+
+        canvas.restoreState()
+
+
 class DocTemplate(BaseDocTemplate):
     def __init__(self, *args, **kwargs):
         self.settings = (
@@ -291,13 +332,23 @@ def add_paragraph(story, para, style):
     ))
 
 
-def add_slug(story, para, style, is_strong):
+def add_slug(story, para, settings):
     for line in para.lines:
-        if is_strong:
+        if settings.strong_slugs:
             html = '<b><u>' + line.to_html() + '</u></b>'
         else:
             html = line.to_html()
-        story.append(Paragraph(html, style))
+
+        paragraph = Paragraph(html, settings.slug_style)
+
+        # Wrap in custom flowable if scene number exists
+        if para.scene_number:
+            flowable = SlugWithSceneNumbers(
+                paragraph, para.scene_number, settings
+            )
+            story.append(flowable)
+        else:
+            story.append(paragraph)
 
 
 def _dialog_to_flowables(
@@ -480,7 +531,7 @@ def to_pdf(
                 else settings.action_style
             )
         elif isinstance(para, Slug):
-            add_slug(story, para, settings.slug_style, settings.strong_slugs)
+            add_slug(story, para, settings)
         elif isinstance(para, Transition):
             add_paragraph(story, para, settings.transition_style)
         elif isinstance(para, types.PageBreak):
