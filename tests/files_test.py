@@ -107,7 +107,9 @@ def _create_tests():
     source_files = [f for f in test_files if f.endswith('.fountain')]
     expect_files = [
         f for f in test_files
-        if not f.endswith('.fountain') and not f.endswith('.pdf')
+        if not f.endswith('.fountain')
+        and not f.endswith('.pdf')
+        and not f.endswith('.docx')
     ]
 
     for source in source_files:
