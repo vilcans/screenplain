@@ -11,10 +11,10 @@ from unittest import TestCase
 
 from screenplain.main import main
 
-source_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'files'))
+source_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "files"))
 
-line_break_re = re.compile('\\s*\n\\s*')
-spaces_re = re.compile('[ \t]+')
+line_break_re = re.compile("\\s*\n\\s*")
+spaces_re = re.compile("[ \t]+")
 
 
 def read_file(path):
@@ -31,12 +31,11 @@ def clean_string(s):
     'foo bar'
 
     """
-    return spaces_re.sub(' ', line_break_re.sub('\n', s))
+    return spaces_re.sub(" ", line_break_re.sub("\n", s))
 
 
 class FileTests(TestCase):
-    """High level tests that runs Screenplain using command line arguments.
-    """
+    """High level tests that runs Screenplain using command line arguments."""
 
     maxDiff = None
 
@@ -52,11 +51,7 @@ class FileTests(TestCase):
     def target(self, name):
         return os.path.join(self.dir, name)
 
-    def convert(
-        self,
-        input_file, output_file, expected_results_file,
-        *options
-    ):
+    def convert(self, input_file, output_file, expected_results_file, *options):
         input_path = self.source(input_file)
         output_path = self.target(output_file)
         main(list(options) + [input_path, output_path])
@@ -75,18 +70,11 @@ class FileTests(TestCase):
 
         def test_function(self):
             actual, expected = self.convert(
-                source_file, base + '.' + extension,
-                expected_results_file,
-                '--bare'
+                source_file, base + "." + extension, expected_results_file, "--bare"
             )
             self.assertMultiLineEqual(expected, actual)
 
-        func_name = (
-            'test_' +
-            source_file.replace('.', '_') +
-            '_to_' +
-            extension
-        )
+        func_name = "test_" + source_file.replace(".", "_") + "_to_" + extension
         setattr(cls, func_name, test_function)
 
 
@@ -104,17 +92,14 @@ def _create_tests():
     as they are handled by visual/pdf_test.py.
     """
     test_files = os.listdir(source_dir)
-    source_files = [f for f in test_files if f.endswith('.fountain')]
+    source_files = [f for f in test_files if f.endswith(".fountain")]
     expect_files = [
-        f for f in test_files
-        if not f.endswith('.fountain') and not f.endswith('.pdf')
+        f for f in test_files if not f.endswith(".fountain") and not f.endswith(".pdf")
     ]
 
     for source in source_files:
-        base = os.path.splitext(source)[0] + '.'
-        for expected in (
-            f for f in expect_files if f.startswith(base)
-        ):
+        base = os.path.splitext(source)[0] + "."
+        for expected in (f for f in expect_files if f.startswith(base)):
             FileTests.add_file_case(source, expected)
 
 

@@ -14,16 +14,16 @@ from screenplain.types import (
 )
 
 style_names = {
-    Bold: 'Bold',
-    Italic: 'Italic',
-    Underline: 'Underline',
+    Bold: "Bold",
+    Italic: "Italic",
+    Underline: "Underline",
 }
 
 
 def _write_text_element(out, styles, text):
-    style_value = '+'.join(str(s) for s in styles)
-    if style_value == '':
-        out.write(f'      <Text>{escape(text)}</Text>\n')
+    style_value = "+".join(str(s) for s in styles)
+    if style_value == "":
+        out.write(f"      <Text>{escape(text)}</Text>\n")
     else:
         out.write(f'      <Text Style="{style_value}">{escape(text)}</Text>\n')
 
@@ -33,7 +33,7 @@ def write_text(out, rich, trailing_linebreak):
     for seg_no, segment in enumerate(rich.segments):
         fdx_styles = [style_names[n] for n in segment.get_ordered_styles()]
         if trailing_linebreak and seg_no == len(rich.segments) - 1:
-            _write_text_element(out, fdx_styles, segment.text + '\n')
+            _write_text_element(out, fdx_styles, segment.text + "\n")
         else:
             _write_text_element(out, fdx_styles, segment.text)
 
@@ -47,38 +47,31 @@ def write_paragraph(out, para_type, lines, centered=False):
     last_line_no = len(lines) - 1
     for line_no, line in enumerate(lines):
         write_text(out, line, line_no != last_line_no)
-    out.write('    </Paragraph>\n')
+    out.write("    </Paragraph>\n")
 
 
 def write_dialog(out, dialog):
-    write_paragraph(out, 'Character', [dialog.character])
+    write_paragraph(out, "Character", [dialog.character])
     for parenthetical, line in dialog.blocks:
         if parenthetical:
-            write_paragraph(out, 'Parenthetical', [line])
+            write_paragraph(out, "Parenthetical", [line])
         else:
-            write_paragraph(out, 'Dialogue', [line])
+            write_paragraph(out, "Dialogue", [line])
 
 
 def write_dual_dialog(out, dual):
-    out.write(
-        '    <Paragraph>\n'
-        '      <DualDialogue>\n'
-    )
+    out.write("    <Paragraph>\n      <DualDialogue>\n")
     write_dialog(out, dual.left)
     write_dialog(out, dual.right)
-    out.write(
-        '      </DualDialogue>\n'
-        '    </Paragraph>\n'
-    )
+    out.write("      </DualDialogue>\n    </Paragraph>\n")
 
 
 def to_fdx(screenplay, out):
-
     out.write(
         '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\n'
         '<FinalDraft DocumentType="Script" Template="No" Version="1">\n'
-        '\n'
-        '  <Content>\n'
+        "\n"
+        "  <Content>\n"
     )
 
     for para in screenplay:
@@ -87,16 +80,13 @@ def to_fdx(screenplay, out):
         elif isinstance(para, DualDialog):
             write_dual_dialog(out, para)
         elif isinstance(para, Action):
-            write_paragraph(out, 'Action', para.lines, centered=para.centered)
+            write_paragraph(out, "Action", para.lines, centered=para.centered)
         elif isinstance(para, Slug):
-            write_paragraph(out, 'Scene Heading', para.lines)
+            write_paragraph(out, "Scene Heading", para.lines)
         elif isinstance(para, Transition):
-            write_paragraph(out, 'Transition', para.lines)
+            write_paragraph(out, "Transition", para.lines)
         else:
             # Ignore unknown types
             pass
 
-    out.write(
-        '  </Content>\n'
-        '</FinalDraft>\n'
-    )
+    out.write("  </Content>\n</FinalDraft>\n")

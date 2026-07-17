@@ -1,11 +1,11 @@
 ABOUT COURIER PRIME
 ===================
 
-Courier Prime is a TrueType monospaced font designed specifically for screenplays. It was designed by Alan Dague-Greene for John August and released by Quote-Unquote Apps under the SIL Open Font License (OFL). 
+Courier Prime is a TrueType monospaced font designed specifically for screenplays. It was designed by Alan Dague-Greene for John August and released by Quote-Unquote Apps under the SIL Open Font License (OFL).
 
 Visit http://quoteunquoteapps.com/courierprime for more information and the latest updates.
 
-SIL Open Font License: http://scripts.sil.org/OFL 
+SIL Open Font License: http://scripts.sil.org/OFL
 
 INSTALLATION
 ============

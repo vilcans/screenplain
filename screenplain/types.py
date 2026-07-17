@@ -48,7 +48,6 @@ class Screenplay:
 
 
 class Slug:
-
     def __init__(self, line, scene_number=None):
         """Creates a scene heading (slug).
         The line parameter is a RichString with the slugline.
@@ -79,13 +78,13 @@ class Section:
         self.synopsis = text
 
     def __repr__(self):
-        return f'Section({self.text!r}, {self.level!r}, {self.synopsis!r})'
+        return f"Section({self.text!r}, {self.level!r}, {self.synopsis!r})"
 
     def __eq__(self, other):
         return (
-            self.text == other.text and
-            self.level == other.level and
-            self.synopsis == other.synopsis
+            self.text == other.text
+            and self.level == other.level
+            and self.synopsis == other.synopsis
         )
 
 
@@ -99,14 +98,14 @@ class Dialog:
     def _parse(self, lines):
         inside_parenthesis = False
         for line in lines:
-            if line.startswith('('):
+            if line.startswith("("):
                 inside_parenthesis = True
             self.blocks.append((inside_parenthesis, line))
-            if line.endswith(')'):
+            if line.endswith(")"):
                 inside_parenthesis = False
 
     def add_line(self, line):
-        parenthetical = line.startswith('(')
+        parenthetical = line.startswith("(")
         self.blocks.append((parenthetical, line))
 
 

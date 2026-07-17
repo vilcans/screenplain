@@ -19,28 +19,28 @@ from screenplain.types import (
 )
 
 slug_regexes = (
-    re.compile(r'^(INT|EXT|EST)[ .]'),
-    re.compile(r'^(INT\.?/EXT\.?)[ .]'),
-    re.compile(r'^I/E[ .]'),
+    re.compile(r"^(INT|EXT|EST)[ .]"),
+    re.compile(r"^(INT\.?/EXT\.?)[ .]"),
+    re.compile(r"^I/E[ .]"),
 )
 
-boneyard_re = re.compile(r'/\*.*?\*/', flags=re.DOTALL)
+boneyard_re = re.compile(r"/\*.*?\*/", flags=re.DOTALL)
 
-TWOSPACE = ' ' * 2
+TWOSPACE = " " * 2
 
-linebreak_re = re.compile('\r\n|\n|\r')
+linebreak_re = re.compile("\r\n|\n|\r")
 
-title_page_key_re = re.compile(r'([^:]+):\s*(.*)')
-title_page_value_re = re.compile(r'(?:\s{3,}|\t)(.+)')
+title_page_key_re = re.compile(r"([^:]+):\s*(.*)")
+title_page_value_re = re.compile(r"(?:\s{3,}|\t)(.+)")
 
-centered_re = re.compile(r'\s*>\s*(.*?)\s*<\s*$')
-dual_dialog_re = re.compile(r'^(.+?)(\s*\^)$')
-slug_re = re.compile(r'(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$')
-scene_number_re = re.compile(r'(.*?)\s*(?:#([\w\-.]+)#)\s*$')
-section_re = re.compile(r'^(#{1,6})\s*([^#].*)$')
-transition_re = re.compile(r'(>?)\s*(.+?)(TO:)?$')
-page_break_re = re.compile(r'^={3,}$')
-note_re = re.compile(r'\[\[.*?\]\]', re.DOTALL)
+centered_re = re.compile(r"\s*>\s*(.*?)\s*<\s*$")
+dual_dialog_re = re.compile(r"^(.+?)(\s*\^)$")
+slug_re = re.compile(r"(?:(\.)(?=[^.])\s*)?(\S.*?)\s*$")
+scene_number_re = re.compile(r"(.*?)\s*(?:#([\w\-.]+)#)\s*$")
+section_re = re.compile(r"^(#{1,6})\s*([^#].*)$")
+transition_re = re.compile(r"(>?)\s*(.+?)(TO:)?$")
+page_break_re = re.compile(r"^={3,}$")
+note_re = re.compile(r"\[\[.*?\]\]", re.DOTALL)
 
 
 def _sequence_to_rich(lines):
@@ -49,8 +49,7 @@ def _sequence_to_rich(lines):
 
 
 def _string_to_rich(line):
-    """Converts a single string into a RichString.
-    """
+    """Converts a single string into a RichString."""
     return parse_emphasis(line)
 
 
@@ -63,15 +62,15 @@ class InputParagraph:
         Modifies the `previous_paragraphs` list.
         """
         (
-            self.append_forced_action(previous_paragraphs) or
-            self.append_page_break(previous_paragraphs) or
-            self.append_synopsis(previous_paragraphs) or
-            self.append_sections_and_synopsises(previous_paragraphs) or
-            self.append_slug(previous_paragraphs) or
-            self.append_centered_action(previous_paragraphs) or
-            self.append_dialog(previous_paragraphs) or
-            self.append_transition(previous_paragraphs) or
-            self.append_action(previous_paragraphs)
+            self.append_forced_action(previous_paragraphs)
+            or self.append_page_break(previous_paragraphs)
+            or self.append_synopsis(previous_paragraphs)
+            or self.append_sections_and_synopsises(previous_paragraphs)
+            or self.append_slug(previous_paragraphs)
+            or self.append_centered_action(previous_paragraphs)
+            or self.append_dialog(previous_paragraphs)
+            or self.append_transition(previous_paragraphs)
+            or self.append_action(previous_paragraphs)
         )
 
     def append_slug(self, paragraphs):
@@ -96,7 +95,6 @@ class InputParagraph:
         return True
 
     def append_sections_and_synopsises(self, paragraphs):
-
         new_paragraphs = []
 
         for line in self.lines:
@@ -106,9 +104,9 @@ class InputParagraph:
                 section = Section(_string_to_rich(text), len(hashes))
                 new_paragraphs.append(section)
             elif (
-                line.startswith('=') and
-                new_paragraphs and
-                hasattr(new_paragraphs[-1], 'set_synopsis')
+                line.startswith("=")
+                and new_paragraphs
+                and hasattr(new_paragraphs[-1], "set_synopsis")
             ):
                 new_paragraphs[-1].set_synopsis(line[1:].lstrip())
             else:
@@ -120,15 +118,20 @@ class InputParagraph:
     def append_centered_action(self, paragraphs):
         if not all(centered_re.match(line) for line in self.lines):
             return False
-        paragraphs.append(Action(_sequence_to_rich(
-            centered_re.match(line).group(1) for line in self.lines
-        ), centered=True))
+        paragraphs.append(
+            Action(
+                _sequence_to_rich(
+                    centered_re.match(line).group(1) for line in self.lines
+                ),
+                centered=True,
+            )
+        )
         return True
 
     def _create_dialog(self, character):
         return Dialog(
             parse_emphasis(character.strip()),
-            _sequence_to_rich(line.strip() for line in self.lines[1:])
+            _sequence_to_rich(line.strip() for line in self.lines[1:]),
         )
 
     def append_dialog(self, paragraphs):
@@ -138,10 +141,10 @@ class InputParagraph:
         character = self.lines[0]
         if character.endswith(TWOSPACE):
             return False
-        if character.startswith('@') and len(character) >= 2:
+        if character.startswith("@") and len(character) >= 2:
             character = character[1:]
         else:
-            before_paren, *_ = character.split('(', 1)
+            before_paren, *_ = character.split("(", 1)
             if not before_paren.isupper():
                 return False
 
@@ -167,39 +170,39 @@ class InputParagraph:
 
         if greater_than:
             paragraphs.append(
-                Transition(_string_to_rich(text.upper() + (to_colon or '')))
+                Transition(_string_to_rich(text.upper() + (to_colon or "")))
             )
             return True
 
         if text.isupper() and to_colon:
-            paragraphs.append(
-                Transition(_string_to_rich(text + to_colon))
-            )
+            paragraphs.append(Transition(_string_to_rich(text + to_colon)))
             return True
 
         return False
 
     def append_forced_action(self, paragraphs):
-        if self.lines[0].startswith('!'):
+        if self.lines[0].startswith("!"):
             return self.append_action(paragraphs)
         else:
             return False
 
     def append_action(self, paragraphs):
         paragraphs.append(
-            Action(_sequence_to_rich(
-                line[1:].rstrip() if line.startswith('!') else line.rstrip()
-                for line in self.lines
-            ))
+            Action(
+                _sequence_to_rich(
+                    line[1:].rstrip() if line.startswith("!") else line.rstrip()
+                    for line in self.lines
+                )
+            )
         )
         return True
 
     def append_synopsis(self, paragraphs):
         if (
-            len(self.lines) == 1 and
-            self.lines[0].startswith('=') and
-            paragraphs and
-            hasattr(paragraphs[-1], 'set_synopsis')
+            len(self.lines) == 1
+            and self.lines[0].startswith("=")
+            and paragraphs
+            and hasattr(paragraphs[-1], "set_synopsis")
         ):
             paragraphs[-1].set_synopsis(self.lines[0][1:].lstrip())
             return True
@@ -221,11 +224,11 @@ def _preprocess_line(raw_line):
     'foo '
 
     """
-    return raw_line.expandtabs(4).rstrip('\r\n')
+    return raw_line.expandtabs(4).rstrip("\r\n")
 
 
 def _is_blank(line):
-    return line == '' or line == ' '
+    return line == "" or line == " "
 
 
 def parse(stream):
@@ -235,7 +238,7 @@ def parse(stream):
 
     """
     content = stream.read()
-    content = boneyard_re.sub('', content)
+    content = boneyard_re.sub("", content)
     lines = linebreak_re.split(content)
     del content
     return parse_lines(lines)
@@ -249,7 +252,7 @@ def parse_lines(source):
     """
     source = (_preprocess_line(line) for line in source)
 
-    title_page_lines = list(takewhile(lambda line: line != '', source))
+    title_page_lines = list(takewhile(lambda line: line != "", source))
 
     # parse_title_page converts the keys to consistent casing.
     # As of now, the only use of the dictionary is generating the title page,
@@ -265,8 +268,7 @@ def parse_lines(source):
         # The first lines were not a title page.
         # Parse them as part of the screenplay body.
         return Screenplay(
-            {},
-            parse_body(itertools.chain(title_page_lines, [''], source))
+            {}, parse_body(itertools.chain(title_page_lines, [""], source))
         )
 
 
@@ -276,10 +278,10 @@ def parse_body(source):
     paragraphs = []
     for blank, input_lines in itertools.groupby(source, _is_blank):
         if not blank:
-            as_string = note_re.sub('', '\n'.join(input_lines))
+            as_string = note_re.sub("", "\n".join(input_lines))
             if _is_blank(as_string):
                 continue
-            paragraph = InputParagraph(as_string.split('\n'))
+            paragraph = InputParagraph(as_string.split("\n"))
             paragraph.update_list(paragraphs)
 
     return paragraphs

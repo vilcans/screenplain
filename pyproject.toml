@@ -36,4 +36,36 @@ screenplain = "screenplain.main:cli"
 dev = [
     "pytest>=8.4.2",
     "ruff>=0.14.11",
+    "setuptools>=82.0.1",
+    "ty>=0.0.53",
 ]
+
+[tool.ruff]
+src = ["./"]
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "B",
+    "ANN201",
+    "F",
+    "I",
+    "T20",
+    "TID",
+    "RUF",
+    "UP",
+]
+ignore = [
+    "RUF010",
+    "T20"
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ty.rules]
+all = "error"
+
+[tool.ty.src]
+include = ["./"]
+exclude = ["./**/*.fdx", "./**/*.fountain"]

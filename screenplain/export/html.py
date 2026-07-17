@@ -42,6 +42,7 @@ class tag:
     </div>
 
     """
+
     def __init__(self, out, tag, classes=None):
         self.out = out
         self.tag = tag
@@ -51,18 +52,18 @@ class tag:
         if self.classes:
             self.out.write(f'<{self.tag} class="{" ".join(self.classes)}">')
         else:
-            self.out.write(f'<{self.tag}>')
+            self.out.write(f"<{self.tag}>")
 
     def __exit__(self, exception_type, value, traceback):
         if not exception_type:
-            self.out.write(f'</{self.tag}>')
+            self.out.write(f"</{self.tag}>")
         return False
 
 
 def to_html(text):
     html = text.to_html()
-    if html == '':
-        return '&nbsp;'
+    if html == "":
+        return "&nbsp;"
     else:
         return html
 
@@ -100,63 +101,63 @@ class Formatter:
             format_function = self._format_functions.get(type(para), None)
             if format_function:
                 format_function(para)
-                self.out.write('\n')
+                self.out.write("\n")
 
     def format_dialog(self, dialog):
-        with self._tag('div', classes=['dialog']):
+        with self._tag("div", classes=["dialog"]):
             self._write_dialog_block(dialog)
 
     def format_dual(self, dual):
-        with self._tag('div', classes=['dual']):
-            with self._tag('div', classes=['left']):
+        with self._tag("div", classes=["dual"]):
+            with self._tag("div", classes=["left"]):
                 self._write_dialog_block(dual.left)
-            with self._tag('div', classes=['right']):
+            with self._tag("div", classes=["right"]):
                 self._write_dialog_block(dual.right)
-            self.out.write('<br />')
+            self.out.write("<br />")
 
     def _write_dialog_block(self, dialog):
-        with self._tag('p', classes=['character']):
+        with self._tag("p", classes=["character"]):
             self.out.write(to_html(dialog.character))
 
         for parenthetical, text in dialog.blocks:
-            classes = ['parenthetical'] if parenthetical else None
-            with self._tag('p', classes=classes):
+            classes = ["parenthetical"] if parenthetical else None
+            with self._tag("p", classes=classes):
                 self.out.write(to_html(text))
 
     def format_slug(self, slug):
         num = slug.scene_number
-        with self._tag('h6'):
+        with self._tag("h6"):
             if num:
-                with self._tag('span', classes=['scnuml']):
+                with self._tag("span", classes=["scnuml"]):
                     self.out.write(to_html(slug.scene_number))
             self.out.write(to_html(slug.line))
             if num:
-                with self._tag('span', classes=['scnumr']):
+                with self._tag("span", classes=["scnumr"]):
                     self.out.write(to_html(slug.scene_number))
         if slug.synopsis:
-            with self._tag('span', classes=['h6-synopsis']):
+            with self._tag("span", classes=["h6-synopsis"]):
                 self.out.write(to_html(plain(slug.synopsis)))
 
     def format_section(self, section):
-        with self._tag(f'h{section.level}'):
+        with self._tag(f"h{section.level}"):
             self.out.write(to_html(section.text))
         if section.synopsis:
-            with self._tag('span', classes=[f'h{section.level}-synopsis']):
+            with self._tag("span", classes=[f"h{section.level}-synopsis"]):
                 self.out.write(to_html(plain(section.synopsis)))
 
     def format_action(self, para):
-        classes = ['action']
+        classes = ["action"]
         if para.centered:
-            classes.append('centered')
-        with self._tag('div', classes=classes):
-            with self._tag('p'):
+            classes.append("centered")
+        with self._tag("div", classes=classes):
+            with self._tag("p"):
                 for number, line in enumerate(para.lines):
                     if number != 0:
-                        self.out.write('<br/>')
+                        self.out.write("<br/>")
                     self.out.write(to_html(line))
 
     def format_transition(self, para):
-        with self._tag('div', classes=['transition']):
+        with self._tag("div", classes=["transition"]):
             self.out.write(to_html(para.line))
 
     def format_page_break(self, para):
@@ -165,7 +166,7 @@ class Formatter:
     def _tag(self, tag_name, classes=[]):
         if self.page_break_before_next:
             self.page_break_before_next = False
-            classes = set(classes).union(('page-break',))
+            classes = set(classes).union(("page-break",))
         return tag(self.out, tag_name, classes)
 
 
@@ -179,8 +180,9 @@ def convert(screenplay, out, css_file=None, bare=False):
         convert_bare(screenplay, out)
     else:
         convert_full(
-            screenplay, out,
-            css_file or os.path.join(os.path.dirname(__file__), 'default.css')
+            screenplay,
+            out,
+            css_file or os.path.join(os.path.dirname(__file__), "default.css"),
         )
 
 
@@ -189,28 +191,15 @@ def convert_full(screenplay, out, css_file):
     written to the file-like object `out`.
 
     """
-    with open(css_file, encoding='utf-8') as stream:
+    with open(css_file, encoding="utf-8") as stream:
         css = stream.read()
     out.write(
-        '<!DOCTYPE html>\n'
-        '<html>'
-        '<head>'
-        '<title>Screenplay</title>'
-        '<style type="text/css">'
+        '<!DOCTYPE html>\n<html><head><title>Screenplay</title><style type="text/css">'
     )
     out.write(css)
-    out.write(
-        '</style>'
-        '</head>'
-        '<body>'
-        '<div id="wrapper" class="screenplay">\n'
-    )
+    out.write('</style></head><body><div id="wrapper" class="screenplay">\n')
     convert_bare(screenplay, out)
-    out.write(
-        '</div>'
-        '</body>'
-        '</html>\n'
-    )
+    out.write("</div></body></html>\n")
 
 
 def convert_bare(screenplay, out):

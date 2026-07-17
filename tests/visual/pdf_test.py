@@ -12,8 +12,9 @@ diff-pdf can be installed on Debian with:
 """
 
 import subprocess
-from pathlib import Path
 import sys
+from pathlib import Path
+
 import screenplain.main
 
 
@@ -32,9 +33,9 @@ def compare(directory) -> bool:
         actual_file = fountain_file.with_stem(
             fountain_file.stem + "-actual"
         ).with_suffix(".pdf")
-        diff_path = actual_file.with_stem(
-            fountain_file.stem + "-diff"
-        ).with_suffix(".pdf")
+        diff_path = actual_file.with_stem(fountain_file.stem + "-diff").with_suffix(
+            ".pdf"
+        )
 
         # Generate PDF using screenplain Python API
         screenplain.main.main([str(fountain_file), str(actual_file)])
