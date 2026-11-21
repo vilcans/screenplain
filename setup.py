@@ -23,7 +23,7 @@ setup(
     },
     license='MIT',
     install_requires=[
-        'reportlab'
+        'reportlab',
     ],
     packages=[
         'screenplain',
@@ -31,7 +31,7 @@ setup(
         'screenplain.parsers',
     ],
     package_data={
-        'screenplain.export': ['default.css', 'courier_prime/**']
+        'screenplain.export': ['default.css', 'courier_prime/**', 'docx_template.docx']
     },
     entry_points={
         'console_scripts': [

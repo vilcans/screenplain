@@ -11,7 +11,7 @@ import sys
 from screenplain.parsers import fountain
 
 output_formats = (
-    'fdx', 'html', 'pdf'
+    'fdx', 'html', 'pdf', 'docx'
 )
 
 description = """Convert text file to viewable screenplay.
@@ -126,6 +126,8 @@ def main(argv):
             format = 'html'
         elif output_file.endswith('.pdf'):
             format = 'pdf'
+        elif output_file.endswith('.docx'):
+            format = 'docx'
         else:
             invalid_format(
                 parser,
@@ -147,7 +149,7 @@ def main(argv):
         input.errors = args.encoding_errors
     screenplay = fountain.parse(input)
 
-    if format == 'pdf':
+    if format in ('pdf', 'docx'):
         output_encoding = None
     else:
         output_encoding = 'utf-8'
@@ -173,6 +175,9 @@ def main(argv):
                 screenplay, output,
                 css_file=args.css, bare=args.bare
             )
+        elif format == 'docx':
+            from screenplain.export.docx import to_docx
+            to_docx(screenplay, output)
         elif format == 'pdf':
             from screenplain.export import pdf
             font_settings = None
